@@ -2,10 +2,10 @@ import React from 'react'
 import { View, FlatList,Text, TouchableOpacity,StyleSheet,Image } from 'react-native'
 
 const menus = [
-    {icon : require('../../assets/home.png') , title : 'Home'},
-    {icon : require('../../assets/search.png') , title : 'Search'},
-    {icon : require('../../assets/bell.png') , title : 'Notifications'},
-    {icon : require('../../assets/settings.png') , title : 'Settings'},
+    {icon : require('../../assets/images/home.png') , title : 'Home'},
+    {icon : require('../../assets/images/search.png') , title : 'Search'},
+    {icon : require('../../assets/images/bell.png') , title : 'Notifications'},
+    {icon : require('../../assets/images/settings.png') , title : 'Settings'},
     // {icon : require('./assets/logout.png') , title : 'LogOut'},
   ]
 
@@ -44,7 +44,7 @@ const Drawer = () => {
                     flexDirection:'row',
                     alignItems:'center'
                  }}>
-                  <Image source={require('../../assets/logout.png')} style={{width:24 , height:24 , marginLeft:20}}/>
+                  <Image source={require('../../assets/images/logout.png')} style={{width:24 , height:24 , marginLeft:20}}/>
                   <Text style={{fontSize:14 , marginLeft:20}}>LogOut</Text>
                  </TouchableOpacity>
 

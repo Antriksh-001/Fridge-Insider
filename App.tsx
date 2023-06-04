@@ -57,7 +57,7 @@ const App = () => {
           <TouchableOpacity
             style={{ marginLeft: 20 }}
             onPress={drawer}>
-            {!showMenu ? <Image source={require('./assets/menu.png')} style={{ width: 22, height: 23 }} /> : <Image source={require('./assets/close.png')} style={{ width: 22, height: 23 }} />}
+            {!showMenu ? <Image source={require('./assets/images/menu.png')} style={{ width: 22, height: 23 }} /> : <Image source={require('./assets/images/close.png')} style={{ width: 22, height: 23 }} />}
           </TouchableOpacity>
           <View>
             <Text>LOGO</Text>
