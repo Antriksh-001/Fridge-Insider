@@ -1,9 +1,9 @@
 import CustomBottomTab from '../components/shared/BottomTabs/CustomBottomTab';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Products from '../screens/Home';
-import Manage from '../screens/Manage';
-import Favourites from '../screens/Favourites';
-import Profile from '../screens/Profile';
+import Products from '../screens/Homepage/Home';
+import Manage from '../screens/Homepage/Manage';
+import Favourites from '../screens/Homepage/Favourites';
+import Profile from '../screens/Homepage/Profile';
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
