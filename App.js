@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Drawer from './src/screens/drawer';
 import Main_home from './src/screens/Homepage/Main_home';
 import GetStarted from './src/screens/GetStarted/index';
+import Login from './src/screens/GetStarted/login';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -33,10 +34,11 @@ const App = () => {
 
   return (
     <SafeAreaProvider style={{ flex: 1 }}>
+      <Login />
       {/* <GetStarted /> */}
-      <StatusBar />
+      {/* <StatusBar />
       <Drawer />
-      <Main_home/>
+      <Main_home/> */}
     </SafeAreaProvider>
   );
 };
