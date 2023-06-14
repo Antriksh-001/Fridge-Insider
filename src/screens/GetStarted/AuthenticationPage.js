@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import Login from '../../components/shared/Authentication/Login';
+import Signup from '../../components/shared/Authentication/Signup';
+import ForgotPassword from '../../components/shared/Authentication/ForgotPassword';
 import Lottie from 'lottie-react-native';
 import { MotiView } from 'moti';
 import * as Screen from '../../constants/Screen';
@@ -9,19 +12,20 @@ const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
 export default function login() {
-      const [highlight, setHighlight] = useState(false);
+      const [login, setLogin] = useState(true);
+      const [forgotpass,setForgotpass] = useState(false);
 
       return (
-            <View style={styles.cont}>
+            <ScrollView style={styles.maincont}>
                   <View style={styles.upper}>
                         <View style={styles.loginAnimBox}>
                               <Lottie source={require('../../../assets/animation/login_animation.json')} autoPlay={true} loop={true} style={styles.loginAnim} />
                         </View>
                         <View style={styles.loginSigninHeaderBox} >
-                              <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setHighlight(false) }} >
+                              <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setLogin(true) }} >
                                     <Text style={styles.HeaderCommontxt}>Login</Text>
                               </Pressable>
-                              <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setHighlight(true) }}>
+                              <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setLogin(false) }}>
                                     <Text style={styles.HeaderCommontxt}>Sign-up</Text>
                               </Pressable>
                         </View>
@@ -29,7 +33,7 @@ export default function login() {
                               from={{
                                     translateX: 0,
                               }}
-                              animate={highlight ? { translateX: 162, } : { translateX: 0 }}
+                              animate={login ? { translateX: 0, } : { translateX: 162, }}
                               transition={{
                                     type: 'spring',
                                     duration: 800,
@@ -37,15 +41,15 @@ export default function login() {
                         />
                   </View>
                   <View style={styles.lower}>
+                        {login ? (forgotpass ? <ForgotPassword /> : <Login />) : <Signup /> }
                   </View>
-            </View>
+            </ScrollView>
       )
 }
 
 const styles = StyleSheet.create({
-      cont: {
+      maincont: {
             flex: 1,
-            alignItems: 'center',
             backgroundColor: Colors.bg,
       },
       statusbar: {
@@ -54,17 +58,16 @@ const styles = StyleSheet.create({
             backgroundColor: 'white',
       },
       upper: {
-            flex: 0.37,
             width: width,
+            height: height*0.35,
             borderBottomLeftRadius: 35,
             borderBottomRightRadius: 35,
             backgroundColor: 'white',
             justifyContent: 'center',
             alignItems: 'center',
-            position: 'relative',
-            bottom: 10,
             shadowColor: '#000000',
             shadowOpacity: 0.06,
+            shadowRadius: 20,
             elevation: 4,
       },
       loginAnimBox: {
@@ -104,4 +107,7 @@ const styles = StyleSheet.create({
             position: 'relative',
             right: 82,
       },
+      lower: {
+            // flex: 0.63,
+      }
 })

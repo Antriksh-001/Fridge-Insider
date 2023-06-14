@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
 //Svgs and Images
-// import ClearDay from '../assets/svgs/clearday';
 import Avatars from '../../../assets/svg/avatars';
+import Lock from '../../../assets/svg/lock';
+import Email from '../../../assets/svg/email';
+// import GoogleLogo from '../../../assets/svg/Google';
 
 class Svginserter extends Component {
       components = {
-            // Clear: ClearDay,
             Avatars: Avatars,
+            Password: Lock,
+            Email: Email,
+            // Google: GoogleLogo,
       };
       render(...props) {
             const TagName = this.components[this.props.tag];
