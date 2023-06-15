@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import Login from '../../components/shared/Authentication/Login';
 import Signup from '../../components/shared/Authentication/Signup';
@@ -13,7 +13,7 @@ const height = Screen.SCREEN_HEIGHT;
 
 export default function login() {
       const [login, setLogin] = useState(true);
-      const [forgotpass,setForgotpass] = useState(false);
+      const [forgotpass, setForgotpass] = useState(false);
 
       return (
             <ScrollView style={styles.maincont}>
@@ -41,7 +41,7 @@ export default function login() {
                         />
                   </View>
                   <View style={styles.lower}>
-                        {login ? (forgotpass ? <ForgotPassword /> : <Login />) : <Signup /> }
+                        {login ? (forgotpass ? <ForgotPassword /> : <Login />) : <Signup setLogin={setLogin} />}
                   </View>
             </ScrollView>
       )
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
       },
       upper: {
             width: width,
-            height: height*0.35,
+            height: height * 0.35,
             borderBottomLeftRadius: 35,
             borderBottomRightRadius: 35,
             backgroundColor: 'white',
@@ -108,6 +108,6 @@ const styles = StyleSheet.create({
             right: 82,
       },
       lower: {
-            // flex: 0.63,
+            // height: height*0.65,
       }
 })

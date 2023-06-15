@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Keyboard, View, Text, StyleSheet, Pressable, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Keyboard, View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Svginserter from '../Svginserter';
 import Lottie from 'lottie-react-native';
 import * as Screen from '../../../constants/Screen';
@@ -11,83 +11,95 @@ const height = Screen.SCREEN_HEIGHT;
 export default function Login(props) {
       const [email, onChangeEmail] = useState('');
       const [password, onChangePassword] = useState('');
+      const [loaded,setLoaded] = useState(false);
       // const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
       //       console.log('keyboard dismissed');
       // });
 
-      return (
-            <View style={styles.lowercont}>
-                  <View style={styles.InputBoxes}>
-                        <View style={styles.inputTextBox}>
-                              <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={24} height={24} style={styles.EmailLogo} /></View>
-                              <View><TextInput
-                                    style={styles.input}
-                                    onChangeText={onChangeEmail}
-                                    value={email}
-                                    placeholder="Enter Your Email"
-                                    keyboardType="email-address"
-                                    cursorColor={'black'}
-                                    autoFocus={false}
-                              // hideSubscription
-                              >
-                              </TextInput>
+      useEffect(() => {
+        setLoaded(true);
+      }, [loaded])
+      
+      if(loaded){
+            console.log('data loaded');
+            return (
+                  <View style={styles.lowercont}>
+                        <View style={styles.InputBoxes}>
+                              <View style={styles.inputTextBox}>
+                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={24} height={24} style={styles.EmailLogo} /></View>
+                                    <View><TextInput
+                                          style={styles.input}
+                                          onChangeText={onChangeEmail}
+                                          value={email}
+                                          placeholder="Enter Your Email"
+                                          keyboardType="email-address"
+                                          cursorColor={'black'}
+                                          autoFocus={false}
+                                    // hideSubscription
+                                    >
+                                    </TextInput>
+                                    </View>
+                              </View>
+                              <View style={styles.inputTextBox}>
+                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Password'} width={24} height={24} style={styles.PasswordLogo} /></View>
+                                    <View><TextInput
+                                          style={styles.input}
+                                          onChangeText={onChangePassword}
+                                          value={password}
+                                          placeholder="Enter Your Password"
+                                          keyboardType="email-address"
+                                          cursorColor={'black'}
+                                          autoFocus={false}
+                                          onSubmitEditing={() => { console.log('Keyboard dismiss') }}
+                                          onFocus={() => console.log("focus received")}
+                                          onBlur={() => console.log("focus lost")}
+                                    // hideSubscription
+                                    // onPointerCancel={()=>{console.log('clicked')}}
+                                    // onEndEditing={() => { console.log('clicked') }}
+                                    // onEndEditing={props.onChangeUI(false)}
+                                    >
+                                    </TextInput>
+                                    </View>
                               </View>
                         </View>
-                        <View style={styles.inputTextBox}>
-                              <View style={styles.EntryLogoBox}><Svginserter tag={'Password'} width={24} height={24} style={styles.PasswordLogo} /></View>
-                              <View><TextInput
-                                    style={styles.input}
-                                    onChangeText={onChangePassword}
-                                    value={password}
-                                    placeholder="Enter Your Password"
-                                    keyboardType="email-address"
-                                    cursorColor={'black'}
-                                    autoFocus={false}
-                                    onSubmitEditing={() => { console.log('Keyboard dismiss') }}
-                                    onFocus={() => console.log("focus received")}
-                                    onBlur={() => console.log("focus lost")}
-                              // hideSubscription
-                              // onPointerCancel={()=>{console.log('clicked')}}
-                              // onEndEditing={() => { console.log('clicked') }}
-                              // onEndEditing={props.onChangeUI(false)}
-                              >
-                              </TextInput>
+                        <View style={styles.forgotPassBox} >
+                              <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => { console.log('Forgot Password') }}>
+                                    <Text style={styles.forgotpasstext}>Forgot Password?</Text>
+                              </TouchableOpacity>
+                        </View>
+                        <TouchableHighlight style={styles.btnhighlightbox} onPress={() => { console.log('Login Button Pressed') }}>
+                              <View style={styles.btnbox}>
+                                    <Text style={styles.btn}>Login</Text>
                               </View>
+                        </TouchableHighlight>
+                        <View style={styles.SeparatorBox}>
+                              <View style={styles.lineSeparator} />
+                              <Text style={styles.Or_Separator}>Or</Text>
+                              <View style={styles.lineSeparator} />
+                        </View>
+                        <View>
+                              <TouchableHighlight style={styles.GoogleHighlightBox} onPress={() => { console.log('Google Login Button Pressed') }}>
+                                    <View style={styles.Googlebtnbox}>
+                                          <View style={styles.GoogleLogoAnim} >
+                                                <Lottie source={require('../../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} />
+                                          </View>
+                                          <View>
+                                                <Text style={styles.Googlebtntext}>Log In with Google</Text>
+                                          </View>
+                                    </View>
+                              </TouchableHighlight>
                         </View>
                   </View>
-                  <View style={ styles.forgotPassBox } >
-                        <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => { console.log('Forgot Password') }}>
-                              <Text style={styles.forgotpasstext}>Forgot Password?</Text>
-                        </TouchableOpacity>
-                  </View>
-                  <TouchableHighlight style={styles.btnhighlightbox} onPress={() => { console.log('Login Button Pressed') }}>
-                        <View style={styles.btnbox}>
-                              <Text style={styles.btn}>Login</Text>
-                        </View>
-                  </TouchableHighlight>
-                  <View style={styles.SeparatorBox}>
-                        <View style={styles.lineSeparator} />
-                        <Text style={styles.Or_Separator}>Or</Text>
-                        <View style={styles.lineSeparator} />
-                  </View>
-                  <TouchableHighlight style={styles.GoogleHighlightBox} onPress={() => { console.log('Google Login Button Pressed') }}>
-                        <View style={styles.Googlebtnbox}>
-                              <View style={styles.GoogleLogoAnim} >
-                                    <Lottie source={require('../../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} />
-                              </View>
-                              <View>
-                                    <Text style={styles.Googlebtntext}>Log In with Google</Text>
-                              </View>
-                        </View>
-                  </TouchableHighlight>
-            </View>
-      )
+            )
+      }
+      else{
+            console.log('not loaded yet');
+      }
 }
 
 const styles = StyleSheet.create({
       lowercont: {
             width: width,
-            height: height * 0.65,
             alignItems: 'center',
       },
       InputBoxes: {
@@ -130,7 +142,7 @@ const styles = StyleSheet.create({
             height: width / 6.4,
             alignSelf: 'center',
             borderRadius: 30,
-            margin: height/25,
+            margin: height / 25,
       },
       btnbox: {
             flex: 1,
@@ -145,18 +157,18 @@ const styles = StyleSheet.create({
             letterSpacing: 0.8,
             color: '#FFFFFF',
       },
-      SeparatorBox: { 
-            flexDirection: 'row', 
-            alignItems: 'center', 
-            position: 'relative', 
+      SeparatorBox: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            position: 'relative',
             bottom: 5,
       },
-      lineSeparator:{
+      lineSeparator: {
             backgroundColor: '#000000',
-            width: width/4,
+            width: width / 4,
             height: 2,
             borderRadius: 10,
-            marginHorizontal: width/22,
+            marginHorizontal: width / 22,
       },
       Or_Separator: {
             fontSize: 18,
@@ -177,9 +189,9 @@ const styles = StyleSheet.create({
             borderRadius: 30,
             backgroundColor: '#FFFFFF',
       },
-      GoogleLogoAnim:{
-            width: width/8,
-            height: width/8,
+      GoogleLogoAnim: {
+            width: width / 8,
+            height: width / 8,
       },
       Googlebtntext: {
             fontSize: width / 21,

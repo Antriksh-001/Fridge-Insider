@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 
 //Svgs and Images
 import Avatars from '../../../assets/svg/avatars';
-import Lock from '../../../assets/svg/lock';
 import Email from '../../../assets/svg/email';
-// import GoogleLogo from '../../../assets/svg/Google';
+import OpenLock from '../../../assets/svg/openlock';
+import CloseLock from '../../../assets/svg/closelock';
 
 class Svginserter extends Component {
       components = {
             Avatars: Avatars,
-            Password: Lock,
             Email: Email,
-            // Google: GoogleLogo,
+            Password: OpenLock,
+            ConfirmPass: CloseLock,
       };
       render(...props) {
             const TagName = this.components[this.props.tag];
