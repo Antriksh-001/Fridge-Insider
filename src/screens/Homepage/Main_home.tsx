@@ -3,6 +3,7 @@ import { Animated, StyleSheet, StatusBar, Text, View, TouchableOpacity, Image, F
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import BottomTabs from '../../containers/BottomTabs';
+import { Colors } from '../../constants/Colors';
 
 const Main_home = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -45,17 +46,13 @@ const Main_home = () => {
         {/* Header */}
 
         <View style={{
-          flexDirection: 'row', height: 50, justifyContent: 'space-between', alignItems: 'center', marginRight: 20, shadowColor: '#219ebc',
-          elevation: 25
+          flexDirection: 'row',height: 50,alignItems: 'center', backgroundColor: 'yellow'
         }}>
           <TouchableOpacity
-            style={{ marginLeft: 20 }}
+            style={{marginLeft: 20 , position:'absolute'}}
             onPress={drawer}>
             {!showMenu ? <Image source={require('../../../assets/images/menu.png')} style={{ width: 22, height: 23 }} /> : <Image source={require('../../../assets/images/close.png')} style={{ width: 22, height: 23 }} />}
           </TouchableOpacity>
-          <View>
-            <Text>LOGO</Text>
-          </View>
         </View>
 
         <NavigationContainer>

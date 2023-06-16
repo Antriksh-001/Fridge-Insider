@@ -34,11 +34,11 @@ const App = () => {
 
   return (
     <SafeAreaProvider style={{ flex: 1 }}>
-      <AuthenticationPage />
+      {/* <AuthenticationPage /> */}
       {/* <GetStarted /> */}
-      {/* <StatusBar />
+      <StatusBar />
       <Drawer />
-      <Main_home/> */}
+      <Main_home/>
     </SafeAreaProvider>
   );
 };

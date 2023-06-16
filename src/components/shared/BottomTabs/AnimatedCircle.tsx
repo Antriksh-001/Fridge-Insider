@@ -21,7 +21,7 @@ export default AnimatedCircle;
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: -circleContainerSize / 1.1,
+    top: -circleContainerSize / 2,
     width: circleContainerSize,
     borderRadius: circleContainerSize,
     height: circleContainerSize,

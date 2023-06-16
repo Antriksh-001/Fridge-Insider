@@ -33,7 +33,7 @@ const TabItem: FC<TabProps> = ({
   const labelPosition = getPathXCenterByIndex(curvedPaths, index);
 
   const tabStyle = useAnimatedStyle(() => {
-    const translateY = animatedActiveIndex.value - 1 === index ? -35 : 20;
+    const translateY = animatedActiveIndex.value - 1 === index ? -14 : 20;
     const iconPositionX = iconPosition - index * ICON_SIZE;
     return {
       width: ICON_SIZE,
@@ -83,7 +83,7 @@ const TabItem: FC<TabProps> = ({
             size={25}
             animatedProps={animatedIconProps}
           /> */}
-          <FeatherIcon name={icon} size={25}/>
+          <FeatherIcon name={icon} size={25} color={'black'}/>
         </Pressable>
       </Animated.View>
       <Animated.View style={[labelContainerStyle, styles.labelContainer]}>
