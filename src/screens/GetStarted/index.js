@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
-import Svginserter from '../../../assets/svg/avatars';
+import Svginserter from '../../components/shared/Svginserter';
 import { BlurView } from 'expo-blur';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
