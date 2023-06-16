@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { MotiView } from 'moti';
-import Svginserter from '../Svginserter';
+import Svginserter from '../shared/Svginserter';
 import Lottie from 'lottie-react-native';
-import * as Screen from '../../../constants/Screen';
-import { Colors } from '../../../constants/Colors';
+import * as Screen from '../../constants/Screen';
+import { Colors } from '../../constants/Colors';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
@@ -43,7 +43,7 @@ export default function Signup(props) {
                               </View>
                               <TouchableOpacity onPress={() => { console.log('Google Register Button Clicked') }}>
                                     <View style={styles.GoogleRegisterBox}>
-                                          <Lottie source={require('../../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} style={styles.GoogleRegisterLogo} />
+                                          <Lottie source={require('../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} style={styles.GoogleRegisterLogo} />
                                     </View>
                               </TouchableOpacity>
                         </View>
@@ -92,8 +92,8 @@ export default function Signup(props) {
                                           {confirmPass === '' ?
                                                 (<Svginserter tag="ConfirmPass" width={width / 16.2} height={width / 16.2} />)
                                                 : (confirmPass === password ?
-                                                      <Lottie source={require('../../../../assets/animation/Tick-Sign-Anim.json')} autoPlay={true} loop={false} duration={1500} style={styles.PasscheckLogo} />
-                                                      : <Lottie source={require('../../../../assets/animation/Cross-Sign_Anim.json')} autoPlay={true} loop={false} duration={1500} style={styles.PasscheckLogo} />)}
+                                                      <Lottie source={require('../../../assets/animation/Tick-Sign-Anim.json')} autoPlay={true} loop={false} duration={1500} style={styles.PasscheckLogo} />
+                                                      : <Lottie source={require('../../../assets/animation/Cross-Sign_Anim.json')} autoPlay={true} loop={false} duration={1500} style={styles.PasscheckLogo} />)}
                                     </View>
                                     <View><TextInput
                                           style={styles.input}

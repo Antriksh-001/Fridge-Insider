@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { MotiView } from 'moti';
 import { Feather } from '@expo/vector-icons';
-import Svginserter from '../Svginserter';
-import * as Screen from '../../../constants/Screen';
-import { Colors } from '../../../constants/Colors';
+import Svginserter from '../shared/Svginserter';
+import * as Screen from '../../constants/Screen';
+import { Colors } from '../../constants/Colors';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;

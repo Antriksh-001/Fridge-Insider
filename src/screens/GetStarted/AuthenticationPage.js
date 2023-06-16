@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
-import Login from '../../components/shared/Authentication/Login';
-import Signup from '../../components/shared/Authentication/Signup';
-import ForgotPassword from '../../components/shared/Authentication/ForgotPassword';
+import Login from '../../components/Authentication/Login';
+import Signup from '../../components/Authentication/Signup';
+import ForgotPassword from '../../components/Authentication/ForgotPassword';
 import Lottie from 'lottie-react-native';
 import { MotiView } from 'moti';
 import * as Screen from '../../constants/Screen';
@@ -10,9 +10,6 @@ import { Colors } from '../../constants/Colors';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
-
-console.log('width: ', width);
-console.log('height: ', height);
 
 export default function login() {
       const [login, setLogin] = useState(true);
