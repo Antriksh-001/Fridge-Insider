@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Keyboard, View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { MotiView } from 'moti';
 import Svginserter from '../Svginserter';
 import Lottie from 'lottie-react-native';
 import * as Screen from '../../../constants/Screen';
@@ -23,7 +24,20 @@ export default function Login(props) {
       if(loaded){
             console.log('data loaded');
             return (
-                  <View style={styles.lowercont}>
+                  <MotiView style={styles.lowercont} 
+                        from = {{
+                              translateX: -width,
+                              opacity: 0
+                        }}
+                        animate={{
+                              translateX: 0,
+                              opacity: 1
+                        }}
+                        transition={{
+                              type: 'timing',
+                              duration: 400,
+                        }}
+                  >
                         <View style={styles.InputBoxes}>
                               <View style={styles.inputTextBox}>
                                     <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={width / 16.2} height={width / 16.2} /></View>
@@ -89,7 +103,7 @@ export default function Login(props) {
                                     </View>
                               </TouchableHighlight>
                         </View>
-                  </View>
+                  </MotiView>
             )
       }
       else{

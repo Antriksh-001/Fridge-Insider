@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { MotiView } from 'moti';
 import Svginserter from '../Svginserter';
 import Lottie from 'lottie-react-native';
 import * as Screen from '../../../constants/Screen';
@@ -22,7 +23,20 @@ export default function Signup(props) {
       if (loaded) {
             console.log('data loaded');
             return (
-                  <View style={styles.lowercont}>
+                  <MotiView style={styles.lowercont}
+                        from={{
+                              translateX: width,
+                              opacity: 0
+                        }}
+                        animate={{
+                              translateX: 0,
+                              opacity: 1
+                        }}
+                        transition={{
+                              type: 'timing',
+                              duration: 400,
+                        }}
+                  >
                         <View style={styles.lowerHeading}>
                               <View>
                                     <Text style={styles.registertxt}>Register</Text>
@@ -107,7 +121,7 @@ export default function Signup(props) {
                                     </View>
                               </TouchableOpacity>
                         </View>
-                  </View>
+                  </MotiView>
             )
       }
       else {

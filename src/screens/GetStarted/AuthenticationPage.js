@@ -20,7 +20,18 @@ export default function login() {
 
       return (
             <ScrollView style={styles.maincont}>
-                  <View style={styles.upper}>
+                  <MotiView style={styles.upper}
+                        from={{
+                              translateY: -height * 0.35,
+                        }}
+                        animate={{
+                              translateY: 0,
+                        }}
+                        transition={{
+                              type: 'timing',
+                              duration: 400,
+                        }}
+                  >
                         <View style={styles.loginAnimBox}>
                               <Lottie source={require('../../../assets/animation/login_animation.json')} autoPlay={true} loop={true} style={styles.loginAnim} />
                         </View>
@@ -28,7 +39,7 @@ export default function login() {
                               <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setLogin(true) }} >
                                     <Text style={styles.HeaderCommontxt}>Login</Text>
                               </Pressable>
-                              <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setLogin(false) }}>
+                              <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setLogin(false);setForgotpass(false); }}>
                                     <Text style={styles.HeaderCommontxt}>Sign-up</Text>
                               </Pressable>
                         </View>
@@ -42,7 +53,7 @@ export default function login() {
                                     duration: 800,
                               }}
                         />
-                  </View>
+                  </MotiView>
                   <View>
                         {login ? (forgotpass ? <ForgotPassword setForgotpass={setForgotpass} /> : <Login setForgotpass={setForgotpass} />) : <Signup setLogin={setLogin} />}
                   </View>

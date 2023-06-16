@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { MotiView } from 'moti';
 import { Feather } from '@expo/vector-icons';
 import Svginserter from '../Svginserter';
 import * as Screen from '../../../constants/Screen';
@@ -18,7 +19,20 @@ export default function ForgotPassword(props) {
 
       if (loaded) {
             return (
-                  <View style={styles.lowercont}>
+                  <MotiView style={styles.lowercont}
+                        from={{
+                              scale: 0.7,
+                              opacity: 0
+                        }}
+                        animate={{
+                              scale: 1,
+                              opacity: 1
+                        }}
+                        transition={{
+                              type: 'timing',
+                              duration: 400,
+                        }}
+                  >
                         <View style={styles.lowermaincont}>
                               <TouchableOpacity onPress={() => { props.setForgotpass(false) }}>
                                     <View style={styles.backbtn}>
@@ -53,7 +67,7 @@ export default function ForgotPassword(props) {
                               </View>
 
                         </View>
-                  </View>
+                  </MotiView>
             )
       }
       else {
