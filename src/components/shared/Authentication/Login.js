@@ -26,7 +26,7 @@ export default function Login(props) {
                   <View style={styles.lowercont}>
                         <View style={styles.InputBoxes}>
                               <View style={styles.inputTextBox}>
-                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={24} height={24} style={styles.EmailLogo} /></View>
+                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={width / 16.2} height={width / 16.2} /></View>
                                     <View><TextInput
                                           style={styles.input}
                                           onChangeText={onChangeEmail}
@@ -41,7 +41,7 @@ export default function Login(props) {
                                     </View>
                               </View>
                               <View style={styles.inputTextBox}>
-                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Password'} width={24} height={24} style={styles.PasswordLogo} /></View>
+                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Password'} width={width/16.2} height={width/16.2} /></View>
                                     <View><TextInput
                                           style={styles.input}
                                           onChangeText={onChangePassword}
@@ -63,7 +63,7 @@ export default function Login(props) {
                               </View>
                         </View>
                         <View style={styles.forgotPassBox} >
-                              <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => { console.log('Forgot Password') }}>
+                              <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => { props.setForgotpass(true)}}>
                                     <Text style={styles.forgotpasstext}>Forgot Password?</Text>
                               </TouchableOpacity>
                         </View>
@@ -112,21 +112,19 @@ const styles = StyleSheet.create({
             alignItems: 'center',
             backgroundColor: 'white',
             borderRadius: 10,
-            margin: 10,
+            margin: height / 79,
             shadowColor: Colors.body_dark,
             shadowOffset: { width: 0, height: 2 },
             shadowRadius: 10,
             elevation: 8,
       },
       EntryLogoBox: {
-            padding: 10,
+            padding: height / 80,
       },
       input: {
             width: width / 1.65,
-            height: 50,
-      },
-      PasswordLogoBox: {
-            padding: 10,
+            height: height / 13,
+            fontSize: width / 30,
       },
       forgotPassBox: {
             width: width / 1.28,
@@ -136,6 +134,7 @@ const styles = StyleSheet.create({
       forgotpasstext: {
             fontFamily: 'SF-Pro-Text-Semibold',
             color: Colors.body_dark,
+            fontSize: width / 27.9,
       },
       btnhighlightbox: {
             width: width / 1.28,
@@ -161,17 +160,17 @@ const styles = StyleSheet.create({
             flexDirection: 'row',
             alignItems: 'center',
             position: 'relative',
-            bottom: 5,
+            bottom: height / 158,
       },
       lineSeparator: {
             backgroundColor: '#000000',
             width: width / 4,
-            height: 2,
+            height: width / 195.5,
             borderRadius: 10,
             marginHorizontal: width / 22,
       },
       Or_Separator: {
-            fontSize: 18,
+            fontSize: width / 21.5,
             fontFamily: 'SF-Pro-Rounded-Bold',
       },
       GoogleHighlightBox: {
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
             fontSize: width / 21,
             fontFamily: 'SF-Pro-Rounded-Heavy',
             color: 'rgba(0,0,0,0.50)',
-            paddingHorizontal: 13,
+            paddingHorizontal: width/30,
             letterSpacing: 0.5,
       },
 })

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import Login from '../../components/shared/Authentication/Login';
 import Signup from '../../components/shared/Authentication/Signup';
@@ -10,6 +10,9 @@ import { Colors } from '../../constants/Colors';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
+
+console.log('width: ', width);
+console.log('height: ', height);
 
 export default function login() {
       const [login, setLogin] = useState(true);
@@ -33,15 +36,15 @@ export default function login() {
                               from={{
                                     translateX: 0,
                               }}
-                              animate={login ? { translateX: 0, } : { translateX: 162, }}
+                              animate={login ? { translateX: 0, } : { translateX: width/2.41, }}
                               transition={{
                                     type: 'spring',
                                     duration: 800,
                               }}
                         />
                   </View>
-                  <View style={styles.lower}>
-                        {login ? (forgotpass ? <ForgotPassword /> : <Login />) : <Signup setLogin={setLogin} />}
+                  <View>
+                        {login ? (forgotpass ? <ForgotPassword setForgotpass={setForgotpass} /> : <Login setForgotpass={setForgotpass} />) : <Signup setLogin={setLogin} />}
                   </View>
             </ScrollView>
       )
@@ -101,13 +104,12 @@ const styles = StyleSheet.create({
       },
       MovingHighlight: {
             width: width * 0.33,
-            height: 4,
+            maxWidth: 160,
+            height: width/97.75,
+            maxHeight: 6,
             borderRadius: 20,
             backgroundColor: '#57A2E7',
             position: 'relative',
-            right: 82,
+            right: width/4.768,
       },
-      lower: {
-            // height: height*0.65,
-      }
 })

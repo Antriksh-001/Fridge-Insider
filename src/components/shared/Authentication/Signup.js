@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Svginserter from '../Svginserter';
 import Lottie from 'lottie-react-native';
 import * as Screen from '../../../constants/Screen';
@@ -35,7 +35,7 @@ export default function Signup(props) {
                         </View>
                         <View>
                               <View style={styles.inputTextBox}>
-                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={24} height={24} /></View>
+                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Account'} width={width / 16.2} height={width / 16.2} /></View>
                                     <View><TextInput
                                           style={styles.input}
                                           onChangeText={onChangeName}
@@ -48,7 +48,7 @@ export default function Signup(props) {
                                     </View>
                               </View>
                               <View style={styles.inputTextBox}>
-                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={24} height={24} /></View>
+                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={width / 16.2} height={width / 16.2} /></View>
                                     <View><TextInput
                                           style={styles.input}
                                           onChangeText={onChangeEmail}
@@ -61,7 +61,7 @@ export default function Signup(props) {
                                     </View>
                               </View>
                               <View style={styles.inputTextBox}>
-                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Password'} width={24} height={24} style={styles.PasswordLogo} /></View>
+                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Password'} width={width / 16.2} height={width / 16.2} /></View>
                                     <View><TextInput
                                           style={styles.input}
                                           onChangeText={onChangePassword}
@@ -76,10 +76,10 @@ export default function Signup(props) {
                               <View style={styles.inputTextBox}>
                                     <View style={styles.EntryLogoBox}>
                                           {confirmPass === '' ?
-                                                (<Svginserter tag="ConfirmPass" width={24} height={24} />)
+                                                (<Svginserter tag="ConfirmPass" width={width / 16.2} height={width / 16.2} />)
                                                 : (confirmPass === password ?
-                                                      <Lottie source={require('../../../../assets/animation/Tick-Sign-Anim.json')} autoPlay={true} loop={false} duration={1500} style={styles.tickLogo} />
-                                                      : <Lottie source={require('../../../../assets/animation/Cross-Sign_Anim.json')} autoPlay={true} loop={false} duration={1500} style={styles.tickLogo} />)}
+                                                      <Lottie source={require('../../../../assets/animation/Tick-Sign-Anim.json')} autoPlay={true} loop={false} duration={1500} style={styles.PasscheckLogo} />
+                                                      : <Lottie source={require('../../../../assets/animation/Cross-Sign_Anim.json')} autoPlay={true} loop={false} duration={1500} style={styles.PasscheckLogo} />)}
                                     </View>
                                     <View><TextInput
                                           style={styles.input}
@@ -101,8 +101,8 @@ export default function Signup(props) {
                               </TouchableHighlight>
                               <TouchableOpacity onPress={()=>{props.setLogin(true)}}>
                                     <View>
-                                          <Text style={{ fontFamily: 'SF-Pro-Text-Medium', color: Colors.medium_gray, fontSize: 15 }}>Already have{'\n'}Account?
-                                                <Text style={{ fontFamily: 'SF-Pro-Text-Bold', color: Colors.dark_gray }}> Login</Text>
+                                          <Text style={styles.AccAlreadytxt}>Already have{'\n'}Account?
+                                                <Text style={styles.AccAlreadyLogintxt}> Login</Text>
                                           </Text>
                                     </View>
                               </TouchableOpacity>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
             alignItems: 'center',
       },
       lowerHeading: {
-            paddingTop: height / 35,
+            paddingTop: height / 45,
             width: width,
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -130,22 +130,22 @@ const styles = StyleSheet.create({
             paddingHorizontal: width / 9,
       },
       registertxt: {
-            fontSize: 45,
+            fontSize: width / 8.7,
             fontFamily: 'SF-Pro-Rounded-Bold',
             color: Colors.body_dark,
             letterSpacing: 0.8,
       },
       GoogleRegisterBox: {
-            width: 50,
-            height: 50,
+            width: width / 7.82,
+            height: width / 7.82,
             borderRadius: 13,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: '#FFFFFF',
       },
       GoogleRegisterLogo: {
-            width: 45,
-            height: 45,
+            width: width / 8.68,
+            height: width / 8.68,
       },
       inputTextBox: {
             width: width / 1.28,
@@ -161,14 +161,12 @@ const styles = StyleSheet.create({
             elevation: 8,
       },
       EntryLogoBox: {
-            padding: 10,
+            padding: width / 39,
       },
       input: {
             width: width / 1.65,
-            height: 50,
-      },
-      PasswordLogoBox: {
-            padding: 10,
+            height: height / 13,
+            fontSize: width / 30,
       },
       footer: {
             width: width,
@@ -183,9 +181,9 @@ const styles = StyleSheet.create({
             height: width / 6.8,
             borderRadius: 30,
       },
-      tickLogo: {
-            width: 24,
-            height: 24,
+      PasscheckLogo: {
+            width: width/16.2,
+            height: width/16.2,
       },
       btnbox: {
             flex: 1,
@@ -199,5 +197,14 @@ const styles = StyleSheet.create({
             fontFamily: 'SF-Pro-Rounded-Bold',
             letterSpacing: 0.8,
             color: '#FFFFFF',
+      },
+      AccAlreadytxt: {
+            fontFamily: 'SF-Pro-Text-Medium', 
+            color: Colors.medium_gray, 
+            fontSize: width / 27,
+      },
+      AccAlreadyLogintxt: {
+            fontFamily: 'SF-Pro-Text-Bold',
+            color: Colors.dark_gray,
       },
 })
