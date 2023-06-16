@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import Svginserter from '../../../assets/svg/avatars';
 import { BlurView } from 'expo-blur';
 import * as Screen from '../../constants/Screen';
+import { Colors } from '../../constants/Colors';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
@@ -26,12 +27,12 @@ export default function GetStarted() {
                   </View>
                   <View style={styles.lowerpart}>
                         <View style={{flex: 1}}>
-                              <Image source={require('../../../assets/images/avatars.png')} style={styles.avatars} />
+                              <Svginserter tag={'Avatars'} width={width+50} height={width+50} style={styles.avatars}/>
                         </View>
                         <View style={styles.shade}>
                               <BlurView intensity={0} style={{ flex: 1 }}></BlurView>
                         </View>
-                        <TouchableHighlight style={styles.btnhighlightbox} onPress={() => { console.log('hello Antriksh') }}>
+                        <TouchableHighlight style={styles.btnhighlightbox} onPress={() => { console.log('Get Started') }}>
                               <View style={styles.btnbox}>
                                     <Text style={styles.btn}>Get Started</Text>
                               </View>
@@ -45,13 +46,12 @@ const styles = StyleSheet.create({
       cont: {
             flex: 1,
             alignItems: 'center',
-            alignContent: 'space-between',
-            backgroundColor: '#E8E8E8',
+            backgroundColor: Colors.bg,
       },
       statusbar: {
             width: width,
             height: 30,
-            backgroundColor: '#E8E8E8', 
+            backgroundColor: Colors.bg, 
       },
       upperpart: {
             flex: 0.45,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
             zIndex: -1,
             width: width,
             height: height / 10,
-            backgroundColor: '#52A2E7',
+            backgroundColor: Colors.body_light,
       },
       btnhighlightbox: {
             width: width / 1.5,
@@ -111,12 +111,11 @@ const styles = StyleSheet.create({
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 30,
-            backgroundColor: '#F2EFEF'
+            backgroundColor: '#FFFFFF'
       },
       btn: {
             fontSize: width/23,
             fontFamily: 'SF-Pro-Rounded-Heavy',
-            borderRadius: 10,
-            color: '#57A2E7',
+            color: Colors.body_dark,
       },
 });
