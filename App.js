@@ -5,6 +5,7 @@ import Drawer from './src/screens/drawer';
 import Main_home from './src/screens/Homepage/Main_home';
 import GetStarted from './src/screens/GetStarted/index';
 import AuthenticationPage from './src/screens/GetStarted/AuthenticationPage';
+import Location from './src/screens/Location/Location';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -34,7 +35,8 @@ const App = () => {
 
   return (
     <SafeAreaProvider style={{ flex: 1 }}>
-      <AuthenticationPage />
+      <Location />
+      {/* <AuthenticationPage /> */}
       {/* <GetStarted /> */}
       {/* <StatusBar />
       <Drawer />
