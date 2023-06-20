@@ -38,26 +38,29 @@ const Main_home = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: '#fff',
           transform: [{ scale: scale }, { translateX: moveToRight }],
           borderRadius: showMenu ? 18 : 0,
+          shadowColor:'black',
+          elevation:20
         }}>
 
         {/* Header */}
 
         <View style={{
-          flexDirection: 'row',height: 50,alignItems: 'center', backgroundColor: 'yellow'
+          flexDirection: 'row',position:'absolute',zIndex:1,height: 50,alignItems: 'center'
         }}>
           <TouchableOpacity
-            style={{marginLeft: 20 , position:'absolute'}}
+            style={{}}
             onPress={drawer}>
-            {!showMenu ? <Image source={require('../../../assets/images/menu.png')} style={{ width: 22, height: 23 }} /> : <Image source={require('../../../assets/images/close.png')} style={{ width: 22, height: 23 }} />}
+            <View style={{height:60 , width:60 ,marginTop:10}}>
+              {!showMenu ? <Image source={require('../../../assets/images/menu.png')} style={{ width: 22, height: 23 ,marginHorizontal:20 , marginVertical:18}} /> : <Image source={require('../../../assets/images/close.png')} style={{ width: 22, height: 23 ,marginHorizontal:20 , marginVertical:18}} />}
+            </View>  
           </TouchableOpacity>
         </View>
 
-        <NavigationContainer>
-          <BottomTabs />
-        </NavigationContainer>
+          <NavigationContainer>
+            <BottomTabs />
+          </NavigationContainer>
 
       </Animated.View>
   );

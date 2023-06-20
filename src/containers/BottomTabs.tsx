@@ -1,8 +1,8 @@
 import CustomBottomTab from '../components/shared/BottomTabs/CustomBottomTab';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Products from '../screens/Homepage/Home';
-import Manage from '../screens/Homepage/Manage';
-import Favourites from '../screens/Homepage/Favourites';
+import Home from '../screens/Homepage/Home';
+import Fridge from '../screens/Homepage/Fridge';
+import Notifications from '../screens/Homepage/Notifications';
 import Profile from '../screens/Homepage/Profile';
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
@@ -19,7 +19,7 @@ const BottomTabs = () => {
           //   height:50,
           //   borderBottomLeftRadius:5,
           //   borderBottomRightRadius:5,
-          //   backgroundColor:'#219ebc',
+            // backgroundColor:'#219ebc',
           //   shadowColor:'black',
           //   elevation:25
           // }
@@ -27,18 +27,18 @@ const BottomTabs = () => {
         <Tab.Screen
           options={{tabBarLabel: 'Home'}}
           name="Home"
-          component={Products}
+          component={Home}
         />
         <Tab.Screen
-          options={{tabBarLabel: 'Manage'}}
-          name="Manage"
-          component={Manage}
+          options={{tabBarLabel: 'Fridge'}}
+          name="Fridge"
+          component={Fridge}
         />
 
         <Tab.Screen
-          options={{tabBarLabel: 'Favourites'}}
-          name="Favourites"
-          component={Favourites}
+          options={{tabBarLabel: 'Notifications'}}
+          name="Notifications"
+          component={Notifications}
         />
         <Tab.Screen
           options={{tabBarLabel: 'Profile'}}

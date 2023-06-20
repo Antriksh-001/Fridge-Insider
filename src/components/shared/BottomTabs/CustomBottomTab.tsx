@@ -32,10 +32,10 @@ export const CustomBottomTab: FC<BottomTabBarProps> = ({
     switch (routeName) {
       case 'Products':
         return 'home';
-      case 'Manage':
+      case 'Fridge':
         return 'shopping-bag';
-      case 'Favourites':
-        return 'star';
+      case 'Notifications':
+        return 'bell';
       case 'Profile':
         return 'user';
       default:
@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
   },
   tabBarContainer: {
     position: 'absolute',
-    bottom: 0,
+    marginTop: '183%',
+    // bottom: 0,
     zIndex: 2,
   },
   tabItemsContainer: {

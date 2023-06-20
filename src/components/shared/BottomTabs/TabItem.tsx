@@ -54,14 +54,14 @@ const TabItem: FC<TabProps> = ({
     };
   });
   const iconColor = useSharedValue(
-    activeIndex === index + 1 ? 'white' : 'rgba(128,128,128,0.8)',
+    activeIndex === index + 1 ? '#e51111' : 'rgba(128,128,128,0.8)',
   );
 
   //Adjust Icon color for this first render
   useEffect(() => {
     animatedActiveIndex.value = activeIndex;
     if (activeIndex === index + 1) {
-      iconColor.value = withTiming('white');
+      iconColor.value = withTiming('#e51153');
     } else {
       iconColor.value = withTiming('rgba(128,128,128,0.8)');
     }
@@ -78,12 +78,12 @@ const TabItem: FC<TabProps> = ({
           //Increasing touchable Area
           hitSlop={{top: 30, bottom: 30, left: 50, right: 50}}
           onPress={onTabPress}>
-          {/* <AnimatedIcon
+          <AnimatedIcon
             name={icon}
             size={25}
             animatedProps={animatedIconProps}
-          /> */}
-          <FeatherIcon name={icon} size={25} color={'black'}/>
+          />
+          {/* <FeatherIcon name={icon} size={25} color={'black'}/> */}
         </Pressable>
       </Animated.View>
       <Animated.View style={[labelContainerStyle, styles.labelContainer]}>
@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
     width: LABEL_WIDTH,
   },
   label: {
-    color: 'rgba(128,128,128,0.8)',
+    // color: 'rgba(128,128,128,0.8)',
+    color: '#e51153',
     fontSize: 17,
   },
 });

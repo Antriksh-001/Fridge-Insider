@@ -1,21 +1,22 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { Colors } from '../../constants/Colors'; 
 
-const Favourites = () => {
+const Notifications = () => {
   return (
     <View style={styles.container}>
-      <Text>Favourites</Text>
+      <Text>Notifications</Text>
     </View>
   );
 };
 
-export default Favourites;
+export default Notifications;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'#8ecae6'
+    backgroundColor:Colors.bg,
   },
 });
