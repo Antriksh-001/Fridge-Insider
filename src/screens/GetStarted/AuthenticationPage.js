@@ -63,11 +63,6 @@ const styles = StyleSheet.create({
             flex: 1,
             backgroundColor: Colors.bg,
       },
-      statusbar: {
-            width: width,
-            height: 30,
-            backgroundColor: 'white',
-      },
       upper: {
             width: width,
             height: height * 0.35,

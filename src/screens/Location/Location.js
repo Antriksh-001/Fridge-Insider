@@ -11,23 +11,24 @@ export default function Location() {
       return (
             <View style={styles.cont}>
                   <View style={styles.skikbtncont}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{console.log('Skip Button Pressed')}}>
                               <View style={styles.skipbtn}>
                                     <View>
                                           <Text style={styles.skipTxt}>SKIP</Text>
                                     </View>
-                                    <View>
-                                          <Feather name="chevrons-right" size={width / 15} color={Colors.bg} />
+                                    <View style={{ position: 'relative', bottom: width/390}}>
+                                          <Feather name="chevrons-right" size={width / 14.5} color={Colors.bg} />
                                     </View>
                               </View>
                         </TouchableOpacity>
                   </View>
-                  <View style={styles.Logo}>
-                        {/* Logo */}
-                  </View>
+                  
                   <View style={styles.Heading}>
                         <View style={styles.WelcomeNote}>
                               <Text style={styles.Headingtxt}>Welcome{'\n'}Antriksh!</Text>
+                        </View>
+                        <View style={styles.LogoCont}>
+                              <Image source={require('../../../assets/images/locationillustration3.png')} style={styles.Logo} />
                         </View>
                         <View style={styles.AppDescription}>
                               <Text style={styles.AppDescriptionTxt}>Reduce food waste and schedule convenient pickup by setting up your delivery address.</Text>
@@ -35,27 +36,26 @@ export default function Location() {
                   </View>
                   <View style={styles.LocationTypesBtnCont}>
                         <View style={{ width: '90%' }}>
-                              <View style={styles.SelectLocationCont}>
+                              <View>
                                     <Text style={styles.SelectLocationTxt}>SELECT LOCATION</Text>
                               </View>
                         </View>
                         <View style={{ width: '100%' }}>
-                              <TouchableOpacity style={styles.LocationBtnCont} onPress={() => { console.log('Locate Me Button Clicked') }}>
+                              <TouchableOpacity activeOpacity={.34} style={styles.LocationBtnCont} onPress={() => { console.log('Locate Me Button Clicked') }}>
                                     <View style={{ paddingLeft: width / 20, paddingRight: width / 30 }}>
                                           <Image source={require('../../../assets/images/search-locate.png')} style={styles.LocationIcon} />
-
                                     </View>
-                                    <View style={styles.locationBtn}>
+                                    <View>
                                           <Text style={styles.LocationBtnTxt}>Locate Me</Text>
                                     </View>
                               </TouchableOpacity>
                         </View>
                         <View style={{ width: '100%' }}>
-                              <TouchableOpacity style={styles.LocationBtnCont} onPress={() => { console.log('Provide Pickup Location Button Clicked') }}>
+                              <TouchableOpacity activeOpacity={.34} style={styles.LocationBtnCont} onPress={() => { console.log('Provide Pickup Location Button Clicked') }}>
                                     <View style={{ paddingLeft: width / 20, paddingRight: width / 30 }}>
                                           <Image source={require('../../../assets/images/locate.png')} style={styles.LocationIcon} />
                                     </View>
-                                    <View style={styles.locationBtn}>
+                                    <View>
                                           <Text style={styles.LocationBtnTxt}>Provide Pickup Location</Text>
                                     </View>
                               </TouchableOpacity>
@@ -76,8 +76,10 @@ const styles = StyleSheet.create({
       skikbtncont: {
             width: '100%',
             position: 'relative',
-            top: 40,
-            height: height * 0.04,
+            right: -width/26,
+            bottom: 5,
+            flex: 0.1,
+            justifyContent: 'flex-end',
             alignItems: 'flex-end',
       },
       skipbtn: {
@@ -91,14 +93,24 @@ const styles = StyleSheet.create({
             color: Colors.bg,
             letterSpacing: 0.8,
       },
+      LogoCont: {
+            width: '100%',
+            flex: 0.35,
+            justifyContent: 'center',
+            alignItems: 'center',
+      },
       Logo: {
-            height: height * 0.35,
+            width: width/1.77,
+            height: width/2.05,
       },
       Heading: {
-            height: height * 0.25,
+            flex: 0.6,
+            alignItems: 'center',
       },
       WelcomeNote: {
+            flex: 0.35,
             alignItems: 'center',
+            justifyContent: 'center',
       },
       Headingtxt: {
             textAlign: 'center',
@@ -108,8 +120,10 @@ const styles = StyleSheet.create({
             fontSize: width / 9.5,
       },
       AppDescription: {
+            flex: 0.3,
             marginTop: height / 80,
             alignItems: 'center',
+            justifyContent: 'center',
       },
       AppDescriptionTxt: {
             textAlign: 'center',
@@ -119,7 +133,7 @@ const styles = StyleSheet.create({
             fontSize: width / 18,
       },
       LocationTypesBtnCont: {
-            height: height * 0.38,
+            flex: 0.35,
             width: '100%',
             paddingHorizontal: width / 80,
             justifyContent: 'center',
@@ -147,7 +161,6 @@ const styles = StyleSheet.create({
       LocationIcon: {
             width: width / 16.2,
             height: width / 16.2,
-            // opacity: 0.6,
       },
       LocationBtnTxt: {
             fontSize: width / 20,

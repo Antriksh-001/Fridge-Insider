@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
       statusbar: {
             width: width,
             height: 30,
-            backgroundColor: Colors.bg, 
+            backgroundColor: Colors.bg,
       },
       upperpart: {
             flex: 0.45,
