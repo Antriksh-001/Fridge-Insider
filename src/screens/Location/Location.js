@@ -22,7 +22,6 @@ export default function Location() {
                               </View>
                         </TouchableOpacity>
                   </View>
-                  
                   <View style={styles.Heading}>
                         <View style={styles.WelcomeNote}>
                               <Text style={styles.Headingtxt}>Welcome{'\n'}Antriksh!</Text>
