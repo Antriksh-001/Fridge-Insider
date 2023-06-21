@@ -8,7 +8,6 @@ import CloseLock from '../../../assets/svg/closelock';
 import MailLogo from '../../../assets/svg/mailLogo';
 import NextLogo from '../../../assets/svg/nextLogo';
 import AccountLogo from '../../../assets/svg/accountLogo';
-import Locationillustration from '../../../assets/svg/locationillustration';
 
 class Svginserter extends Component {
       components = {
@@ -19,7 +18,6 @@ class Svginserter extends Component {
             Mail: MailLogo,
             Next: NextLogo,
             Account: AccountLogo,
-            Location: Locationillustration
       };
       render(...props) {
             const TagName = this.components[this.props.tag];

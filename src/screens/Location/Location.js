@@ -7,7 +7,7 @@ import { Colors } from '../../constants/Colors';
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-export default function Location() {
+export default function Location(props) {
       return (
             <View style={styles.cont}>
                   <View style={styles.skikbtncont}>
@@ -27,7 +27,7 @@ export default function Location() {
                               <Text style={styles.Headingtxt}>Welcome{'\n'}Antriksh!</Text>
                         </View>
                         <View style={styles.LogoCont}>
-                              <Image source={require('../../../assets/images/locationillustration3.png')} style={styles.Logo} />
+                              <Image source={require('../../../assets/images/locationillustration.png')} style={styles.Logo} />
                         </View>
                         <View style={styles.AppDescription}>
                               <Text style={styles.AppDescriptionTxt}>Reduce food waste and schedule convenient pickup by setting up your delivery address.</Text>
@@ -50,7 +50,7 @@ export default function Location() {
                               </TouchableOpacity>
                         </View>
                         <View style={{ width: '100%' }}>
-                              <TouchableOpacity activeOpacity={.34} style={styles.LocationBtnCont} onPress={() => { console.log('Provide Pickup Location Button Clicked') }}>
+                              <TouchableOpacity activeOpacity={.34} style={styles.LocationBtnCont} onPress={() => { props.changeScreen('ProvideLocation') }}>
                                     <View style={{ paddingLeft: width / 20, paddingRight: width / 30 }}>
                                           <Image source={require('../../../assets/images/locate.png')} style={styles.LocationIcon} />
                                     </View>

@@ -108,7 +108,7 @@ export default function Signup(props) {
                               </View>
                         </View>
                         <View style={styles.footer}>
-                              <TouchableHighlight style={styles.btnhighlightbox} onPress={() => { console.log('Sign-up Button Pressed') }}>
+                              <TouchableHighlight style={styles.btnhighlightbox} onPress={() => {props.changeScreen('Location')}}>
                                     <View style={styles.btnbox}>
                                           <Text style={styles.btn}>Sign-up</Text>
                                     </View>

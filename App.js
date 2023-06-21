@@ -3,9 +3,7 @@ import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Drawer from './src/screens/drawer';
 import Main_home from './src/screens/Homepage/Main_home';
-import GetStarted from './src/screens/GetStarted/index';
-import AuthenticationPage from './src/screens/GetStarted/AuthenticationPage';
-import Location from './src/screens/Location/Location';
+import ScreenNavigator from './src/containers/ScreenNavigator';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -35,9 +33,7 @@ const App = () => {
 
   return (
     <SafeAreaProvider style={{ flex: 1 }}>
-      <Location />
-      {/* <AuthenticationPage /> */}
-      {/* <GetStarted /> */}
+      <ScreenNavigator />
       {/* <StatusBar />
       <Drawer />
       <Main_home/> */}

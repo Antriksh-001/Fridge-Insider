@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import AuthenticationPage from './AuthenticationPage';
 import Svginserter from '../../components/shared/Svginserter';
 import { BlurView } from 'expo-blur';
 import * as Screen from '../../constants/Screen';
@@ -8,7 +9,7 @@ import { Colors } from '../../constants/Colors';
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-export default function GetStarted() {
+export default function GetStarted(props) {
       return (
             <View style={styles.cont}>
                   <View style={styles.statusbar}/>
@@ -32,7 +33,7 @@ export default function GetStarted() {
                         <View style={styles.shade}>
                               <BlurView intensity={0} style={{ flex: 1 }}></BlurView>
                         </View>
-                        <TouchableHighlight style={styles.btnhighlightbox} onPress={() => { console.log('Get Started') }}>
+                        <TouchableHighlight style={styles.btnhighlightbox} onPress={() => { props.changeScreen('AuthenticationPage')}}>
                               <View style={styles.btnbox}>
                                     <Text style={styles.btn}>Get Started</Text>
                               </View>
