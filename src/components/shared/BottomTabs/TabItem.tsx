@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {FC, useEffect} from 'react';
 import Animated, {
   useAnimatedProps,
@@ -32,27 +32,27 @@ const TabItem: FC<TabProps> = ({
   const iconPosition = getPathXCenterByIndex(curvedPaths, index);
   const labelPosition = getPathXCenterByIndex(curvedPaths, index);
 
-  const tabStyle = useAnimatedStyle(() => {
-    const translateY = animatedActiveIndex.value - 1 === index ? -14 : 20;
-    const iconPositionX = iconPosition - index * ICON_SIZE;
-    return {
-      width: ICON_SIZE,
-      height: ICON_SIZE,
-      transform: [
-        {translateY: withTiming(translateY)},
-        {translateX: iconPositionX - ICON_SIZE / 2},
-      ],
-    };
-  });
-  const labelContainerStyle = useAnimatedStyle(() => {
-    const translateY = animatedActiveIndex.value - 1 === index ? 36 : 100;
-    return {
-      transform: [
-        {translateY: withTiming(translateY)},
-        {translateX: labelPosition - LABEL_WIDTH / 2},
-      ],
-    };
-  });
+  // const tabStyle = useAnimatedStyle(() => {
+  //   const translateY = animatedActiveIndex.value - 1 === index ? 12 : 12;
+  //   const iconPositionX = iconPosition - index * ICON_SIZE;
+  //   return {
+  //     width: ICON_SIZE,
+  //     height: ICON_SIZE,
+  //     transform: [
+  //       {translateY: withTiming(translateY)},
+  //       {translateX: iconPositionX - ICON_SIZE / 2},
+  //     ],
+  //   };
+  // });
+  // const labelContainerStyle = useAnimatedStyle(() => {
+  //   const translateY = animatedActiveIndex.value - 1 === index ? 80 : 80;
+  //   return {
+  //     transform: [
+  //       {translateY: withTiming(translateY/2)},
+  //       {translateX: labelPosition - LABEL_WIDTH / 2},
+  //     ],
+  //   };
+  // });
   const iconColor = useSharedValue(
     activeIndex === index + 1 ? '#e51111' : 'rgba(128,128,128,0.8)',
   );
@@ -61,7 +61,7 @@ const TabItem: FC<TabProps> = ({
   useEffect(() => {
     animatedActiveIndex.value = activeIndex;
     if (activeIndex === index + 1) {
-      iconColor.value = withTiming('#e51153');
+      iconColor.value = withTiming('#e51111');
     } else {
       iconColor.value = withTiming('rgba(128,128,128,0.8)');
     }
@@ -70,25 +70,33 @@ const TabItem: FC<TabProps> = ({
   const animatedIconProps = useAnimatedProps(() => ({
     color: iconColor.value,
   }));
+
+  let tempColor;
+  {activeIndex == index+1 ? tempColor='#e51111':tempColor='rgba(128,128,128,0.8)'};
   return (
     <>
-      <Animated.View style={[tabStyle]}>
+      <Animated.View style={[styles.tabStyle1,]}>
         <Pressable
           testID={`tab${label}`}
+          style={{flexDirection:'column',justifyContent:'center',alignItems:'center',}}
           //Increasing touchable Area
           hitSlop={{top: 30, bottom: 30, left: 50, right: 50}}
           onPress={onTabPress}>
+          <View>
           <AnimatedIcon
             name={icon}
             size={25}
             animatedProps={animatedIconProps}
-          />
+            />
+          </View>  
           {/* <FeatherIcon name={icon} size={25} color={'black'}/> */}
+          {/* <Animated.View style={[labelContainerStyle, styles.labelContainer]}> */}
+          {activeIndex == index+1 ? 
+          <View style={{marginLeft:5}}>
+            <Text style={{color: tempColor,fontSize:13}}>{label}</Text>
+          </View> : <View></View>}
         </Pressable>
-      </Animated.View>
-      <Animated.View style={[labelContainerStyle, styles.labelContainer]}>
-        <Text style={styles.label}>{label}</Text>
-      </Animated.View>
+      </Animated.View>    
     </>
   );
 };
@@ -100,10 +108,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     width: LABEL_WIDTH,
+    // width: 100,
   },
-  label: {
-    // color: 'rgba(128,128,128,0.8)',
-    color: '#e51153',
-    fontSize: 17,
-  },
+  tabStyle1:{
+    flex:1,
+    flexDirection:'column',
+    justifyContent:'center',
+    // alignItems:'center',
+  }
 });

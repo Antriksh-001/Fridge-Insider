@@ -47,7 +47,7 @@ const Home = () => {
         <Image source={require('../../../assets/images/home_corner.png')} style={{width:280 , height:150}}/>
       </View>
       <View>
-        <Text style={{fontSize:35 , marginLeft:20 , marginTop:65, color:'rgba(0,0,0,0.50)',fontFamily:'SF-Pro-Rounded-Bold'}}>Hello , SAJAL</Text>
+        <Text style={{fontSize:35 , marginLeft:20 , marginTop:70, color:'rgba(0,0,0,0.50)',fontFamily:'SF-Pro-Rounded-Bold'}}>Hello , SAJAL</Text>
       </View>
       <View style={{flexDirection:'row',marginTop:-10}}>
         <Text style={{marginLeft:20,fontSize:22 ,color:'rgba(0,0,0,0.50)',fontFamily:'SF-Pro-Rounded-Bold'}}>Temperature : </Text>
@@ -55,7 +55,7 @@ const Home = () => {
       </View>
 
        {/* 1st header and search */}
-       <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+       <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:5}}>
         <View>
           <Text style={{fontSize:20, fontFamily:'SF-Pro-Rounded-Bold' , marginLeft:20 , marginTop:5, color:'rgba(0,0,0,0.50)'}}>About to expire</Text>
         </View>
@@ -129,7 +129,7 @@ const Home = () => {
       }
 
       {/* 2nd header and search */}
-      <View style={{flexDirection:'row',justifyContent:'space-between', marginTop:10}}>
+      <View style={{flexDirection:'row',justifyContent:'space-between', marginTop:15}}>
         <View>
           <Text style={{fontSize:20, fontFamily:'SF-Pro-Rounded-Bold' , marginLeft:20, color:'rgba(0,0,0,0.50)'}}>Favourite Items</Text>
         </View>
