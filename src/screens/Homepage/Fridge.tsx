@@ -172,7 +172,7 @@ export default Fridge;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:Colors.bg,
+    backgroundColor: 'white',
     Bottom:60
   },
 });
