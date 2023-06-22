@@ -9,12 +9,14 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@types/d3-shape": "^3.1.1",
     "@types/react": "~18.0.27",
     "d3-shape": "^3.2.0",
     "expo": "~48.0.18",
+    "expo-app-loading": "^2.1.1",
     "expo-blur": "~12.2.2",
     "expo-font": "~11.1.1",
     "expo-linear-gradient": "~12.1.2",
@@ -24,6 +26,7 @@
     "moti": "^0.25.3",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-gesture-handler": "~2.9.0",
     "react-native-navigation-bar-color": "^2.0.2",
     "react-native-reanimated": "~2.14.4",
     "react-native-redash": "^18.1.0",
@@ -31,8 +34,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-vector-icons": "^9.2.0",
-    "typescript": "^4.9.4",
-    "@expo/vector-icons": "^13.0.0"
+    "typescript": "^4.9.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

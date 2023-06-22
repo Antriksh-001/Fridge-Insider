@@ -3,11 +3,12 @@ import Index from '../screens/GetStarted/index';
 import AuthenticationPage from '../screens/GetStarted/AuthenticationPage';
 import Location from '../screens/Location/Location';
 import ProvideLocation from '../screens/Location/ProvideLocation';
+import Main_home from '../screens/Homepage/Main_home';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-export default function ScreenNavigator(){
-      const [screen,changeScreen] = useState('ProvideLocation');
+export default function ScreenNavigator() {
+      const [screen, changeScreen] = useState('MainHome');
 
       const [fontsLoaded] = useFonts({
             'SF-Pro-Rounded-Regular': require('../../assets/fonts/FontsFree-Net-SF-Pro-Rounded-Regular.ttf'),
@@ -22,7 +23,7 @@ export default function ScreenNavigator(){
             'SF-Pro-Text-Bold': require('../../assets/fonts/SF-Pro-Text-Bold.otf'),
             'SF-Pro-Text-Heavy': require('../../assets/fonts/SF-Pro-Text-Heavy.otf'),
       });
-      const onLayoutRootView = useCallback(async () => {
+      useCallback(async () => {
             if (fontsLoaded) {
                   await SplashScreen.hideAsync();
             }
@@ -31,24 +32,29 @@ export default function ScreenNavigator(){
             return null;
       }
 
-      if(screen == 'GetStarted'){
-            return(
-                  <Index changeScreen={changeScreen}/>
+      if (screen == 'GetStarted') {
+            return (
+                  <Index changeScreen={changeScreen} />
             )
       }
-      else if(screen == 'AuthenticationPage'){
-            return(
-                  <AuthenticationPage changeScreen={changeScreen}/>
+      else if (screen == 'AuthenticationPage') {
+            return (
+                  <AuthenticationPage changeScreen={changeScreen} />
             )
       }
-      else if(screen == 'Location'){
-            return(
-                  <Location changeScreen={changeScreen}/>
+      else if (screen == 'Location') {
+            return (
+                  <Location changeScreen={changeScreen} />
             )
       }
-      else if(screen == 'ProvideLocation'){
-            return(
-                  <ProvideLocation changeScreen={changeScreen}/>
+      else if (screen == 'ProvideLocation') {
+            return (
+                  <ProvideLocation changeScreen={changeScreen} />
+            )
+      }
+      else if (screen == 'MainHome') {
+            return (
+                  <Main_home changeScreen={changeScreen} />
             )
       }
 }
