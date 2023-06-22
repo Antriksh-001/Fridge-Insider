@@ -92,7 +92,7 @@ export default function Login(props) {
                               <View style={styles.lineSeparator} />
                         </View>
                         <View>
-                              <TouchableHighlight style={styles.GoogleHighlightBox} onPress={() => { console.log('Google Login Button Pressed') }}>
+                              <TouchableHighlight style={styles.GoogleHighlightBox} onPress={() => { console.log('Google Login Button Pressed and rendering the HomePage') }}>
                                     <View style={styles.Googlebtnbox}>
                                           <View style={styles.GoogleLogoAnim} >
                                                 <Lottie source={require('../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} />

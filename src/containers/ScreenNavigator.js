@@ -8,7 +8,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 export default function ScreenNavigator() {
-      const [screen, changeScreen] = useState('Location');
+      const [screen, changeScreen] = useState('MainHome');
 
       const [fontsLoaded] = useFonts({
             'SF-Pro-Rounded-Regular': require('../../assets/fonts/FontsFree-Net-SF-Pro-Rounded-Regular.ttf'),

@@ -11,7 +11,7 @@ import { Colors } from '../../constants/Colors';
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-export default function login() {
+export default function AuthenticationPage(props) {
       const [login, setLogin] = useState(true);
       const [forgotpass, setForgotpass] = useState(false);
 
@@ -52,7 +52,7 @@ export default function login() {
                         />
                   </MotiView>
                   <View>
-                        {login ? (forgotpass ? <ForgotPassword setForgotpass={setForgotpass} /> : <Login setForgotpass={setForgotpass} />) : <Signup setLogin={setLogin} />}
+                        {login ? (forgotpass ? <ForgotPassword setForgotpass={setForgotpass} /> : <Login setForgotpass={setForgotpass} />) : <Signup setLogin={setLogin} changeScreen={props.changeScreen}/>}
                   </View>
             </ScrollView>
       )
@@ -62,11 +62,6 @@ const styles = StyleSheet.create({
       maincont: {
             flex: 1,
             backgroundColor: Colors.bg,
-      },
-      statusbar: {
-            width: width,
-            height: 30,
-            backgroundColor: 'white',
       },
       upper: {
             width: width,
