@@ -34,9 +34,9 @@ export default function HomeNavigator(props) {
                               tabBarLabel: "Fridge",
                               title: "Fridge"
                         }} />
-                        <Tab.Screen name="PlaceholderScreen" component={Home} options={{
-                              tabBarLabel: "PlaceholderScreen",
-                              title: "PlaceholderScreen"
+                        <Tab.Screen name="MenuWrapper" component={Home} options={{
+                              tabBarLabel: "MenuWrapper",
+                              title: "MenuWrapper"
                         }} />
                         <Tab.Screen name="Notifications" component={Notifications} options={{
                               tabBarLabel: "Notifications",
