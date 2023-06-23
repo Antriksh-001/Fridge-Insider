@@ -13,7 +13,12 @@ const Tab = createBottomTabNavigator();
 const MyTheme = {
       dark: false,
       colors: {
+            primary: 'rgb(255, 45, 85)',
             background: '#52a2e7',
+            card: '#52a2e7',
+            text: '#52a2e7',
+            border: 'rgb(199, 199, 204)',
+            notification: 'rgb(255, 69, 58)',
       },
 };
 
