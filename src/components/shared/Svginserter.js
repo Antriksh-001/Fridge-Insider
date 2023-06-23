@@ -19,6 +19,9 @@ import Recycle_01 from '../../../assets/svg/recycle_01';
 import Recycle_02 from '../../../assets/svg/recycle_02';
 import MenuBurger from '../../../assets/svg/menuBurger';
 import MenuClose from '../../../assets/svg/menuClose';
+import PlusCircle from '../../../assets/svg/plusCircle';
+import MinusCircle from '../../../assets/svg/minusCircle';
+import MenuWrapper from '../../../assets/svg/menuWrapperLogo';
 
 class Svginserter extends Component {
       components = {
@@ -40,6 +43,9 @@ class Svginserter extends Component {
             Recycle_02: Recycle_02,
             Menu: MenuBurger,
             MenuClose: MenuClose,
+            PlusCircle: PlusCircle,
+            MinusCircle: MinusCircle,
+            MenuWrapper: MenuWrapper,
       };
       render(...props) {
             const TagName = this.components[this.props.tag];

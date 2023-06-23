@@ -40,7 +40,6 @@ const Home = (props) => {
       setData1(tempList);
     }
   }
-  console.log(props.showMenu);
   
   return (
     <MotiView style={[styles.container]}
@@ -196,7 +195,7 @@ const Home = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
   },
 });
 
