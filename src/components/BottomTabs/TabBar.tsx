@@ -3,7 +3,6 @@ import { View, Pressable, Dimensions, StyleSheet } from 'react-native';
 import { MotiView } from 'moti';
 import { MotiPressable } from 'moti/interactions';
 import NavigationIcon from './NavigationIcon';
-import SelectWheel from './SelectWheel';
 import MenuWrapper from './MenuWrapper';
 import { Colors } from '../../constants/Colors';
 import * as Screen from '../../constants/Screen';
@@ -14,15 +13,36 @@ const height = Screen.SCREEN_HEIGHT;
 const TabBar = ({ state, descriptors, navigation }: any) => {
       const [tab, setTab] = useState('Home');
       const [wrap, setWrap] = useState(true);
-
+      const [wrapAnim, setWrapAnim] = useState(true);
       return (
-            wrap ? (<MenuWrapper wrap={wrap} setWrap={setWrap} />)
-                  : (<View style={styles.mainContainer}>
+            <View>
+                  <MotiView style={[styles.mainContainer, !wrapAnim ? { shadowColor: Colors.black, elevation: 6 } : { width: 10 } ]}
+                        from={{
+                              translateX: 0,
+                              width: 10,
+                              // marginHorizontal: 0,
+                        }}
+                        animate={wrap ? { translateX: -width / 2.88 } : { width: 314 } }
+                        transition={{
+                              translateX: {
+                                    type: 'timing',
+                                    duration: 400,
+                              },
+                              scaleX: {
+                                    type: 'timing',
+                                    delay: 400,
+                                    duration: 350,
+                              },
+                              width: {
+                                    type: 'timing',
+                                    duration: 1200,
+                              },
+                        }}>
                         {state.routes.map((route: any, index: number) => {
-                              if (route.name == "PlaceholderScreen") {
+                              if (route.name == "MenuWrapper") {
                                     return (
-                                          <View key={index} style={[styles.mainItemContainer, styles.selectwheel]}>
-                                                <SelectWheel wrap={wrap} setWrap={setWrap} />
+                                          <View key={index} style={styles.mainItemContainer}>
+                                                <MenuWrapper wrap={wrap} setWrap={setWrap} wrapAnim={wrapAnim} setWrapAnim={setWrapAnim} />
                                           </View>
                                     );
                               }
@@ -45,19 +65,20 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                                     else if (label == "Profile") setTab("Profile");
                               };
                               return (
-                                    <View key={index} style={styles.mainItemContainer}>
+                                    <MotiView key={index} style={[styles.mainItemContainer, label == "MenuWrapper" ? null : {paddingVertical: 5}, wrap? { display: 'none'} : { display: 'flex'}]}
+                                          from={{ scale: 0 }}
+                                          animate={ wrapAnim? { scale: 0 } : { scale: 1 }}
+                                          transition={ wrap ? { type: 'timing', delay: 0 } : { type: 'spring', delay: 300+index*100 }}>
                                           {label == "Home" ? (
                                                 <MotiView style={styles.MovingBg}
                                                       from={{
-                                                            scale: 1,
                                                             translateX: 0,
                                                       }}
                                                       animate={{
                                                             transform: [
-                                                                  { scale: 1 },
-                                                                  tab == "Fridge" ? { translateX: width / 6.52 }
-                                                                        : tab == "Notifications" ? { translateX: width / 2.172 }
-                                                                              : tab == "Profile" ? { translateX: width / 1.63 } : { translateX: 0 },
+                                                                  tab == "Fridge" ? { translateX: width / 6.256 }
+                                                                        : tab == "Notifications" ? { translateX: width / 2.079 }
+                                                                              : tab == "Profile" ? { translateX: width / 1.56 } : { translateX: 0 },
                                                             ]
                                                       }}
                                                       transition={{
@@ -87,10 +108,11 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                                                       <NavigationIcon route={label} isFocused={isFocused} />
                                                 </View>
                                           </MotiPressable>
-                                    </View>
+                                    </MotiView>
                               );
                         })}
-                  </View>)
+                  </MotiView>
+            </View>
       );
 }
 
@@ -98,23 +120,15 @@ const styles = StyleSheet.create({
       mainContainer: {
             position: 'absolute',
             bottom: height / 31.72,
+            alignSelf: 'center',
             flexDirection: 'row',
-            marginHorizontal: width * 0.09,
-            paddingHorizontal: height / 79.3,
             borderRadius: 25,
-            backgroundColor: "white",
-            shadowColor: Colors.black,
-            elevation: 6,
+            backgroundColor: Colors.white,
       },
       mainItemContainer: {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            marginVertical: width / 26.07,
-      },
-      selectwheel: {
-            marginVertical: width / 130,
-            width: width / 9.775,
       },
       MovingBg: {
             position: 'absolute',
@@ -130,9 +144,9 @@ const styles = StyleSheet.create({
             zIndex: 1,
       },
       iconContainer: {
+            flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            flex: 1,
             padding: 10,
       },
 });
