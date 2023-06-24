@@ -22,16 +22,17 @@ const MenuWrapper = ({wrap, setWrap,wrapAnim, setWrapAnim }) => {
                   else{
                         setWrapAnim(!wrapAnim);
                   }
-            }} 
+            }}
             style={[styles.container]}
-            from={{ rotateZ: '-270deg', translateY: 0 }}
+            from={{ rotateZ: '-270deg' }}
             animate={wrap? {rotateZ: '-270deg'}: {rotateZ: '0deg'}}
             transition={{
                   translateY:{
-                        type: 'timing', 
-                        duration: 400 
+                        type: 'timing',
+                        duration: 400,
                   },
                   type: 'timing',
+                  delay: wrap? 0 : 400,
                   duration: 450,
             }}
             >

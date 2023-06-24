@@ -32,11 +32,11 @@ const Main_home = () => {
 
         <MotiView style={styles.menucontainer}
           from={{ rotateX: '0deg', rotateY: '0deg' }}
-          animate={showMenu ? { rotateZ: '90deg', translateX: -width/20.05 , translateY: -height/19.825  } : { rotateX: '0deg', rotateY: '0deg', rotateZ: '0deg', translateX: 0, translateY: 0 }}
+          animate={showMenu ? { rotateZ: '90deg', translateX: -width / 20.05  } : { rotateX: '0deg', rotateY: '0deg', rotateZ: '0deg', translateX: 0 }}
           transition={{ type: 'timing', duration: 350 }} >
 
           <TouchableOpacity onPress={Opendrawer}>
-            <View style={{ height: width/13.03, width: width/13.03, }}>
+            <View style={{ height: width/13.03, width: width/13.03 }}>
               <Svginserter tag={'Menu'} style={styles.menuBurger} />
             </View>
           </TouchableOpacity>
@@ -73,15 +73,15 @@ const styles = StyleSheet.create({
   },
   menucontainer: {
     flexDirection: 'row',
-    alignItems: 'center',
     position: 'absolute',
-    top: width / 13.03,
+    top: width / 11.7,
+    left: 5,
     zIndex: 1,
+    margin: width / 19.55,
   },
   menuBurger: {
-    width: width / 16.3,
-    height: width / 16.3,
-    margin: width / 19.55,
+    height: width/13.03,
+    width: width/13.03,
   },
 });
 export default Main_home;

@@ -14,18 +14,19 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
       const [tab, setTab] = useState('Home');
       const [wrap, setWrap] = useState(true);
       const [wrapAnim, setWrapAnim] = useState(true);
+      console.log(wrap, wrapAnim);
       return (
             <View>
-                  <MotiView style={[styles.mainContainer, !wrapAnim ? { shadowColor: Colors.black, elevation: 6 } : { width: 10 } ]}
+                  <MotiView style={[styles.mainContainer, !wrapAnim ? { shadowColor: Colors.black, elevation: 6 } : { width: 10 }]}
                         from={{
                               translateX: 0,
                               width: 10,
-                              // marginHorizontal: 0,
                         }}
-                        animate={wrap ? { translateX: -width / 2.88 } : { width: width/1.245 } }
+                        animate={wrap ? { translateX: -width / 2.88 } : { width: width / 1.245 }}
                         transition={{
                               translateX: {
                                     type: 'timing',
+                                    delay: wrap? 600 : 0,
                                     duration: 400,
                               },
                               scaleX: {
@@ -35,7 +36,7 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                               },
                               width: {
                                     type: 'timing',
-                                    duration: 1200,
+                                    duration: 1000,
                               },
                         }}>
                         {state.routes.map((route: any, index: number) => {
@@ -65,10 +66,10 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                                     else if (label == "Profile") setTab("Profile");
                               };
                               return (
-                                    <MotiView key={index} style={[styles.mainItemContainer, label == "MenuWrapper" ? null : {paddingVertical: 5}, wrap? { display: 'none'} : { display: 'flex'}]}
+                                    <MotiView key={index} style={[styles.mainItemContainer, label == "MenuWrapper" ? null : { paddingVertical: 5 }, wrap ? { display: 'none' } : { display: 'flex' }]}
                                           from={{ scale: 0 }}
-                                          animate={ wrapAnim? { scale: 0 } : { scale: 1 }}
-                                          transition={ wrap ? { type: 'timing', delay: 0 } : { type: 'spring', delay: 300+index*100 }}>
+                                          animate={wrapAnim ? { scale: 0 } : { scale: 1 }}
+                                          transition={wrap ? { type: 'timing', delay: 0 } : { type: 'spring', delay: 300 + index * 100 }}>
                                           {label == "Home" ? (
                                                 <MotiView style={styles.MovingBg}
                                                       from={{

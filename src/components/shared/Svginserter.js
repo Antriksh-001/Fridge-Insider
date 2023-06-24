@@ -22,6 +22,8 @@ import MenuClose from '../../../assets/svg/menuClose';
 import PlusCircle from '../../../assets/svg/plusCircle';
 import MinusCircle from '../../../assets/svg/minusCircle';
 import MenuWrapper from '../../../assets/svg/menuWrapperLogo';
+import UserProfileDefault from '../../../assets/svg/userProfileDefault';
+import SearchIcon from '../../../assets/svg/searchIcon';
 
 class Svginserter extends Component {
       components = {
@@ -46,6 +48,8 @@ class Svginserter extends Component {
             PlusCircle: PlusCircle,
             MinusCircle: MinusCircle,
             MenuWrapper: MenuWrapper,
+            UserProfileDefault: UserProfileDefault,
+            SearchIcon: SearchIcon,
       };
       render(...props) {
             const TagName = this.components[this.props.tag];
