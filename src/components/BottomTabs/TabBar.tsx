@@ -22,7 +22,7 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                               width: 10,
                               // marginHorizontal: 0,
                         }}
-                        animate={wrap ? { translateX: -width / 2.88 } : { width: 314 } }
+                        animate={wrap ? { translateX: -width / 2.88 } : { width: width/1.245 } }
                         transition={{
                               translateX: {
                                     type: 'timing',
