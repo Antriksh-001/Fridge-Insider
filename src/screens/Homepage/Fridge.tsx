@@ -126,15 +126,16 @@ const Fridge = () => {
                       marginLeft:8,
                       marginTop:0,
                       marginBottom:lastMargin,
-                      // backgroundColor:'cyan',
+                      backgroundColor:'white',
                       borderRadius:10,
                       flexDirection:'row',
                       // justifyContent:'space-around',
                       alignItems:'center',
                       padding:20,
-                      // shadowColor:'grey'
+                      shadowColor:'grey',
+                      elevation:10
                   }}>
-                    <View style={{backgroundColor:Colors.bg,alignItems:'center',justifyContent:'center', shadowColor:'#213a7c',width:80,height:80,elevation:8,borderRadius:5}}>
+                    <View style={{backgroundColor:'white',alignItems:'center',justifyContent:'center', width:80,height:80}}>
                       <Image source={item.image} style={{width:50 ,margin:9, height:50 }}/>
                     </View>
 
@@ -162,8 +163,8 @@ const Fridge = () => {
           />
         </View>
     </ScrollView>  
-
     </View>
+
   );
 };
 
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    Bottom:60
+    // top:35
+    // Bottom:60
   },
 });

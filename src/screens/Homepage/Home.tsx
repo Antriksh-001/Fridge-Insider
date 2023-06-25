@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View, TextInput } 
 import { MotiView } from 'moti';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
@@ -40,6 +41,7 @@ const Home = (props) => {
       setData1(tempList);
     }
   }
+  // console.log(props.showMenu);
   
   return (
     <MotiView style={[styles.container]}
@@ -49,7 +51,7 @@ const Home = (props) => {
     >
       
       {/* 1st header and search */}
-      {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
         <View>
           <Text style={{ fontSize: 20, fontFamily: 'SF-Pro-Rounded-Bold', marginLeft: 20, marginTop: 5, color: 'rgba(0,0,0,0.50)' }}>Reminder</Text>
         </View>
@@ -73,8 +75,8 @@ const Home = (props) => {
             </TouchableOpacity>
           )}
         </View>
-      </View> */}
-      {/* {data1.length == 0 ?
+      </View>
+      {data1.length == 0 ?
         (<View style={{ marginLeft: 20 }}><Text>No Search Found</Text></View>) : (
 
           <View style={{ marginLeft: 0 }}>
@@ -120,10 +122,10 @@ const Home = (props) => {
               }}
             />
           </View>)
-      } */}
+      }
 
       {/* 2nd header and search */}
-      {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
         <View>
           <Text style={{ fontSize: 20, fontFamily: 'SF-Pro-Rounded-Bold', marginLeft: 20, color: 'rgba(0,0,0,0.50)' }}>Favourite Items</Text>
         </View>
@@ -186,7 +188,7 @@ const Home = (props) => {
             />
           </View>
         )
-      } */}
+      }
     </MotiView>
   );
 };

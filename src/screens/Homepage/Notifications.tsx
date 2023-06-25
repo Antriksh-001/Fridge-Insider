@@ -1,11 +1,269 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { Colors } from '../../constants/Colors'; 
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, FlatList, Modal } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { MotiView } from "moti";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
+import { Colors } from "../../constants/Colors";
+
+const menus = [
+  { id: '1', type: 'Fruit', title: 'Apple', cnt: '3', expire: '-1', day: '23', month: 'May', time: '13:30', msel: false, image: require('../../../assets/images/apple.png') },
+  { id: '2', type: 'Drink', title: 'Milk', cnt: '4', expire: '-2', day: '3', month: 'May', time: '15:30', msel: false, image: require('../../../assets/images/tomato.png') },
+  { id: '3', type: 'Fruit', title: 'Papaya', cnt: '1', expire: '3', day: '21', month: 'May', time: '14:30', msel: false, image: require('../../../assets/images/apple.png') },
+  { id: '4', type: 'Fruit', title: 'Tomato', cnt: '2', expire: '3', day: '13', month: 'May', time: '11:30', msel: false, image: require('../../../assets/images/tomato.png') },
+  { id: '5', type: 'Vegetable', title: 'Carrot', cnt: '1', expire: '-4', day: '2', month: 'May', time: '13:30', msel: false, image: require('../../../assets/images/apple.png') },
+  { id: '6', type: 'Vegetable', title: 'Potato', cnt: '5', expire: '6', day: '6', month: 'May', time: '12:30', msel: false, image: require('../../../assets/images/tomato.png') },
+  { id: '7', type: 'Fruit', title: 'Lemon', cnt: '1', expire: '7', day: '19', month: 'May', time: '11:30', msel: false, image: require('../../../assets/images/tomato.png') },
+  { id: '8', type: 'Fruit', title: 'Apple', cnt: '3', expire: '1', day: '16', month: 'May', time: '13:30', msel: false, image: require('../../../assets/images/apple.png') },
+  { id: '9', type: 'Drink', title: 'Milk', cnt: '4', expire: '-2', day: '13', month: 'May', time: '5:30', msel: false, image: require('../../../assets/images/tomato.png') },
+  { id: '10', type: 'Fruit', title: 'Papaya', cnt: '1', expire: '3', day: '15', month: 'May', time: '19:30', msel: false, image: require('../../../assets/images/apple.png') },
+  { id: '11', type: 'Fruit', title: 'Tomato', cnt: '2', expire: '-3', day: '24', month: 'May', time: '17:30', msel: false, image: require('../../../assets/images/tomato.png') },
+  { id: '12', type: 'Vegetable', title: 'Carrot', cnt: '1', expire: '4', day: '6', month: 'May', time: '14:30', msel: false, image: require('../../../assets/images/apple.png') },
+  { id: '13', type: 'Vegetable', title: 'Potato', cnt: '5', expire: '6', day: '8', month: 'May', time: '13:30', msel: false, image: require('../../../assets/images/tomato.png') },
+  { id: '14', type: 'Fruit', title: 'Lemon', cnt: '1', expire: '-7', day: '4', month: 'May', time: '8:30', msel: false, image: require('../../../assets/images/tomato.png') },
+]
 
 const Notifications = () => {
+  const [alert, setAlert] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [multiselect, setMultiselect] = useState(false);
+  const searchRef = useRef();
+
+  useEffect(() => {
+    setData1(menus);
+    setData2(menus);
+  }, []);
+
+  var color1: any, color2: any;
+  { alert ? color1 = '#52a2e7' : color2 = '#52a2e7' };
+
+  const onSelect = (idx: number) => {
+    const tempdata = data1.map((item, index) => {
+      if (index == idx) {
+        if (item.msel == true)
+          return { ...item, msel: false };
+        else
+          return { ...item, msel: true };
+      }
+      else {
+        if (item.msel == true)
+          return { ...item, msel: true };
+        else
+          return { ...item, msel: false };
+      }
+    });
+    setData1(tempdata);
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Notifications</Text>
+
+      <View style={styles.comp1}>
+        <Text style={styles.comp1Text}>Notification</Text>
+
+        {multiselect ? (
+          <TouchableOpacity
+            style={styles.filter}
+            onPress={() => {
+              const tempdata = data1.map((item, index) => {
+                return { ...item, msel: false };
+              })
+              setData1(tempdata);
+              setMultiselect(false)
+            }}>
+
+            <Image
+              source={require('../../../assets/images/close.png')}
+              style={{ width: 16, height: 16, opacity: 0.5 }}
+            />
+
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.filter} onPress={() => { setVisible(true) }}>
+            <Image style={{ height: 25, width: 25 }} source={require('../../../assets/images/filter.png')} />
+          </TouchableOpacity>
+        )}
+
+      </View>
+
+      {/* FilterMenu  */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={visible}
+        onRequestClose={() => {
+          setVisible(!visible)
+        }}>
+        <View style={styles.filterMenu}>
+          <View style={styles.filterComp}>
+
+            <TouchableOpacity style={styles.filterComp1}
+              ref={searchRef}
+              onPress={() => {
+
+                let tempdata = data2.filter((item) => item.expire <= 0)
+                setData1(tempdata);
+                setVisible(false);
+              }}>
+              <Text style={styles.filterComp1Text}>Only Expired</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.filterComp1}
+              ref={searchRef}
+              onPress={() => {
+
+                let tempdata = data2.filter((item) => item.expire > 0)
+                setData1(tempdata);
+                setVisible(false)
+              }}>
+              <Text style={styles.filterComp1Text}>Only Fresh</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.filterComp1}
+              onPress={() => {
+                let tempdata = data1.sort((a, b) => a.title > b.title ? 1 : -1)
+                setData1(tempdata);
+                setVisible(false);
+              }}>
+              <Text style={styles.filterComp1Text}>Sort by Name</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.filterComp1}
+              onPress={() => {
+                let tempdata = data1.sort((a, b) => a.expire - b.expire)
+                setData1(tempdata)
+                setVisible(false)
+              }}>
+              <Text style={styles.filterComp1Text}>Sort by Expiry</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.filterComp1}
+              onPress={() => {
+                let tempdata = data1.sort((a, b) => (a.day - b.day));
+                setData1(tempdata);
+                setVisible(false);
+              }}>
+              <Text style={styles.filterComp1Text}>Sort by Date</Text>
+            </TouchableOpacity>
+
+          </View>
+        </View>
+      </Modal>
+
+
+      <View style={styles.comp2}>
+        <TouchableOpacity style={[styles.comp2a, { backgroundColor: color1 }]}
+          onPress={() => { setAlert(true) }}>
+          <Text>Expiry Alert</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.comp2a, { backgroundColor: color2 }]}
+          onPress={() => { setAlert(false) }}>
+          <Text>Garbage PickUp</Text>
+        </TouchableOpacity>
+      </View>
+
+      {multiselect ? (
+
+        <View style={styles.multiselectMenu}>
+
+          <TouchableOpacity style={styles.multiselectComp}
+            onPress={() => {
+              const tempdata = data1.map((item, index) => {
+                return { ...item, msel: true };
+              })
+              setData1(tempdata);
+              setData2(tempdata);
+            }}>
+            <Text>Select All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.multiselectComp, { width: 130 }]}
+            onPress={() => {
+              let tempdata = data1.filter((item) => item.msel == false)
+              setData1(tempdata);
+              setData2(tempdata);
+            }}>
+            <Text>Delete Selected</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.multiselectComp}
+            onPress={() => {
+              setData1([]);
+              setData2([])
+            }}>
+            <Text>Delete All</Text>
+          </TouchableOpacity>
+
+        </View>
+      ) : (
+        <View>
+        </View>
+      )}
+
+      <View style={styles.container}>
+        {alert == true ? (
+          <View>
+            <View>
+              <FlatList
+                data={data1}
+                renderItem={({ item, index }) => {
+                  let color1: string, fresh: string;
+                  { item.expire <= '2' ? color1 = 'red' : color1 = 'orange' }
+                  { item.expire <= '0' ? fresh = 'red' : fresh = 'green' }
+
+                  return (
+                    <MotiView
+                      from={{ opacity: 0, translateX: -40 }}
+                      animate={{ opacity: 1, translateX: 0 }}
+                      transition={{ delay: index * 200 }}
+                      style={{ paddingTop: 10 }}
+                    >
+                      <View style={styles.cornerDot}></View>
+                      <TouchableOpacity style={[styles.alertItemContainer, { backgroundColor: item.msel == true ? '#e9f5f8' : 'white' }]}
+                        onPress={() => (multiselect && onSelect(index))}
+                        onLongPress={() => {
+                          (!multiselect && onSelect(index)); setMultiselect(true)
+                        }}>
+                        <View style={styles.alertImg}>
+                          <Image source={item.image} style={styles.alertImg1} />
+                        </View>
+
+                        <View style={{ marginLeft: 20, width: 100 }}>
+
+                          <View style={styles.alertComp2}>
+                            <Text style={[styles.alertComp2a, { color: fresh }]}>{item.expire <= '0' ? 'Expired' : 'Fresh'}</Text>
+                            <View style={[styles.alertComp2b, { backgroundColor: color1 }]}></View>
+                            <Text style={styles.alertComp2c}>{item.expire < '0' ? item.expire * -1 : item.expire}</Text>
+                            <Text style={styles.alertComp2d}>{item.expire == '1' ? 'day' : 'days'} {item.expire <= '0' ? 'ago' : 'left'}</Text>
+                          </View>
+
+                          <View>
+                            <Text style={styles.alertComp2e}>{item.title}</Text>
+                          </View>
+
+                        </View>
+
+                        <View style={styles.alertComp3}>
+
+                          <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.alertComp3a}> {item.time}</Text>
+                          </View>
+
+                          <View>
+                            <View style={styles.alertComp3b}>
+                              <Text style={{ color: '#777' }}>{item.month} {item.day}</Text>
+                            </View>
+                          </View>
+
+                        </View>
+
+                      </TouchableOpacity>
+                    </MotiView>
+                  )
+                }}
+              />
+            </View>
+          </View>
+        ) : (
+          <View>
+            <Text>Garbage Pickup</Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -15,8 +273,174 @@ export default Notifications;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor:Colors.bg,
+    backgroundColor: 'white',
   },
+  cornerDot: {
+    backgroundColor: 'grey',
+    position: 'absolute',
+    zIndex: 2,
+    right: 12,
+    top: 8,
+    height: 8,
+    width: 8,
+    borderRadius: 5
+  },
+  comp1: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginTop: 46
+  },
+  filter: {
+    position: 'absolute',
+    right: 20
+  },
+  comp1Text: {
+    fontFamily: 'SF-Pro-Rounded-Bold',
+    fontSize: 18
+  },
+  comp2: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: 8,
+    marginBottom: 8,
+    paddingHorizontal: 10,
+    // backgroundColor:'green'
+  },
+  comp2a: {
+    width: 160,
+    height: 38,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#52a2e7',
+    borderWidth: 0.4,
+    borderRadius: 10
+  },
+  multiselectMenu: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: '#52a2e7',
+    marginLeft: 16,
+    backgroundColor: 'white',
+    width: SCREEN_WIDTH / 1.09,
+    shadowColor: '#52a2e7',
+    elevation: 5
+  },
+  multiselectComp: {
+    width: 92,
+    height: 26,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+    margin: 4,
+    borderWidth: 1,
+    borderColor: '#52a2e7',
+    borderRadius: 5
+  },
+  alertItemContainer:
+  {
+    width: SCREEN_WIDTH / 1.1,
+    height: SCREEN_HEIGHT / 11,
+    marginLeft: 17,
+    marginTop: 0,
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    // backgroundColor:'white',
+    padding: 20,
+    shadowColor: 'grey',
+    elevation: 10
+  },
+  alertImg: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50
+  },
+  alertImg1: {
+    width: 40,
+    margin: 9,
+    height: 40
+  },
+  alertComp2: {
+    flexDirection: 'row',
+    marginTop: 6
+  },
+  alertComp2a: {
+    fontSize: 14,
+    marginTop: -10,
+    marginRight: 4,
+    fontFamily: 'SF-Pro-Rounded-Bold',
+  },
+  alertComp2b: {
+    height: 5,
+    width: 5,
+    borderRadius: 5
+  },
+  alertComp2c: {
+    fontSize: 14,
+    marginTop: -10,
+    marginLeft: 4,
+    fontFamily: 'SF-Pro-Rounded-Bold',
+    color: '#89889D'
+  },
+  alertComp2d: {
+    fontSize: 10,
+    marginTop: -6,
+    marginLeft: 3,
+    fontFamily: 'SF-Pro-Rounded-Bold',
+    color: '#89889D'
+  },
+  alertComp2e: {
+    fontSize: 20,
+    marginTop: -12,
+    fontFamily: 'SF-Pro-Rounded-Bold',
+    color: 'grey'
+  },
+  alertComp3: {
+    marginLeft: 50,
+    height: 60,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'flex-end'
+  },
+  alertComp3a: {
+    color: '#777',
+    marginLeft: 50
+  },
+  alertComp3b: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  filterMenu: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  filterComp: {
+    width: '70%',
+    height: 200,
+    borderRadius: 15,
+    backgroundColor: '#fff',
+    borderEndWidth: 5,
+    borderTopWidth: 5,
+    borderColor: '#52a2e7'
+  },
+  filterComp1: {
+    width: '100%',
+    height: 40,
+    borderBottomWidth: 0.2,
+    borderBottomColor: '#52a2e7',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  filterComp1Text: {
+    fontFamily: 'SF-Pro-Rounded-Bold',
+    color: '#52a2e7'
+  }
 });
