@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   menucontainer: {
     flexDirection: 'row',
     position: 'absolute',
-    top: width / 11.7,
-    left: 5,
+    top: height / 23.67,
+    left: width / 39.1,
     zIndex: 1,
     margin: width / 19.55,
   },

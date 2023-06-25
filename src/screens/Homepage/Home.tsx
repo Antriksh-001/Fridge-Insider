@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View, TextInput, Pressable } from 'react-native';
-import { MotiView, MotiScrollView } from 'moti';
+import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View, TextInput } from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
+import { MotiView } from 'moti';
 import { MotiPressable } from 'moti/interactions';
 import Svginserter from '../../components/shared/Svginserter';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
-import { set } from 'react-native-reanimated';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
@@ -24,6 +24,7 @@ const Home = (props) => {
     const [profile, setProfile] = useState(false);
     const [name, setname] = useState('Antriksh');
     const [temp, setTemp] = useState('');
+    const [List, onChangeList] = useState('Recent');
     const [data1, setData1] = useState([]);
     const [oldData, setOldData] = useState([]);
     const [search, setSearch] = useState('');
@@ -34,6 +35,7 @@ const Home = (props) => {
         setOldData(menus);
     }, []);
 
+    console.log(List);;
 
     const onSearch = text => {
         if (text == '') {
@@ -48,329 +50,350 @@ const Home = (props) => {
     }
 
     return (
-        <MotiScrollView style={[styles.container]}
+        <MotiView style={[styles.container]}
             from={{ borderRadius: 0 }}
             animate={{ borderRadius: props.showMenu ? 35 : 0 }}
-            transition={props.showMenu ? { type: 'timing', duration: 100 } : { type: 'timing', duration: 650 }}>
-
-            <View style={styles.header}>
-                <View style={styles.profileAvatarBox}>
-                    <MotiPressable onPress={() => { console.log('Clicked on Profile') }}
-                        from={{ scale: 1 }}
-                        animate={({ pressed }) => {
-                            'worklet'
-                            return {
-                                scale: pressed ? 0.9 : 1,
-                            }
-                        }}>
-                        <View style={styles.profileAvatar}>
-                            {profile ? <Image source={require('../../../assets/images/tomato.png')} style={{ width: 40, height: 40 }} /> : <Svginserter tag={'UserProfileDefault'} width={30} height={30} />}
-                        </View>
-                    </MotiPressable>
-                </View>
-
-                <View style={styles.WelcomeHeaderBox}>
-                    <View style={styles.WelcomeBox}>
-                        <Text style={styles.WelcomeHeaderTxt}>Hi {name}!</Text>
-                    </View>
-                    <View style={styles.SearchBox}>
-                        <View style={styles.SearchHeaderBox}>
-                            <Text style={styles.SearchHeaderTxt}>Search for the food item of your interest</Text>
-                        </View>
-                        <View style={styles.SearchInputBox}>
-                            <View>
-                                <Text style={styles.SearchInputHeadingTxt}>Search</Text>
-                            </View>
-                            <View>
-                                <TextInput
-                                    style={styles.SearchInput}
-                                    onChangeText={setTemp}
-                                    value={temp}
-                                    placeholder=""
-                                    keyboardType="email-address"
-                                    cursorColor={Colors.text_dark2}
-                                    autoFocus={false} >
-                                </TextInput>
-                            </View>
-                            <View style={styles.SearchIconBox}>
-                                <Svginserter tag={'SearchIcon'} width={width / 16.2} height={width / 16.2} />
-                            </View>
-                        </View>
-                        <View style={styles.underline} />
-                    </View>
-                </View>
-                <View style={styles.shadow}/>
-            </View>
-
-            <View style={styles.mainContent}>
-                {/* DailyFoodDiscoveries, Tasty Insights, Food Insights
-                <View style={styles.FoodFactsHeader}>
-                    <View style={styles.FoodFactsHeading}>
-                        <Text style={styles.FoodFactsHeadingTxt}>Daily Food Fact</Text>
-                    </View>
-                </View> */}
-            </View>
-
-
-
-
-
-
-
-
-
-
-            {/* 1st header and search */}
-            {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
-        <View>
-          <Text style={{ fontSize: 20, fontFamily: 'SF-Pro-Rounded-Bold', marginLeft: 20, marginTop: 5, color: 'rgba(0,0,0,0.50)' }}>Reminder</Text>
-        </View>
-
-        <View style={{ width: 160, height: 30, borderRadius: 20, borderWidth: 0.4, flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 10 }}>
-          <Image source={require('../../../assets/images/search.png')} style={{ height: 18, width: 18, marginLeft: 6, opacity: 0.5 }} />
-          <TextInput ref={searchRef} placeholder="Search Items" style={{ marginLeft: 5 }} value={search} onChangeText={txt => { onSearch(txt); setSearch(txt); }} />
-          {search == '' ? null : (
-            <TouchableOpacity
-              style={{ marginLeft: 20 }}
-              onPress={() => {
-                // searchRef.current.clear();
-                onSearch('');
-                setSearch('');
-              }}
+            transition={props.showMenu ? { type: 'timing', duration: 100 } : { type: 'timing', duration: 650 }}
+        >
+            <MotiView style={styles.profileAvatarBox}
+                from={{ borderRadius: 0 }}
+                animate={{ borderTopLeftRadius: props.showMenu ? 35 : 0 }}
+                transition={props.showMenu ? { type: 'timing', duration: 100 } : { type: 'timing', duration: 650 }}
             >
-              <Image
-                source={require('../../../assets/images/close.png')}
-                style={{ width: 16, height: 16, opacity: 0.5 }}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-      </View> */}
-            {/* {data1.length == 0 ?
-        (<View style={{ marginLeft: 20 }}><Text>No Search Found</Text></View>) : (
-
-          <View style={{ marginLeft: 0 }}>
-            <FlatList
-              horizontal
-              data={data1}
-              renderItem={({ item, index }) => {
-                let color1: string;
-                { item.expire <= '2' ? color1 = 'red' : color1 = 'orange' }
-
-                return (
-                  <MotiView
-                    from={{ opacity: 0, translateX: -40 }}
-                    animate={{ opacity: 1, translateX: 0 }}
-                    transition={{ delay: index * 200 }}
-                  >
-                    <TouchableOpacity style={{
-                      width: SCREEN_WIDTH / 3.6,
-                      height: SCREEN_HEIGHT / 6,
-                      marginLeft: 16,
-                      marginTop: 36,
-                      marginBottom: 16,
-                      backgroundColor: 'white',
-                      borderRadius: 30,
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      shadowColor: '#213a7c',
-                      elevation: 10
+                <MotiPressable onPress={() => { console.log('Clicked on Profile') }}
+                    from={{ scale: 1 }}
+                    animate={({ pressed }) => {
+                        'worklet'
+                        return {
+                            scale: pressed ? 0.9 : 1,
+                        }
                     }}>
-                      <View style={{ position: 'absolute', top: -28, backgroundColor: Colors.bg, shadowColor: '#213a7c', elevation: 8, padding: 40, borderRadius: 100 }}>
-                        <Image source={item.image} style={{ width: 60, position: 'absolute', margin: 9, height: 60 }} />
-                      </View>
-                      <Text style={{ fontSize: 22, marginTop: 50, fontFamily: 'SF-Pro-Rounded-Bold', color: 'grey' }}>{item.title}</Text>
-                      <View style={{ flexDirection: 'row' }}>
-                        <View style={{ backgroundColor: color1, height: 8, width: 8, borderRadius: 5 }}></View>
-                        <Text style={{ fontSize: 14, marginTop: -10, marginLeft: 4, fontFamily: 'SF-Pro-Rounded-Bold', color: '#89889D' }}>{item.expire}</Text>
-                        <Text style={{ fontSize: 10, marginTop: -6, marginLeft: 3, fontFamily: 'SF-Pro-Rounded-Bold', color: '#89889D' }}>{item.expire == '1' ? 'day' : 'days'} left</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </MotiView>
-                )
-              }}
-            />
-          </View>)
-      } */}
+                    <View style={styles.profileAvatar}>
+                        {profile ? <Image source={require('../../../assets/images/tomato.png')} style={{ width: 40, height: 40 }} /> : <Svginserter tag={'UserProfileDefault'} width={30} height={30} />}
+                    </View>
+                </MotiPressable>
+            </MotiView>
 
-            {/* 2nd header and search */}
-            {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
-        <View>
-          <Text style={{ fontSize: 20, fontFamily: 'SF-Pro-Rounded-Bold', marginLeft: 20, color: 'rgba(0,0,0,0.50)' }}>Favourite Items</Text>
-        </View>
-        <View style={{ width: 160, height: 30, borderRadius: 20, borderWidth: 0.4, flexDirection: 'row', alignItems: 'center', marginTop: 5, marginRight: 10 }}>
-          <Image source={require('../../../assets/images/search.png')} style={{ height: 18, width: 18, marginLeft: 6, opacity: 0.5 }} />
-          <TextInput ref={searchRef} placeholder="Search Items" style={{ marginLeft: 5 }} value={search} onChangeText={txt => { onSearch(txt); setSearch(txt); }} />
-          {search == '' ? null : (
-            <TouchableOpacity
-              style={{ marginLeft: 20 }}
-              onPress={() => {
-                // searchRef.current.clear();
-                onSearch('');
-                setSearch('');
-              }}
-            >
-              <Image
-                source={require('../../../assets/images/close.png')}
-                style={{ width: 16, height: 16, opacity: 0.5 }}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-      </View>
-      {data1.length == 0 ?
-        (<View style={{ marginLeft: 20 }}><Text>No Search Found</Text></View>) : (
-          <View style={{ height: SCREEN_HEIGHT / 2.07, width: SCREEN_WIDTH }}>
-            <FlatList
-              horizontal
-              data={data1}
-              renderItem={({ item, index }) => {
-                return (
-                  <MotiView
-                    from={{ opacity: 0, translateX: -40 }}
-                    animate={{ opacity: 1, translateX: 0 }}
-                    transition={{ delay: index * 200 }}
-                  >
-                    <TouchableOpacity style={{
-                      width: SCREEN_WIDTH / 3.6,
-                      height: SCREEN_HEIGHT / 6,
-                      marginLeft: 16,
-                      marginTop: 36,
-                      backgroundColor: 'white',
-                      borderRadius: 30,
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      shadowColor: '#213a7c',
-                      elevation: 10
-                    }}
-                    >
-                      <View style={{ position: 'absolute', top: -28, backgroundColor: Colors.bg, shadowColor: '#213a7c', elevation: 8, padding: 40, borderRadius: 100 }}>
-                        <Image source={item.image} style={{ width: 60, position: 'absolute', margin: 9, height: 60 }} />
-                      </View>
-                      <Text style={{ fontSize: 22, marginTop: 50, fontFamily: 'SF-Pro-Rounded-Bold', color: 'grey' }}>{item.title}</Text>
-                      <Text style={{ fontSize: 14, marginTop: -10, fontFamily: 'SF-Pro-Rounded-Bold', color: '#e51153' }}>{item.cnt} {item.cnt == 1 ? 'Item' : 'Items'}</Text>
-                    </TouchableOpacity>
-                  </MotiView>
-                )
-              }}
-            />
-          </View>
-        )
-      } */}
-        </MotiScrollView>
+            <MotiView style={styles.mainContainer}>
+                <View style={styles.header}>
+                    <View style={styles.WelcomeHeaderBox}>
+                        <View style={styles.WelcomeBox}>
+                            <View>
+                                <Text style={styles.WelcomeHeaderTxt}>Hi {name}!</Text>
+                            </View>
+                            <View style={styles.WelcomeSubHeaderBox}>
+                                <Text style={styles.WelcomeSubHeaderTxt}>Welcome back</Text>
+                            </View>
+                        </View>
+                        <View style={styles.Search_FilterContainer}>
+                            <View style={styles.SearchBox}>
+                                <View style={styles.SearchIconBox}>
+                                    <Svginserter tag={'SearchIcon'} width={width / 16.2} height={width / 16.2} />
+                                </View>
+                                <View>
+                                    <TextInput
+                                        style={styles.SearchInput}
+                                        onChangeText={setTemp}
+                                        value={temp}
+                                        placeholder="Search food item"
+                                        keyboardType="email-address"
+                                        cursorColor={Colors.palette_secondary}
+                                        autoFocus={false} >
+                                    </TextInput>
+                                </View>
+                            </View>
+                            <View>
+                                <TouchableOpacity activeOpacity={0.5} style={styles.FilterIconBox} onPress={() => { console.log('Clicked on Filter') }}
+                                >
+                                    <Svginserter tag={'FilterIcon'} width={width / 16.2} height={width / 16.2} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+
+                <View style={styles.mainContent}>
+                    <View style={styles.FactoidHeader}>
+                        <View style={styles.Factoidheading}>
+                            <Text style={styles.FactoidHeadingTxt}>Trending factoid</Text>
+                        </View>
+                        {/* factoid Component starts */}
+                        {/* Use Horizontal List Here and use this Component for Items. */}
+                        {/* I will do the designing */}
+                        <View style={styles.FactContainer}>
+                            <LinearGradient colors={['#f9a236', '#df7325']} locations={[0, 0.8]} style={styles.FactBox}>
+                                <View style={{ paddingLeft: 30 }}>
+                                    <View style={styles.FactheadingBox}>
+                                        <Text style={styles.Factheading}>ARTICLE</Text>
+                                    </View>
+                                    <View style={styles.FactContentBox}>
+                                        <Text style={styles.FactContentTxt}>Discover the health benefits of 60 Kiwi species.</Text>
+                                    </View>
+                                    <TouchableOpacity
+                                        activeOpacity={0.6}
+                                        style={styles.FactBtn}
+                                        onPress={() => { console.log('Clicked on Trending Read Now') }} >
+                                        <View>
+                                            <Text style={styles.FactBtnTitle}>Read Now</Text>
+                                        </View>
+                                        <View>
+                                            <Svginserter tag={'ArrowRight'} width={24} height={24} />
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </LinearGradient>
+                            <View style={styles.FactImageBox}>
+                                <Image source={require('../../../assets/images/kiwi_illustration.png')} style={styles.FactImage} />
+                            </View>
+                        </View>
+                        {/* factoid Component ends */}
+                    </View>
+                    <View style={styles.ListContainer}>
+                        <View style={styles.ListOptions}>
+                            <MotiPressable style={{ padding: 10, paddingLeft: 20 }} onPress={() => { onChangeList('Recent') }}
+                                from={{ scale: 1, opacity: 1 }}
+                                animate={({ pressed }) => {
+                                    'worklet'
+                                    return {
+                                        scale: pressed ? 0.95 : 1,
+                                        opacity: pressed ? 0.5 : 1,
+                                    }
+                                }}
+                                transition={{ type: 'timing', duration: 100 }}
+                            >
+                                <Text style={styles.ListHeaderTxt}>Recent</Text>
+                            </MotiPressable>
+                            <View style={styles.Sectiondivider} />
+                            <MotiPressable style={{ padding: 10 }} onPress={() => { onChangeList('NearExpiry') }}
+                                from={{ scale: 1, opacity: 1 }}
+                                animate={({ pressed }) => {
+                                    'worklet'
+                                    return {
+                                        scale: pressed ? 0.95 : 1,
+                                        opacity: pressed ? 0.5 : 1,
+                                    }
+                                }}
+                                transition={{ type: 'timing', duration: 100 }}
+                            >
+                                <Text style={styles.ListHeaderTxt}>Near Expiry</Text>
+                            </MotiPressable>
+                            <View style={styles.Sectiondivider} />
+                            <MotiPressable style={{ padding: 10, paddingRight: 20 }} onPress={() => { onChangeList('Expired') }}
+                                from={{ scale: 1, opacity: 1 }}
+                                animate={({ pressed }) => {
+                                    'worklet'
+                                    return {
+                                        scale: pressed ? 0.95 : 1,
+                                        opacity: pressed ? 0.5 : 1,
+                                    }
+                                }}
+                                transition={{ type: 'timing', duration: 100 }}
+                            >
+                                <Text style={styles.ListHeaderTxt}>Expired</Text>
+                            </MotiPressable>
+                        </View>
+                        {/* Make a Component Separately for better code Structure and less headache */}
+                    </View>
+                </View>
+            </MotiView>
+        </MotiView>
+
     );
 };
 
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingHorizontal: 27,
+        height: '100%',
         backgroundColor: Colors.white,
     },
     header: {
         height: height * 0.3,
     },
     profileAvatarBox: {
-        flex: 0.3,
+        width: width,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-        paddingRight: 10,
-        paddingTop: 24,
+        position: 'absolute',
+        zIndex: 1000,
+        paddingRight: width / 8.68,
+        paddingTop: height / 15.86,
+        paddingBottom: height / 79.3,
+        backgroundColor: Colors.white,
     },
     profileAvatar: {
-        width: 40,
-        height: 40,
+        width: width / 9.775,
+        height: width / 9.775,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,
-        // backgroundColor: '#ffc200',
         backgroundColor: Colors.bg,
         shadowColor: 'black',
         elevation: 4,
     },
+    mainContainer: {
+        height: height,
+    },
     WelcomeHeaderBox: {
-        flex: 0.7,
+        paddingHorizontal: width / 14.48,
+        paddingTop: height / 9.913,
     },
     WelcomeBox: {
-        flex: 0.5,
-        justifyContent: 'flex-end',
+        paddingTop: height / 52.87,
+        paddingLeft: width / 78.2,
+    },
+    WelcomeSubHeaderBox: {
+        position: 'relative',
+        bottom: width / 28,
     },
     WelcomeHeaderTxt: {
-        fontSize: 35,
+        fontSize: width / 10.3,
         fontFamily: 'SF-Pro-Rounded-Semibold',
-        color: Colors.text_dark,
+        color: Colors.palette_secondary,
         letterSpacing: 0.5,
     },
-    SearchBox: {
-        flex: 0.5,
+    WelcomeSubHeaderTxt: {
+        fontSize: width / 21.72,
+        fontFamily: 'SF-Pro-Rounded-Medium',
+        color: Colors.palette_gray_dark,
     },
-    SearchHeaderBox: {
-        flex: 0.3,
-        position: 'relative',
-        bottom: 10,
-    },
-    SearchHeaderTxt: {
-        fontSize: 16,
-        fontFamily: 'SF-Pro-Rounded-Semibold',
-        color: Colors.medium_gray,
-        // color: 'rgba(0,0,0,0.50)',
-        letterSpacing: 0.4,
-    },
-    SearchInputBox: {
-        flex: 0.7,
+    Search_FilterContainer: {
+        height: width / 6.98,
         flexDirection: 'row',
         alignItems: 'center',
-        position: 'relative',
-        top: 10,
-        width: '100%',
     },
-    SearchInputHeadingTxt: {
-        fontSize: 19,
-        fontFamily: 'SF-Pro-Text-Medium',
-        color: Colors.text_dark2,
-        paddingRight: 8,
-    },
-    SearchInput: {
-        width: width / 1.8,
-        fontSize: 15,
-        color: Colors.medium_gray,
+    SearchBox: {
+        width: width / 1.6,
+        height: width / 7,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 12,
+        marginLeft: width / 78.2,
+        marginRight: width / 15.64,
+        backgroundColor: Colors.palette_white,
     },
     SearchIconBox: {
+        paddingHorizontal: width / 39.1,
+    },
+    SearchInputBox: {
+        width: '80%',
+        height: width / 7.24,
+        justifyContent: 'center',
         paddingLeft: width / 39.1,
     },
-    underline: {
-        position: 'relative',
-        top: 2,
-        height: 2,
-        width: '96%',
-        borderRadius: 10,
-        backgroundColor: Colors.text_dark2,
+    SearchInput: {
+        fontSize: width / 21.72,
+        fontFamily: 'SF-Pro-Rounded-Medium',
+        color: Colors.palette_gray_dark,
+        letterSpacing: 0.4,
+        width: width / 2.11,
+        height: width / 7,
     },
-    shadow: {
-        height: 0.07,
-        width: '94%',
-        alignSelf: 'center',
-        position: 'relative',
-        top: 5,
-        right: 5,
-        backgroundColor: Colors.white,
-        shadowColor: 'rgba(0,0,0,0.80)',
-        elevation: 6,
+    FilterIconBox: {
+        padding: width / 24.438,
+        borderRadius: 12,
+        backgroundColor: Colors.palette_secondary,
     },
     mainContent: {
-        height: height * 0.7,
+        height: '100%',
+        marginHorizontal: width / 65.17,
+        paddingHorizontal: width / 14.5,
     },
-    FoodFactsHeading: {
-        paddingTop: 30,
+    FactoidHeader: {
+        marginLeft: width / 78.2,
     },
-    FoodFactsHeadingTxt: {
-        fontSize: 30,
-        color: Colors.text_dark,
-        fontFamily: 'SF-Pro-Text-Heavy',
-        letterSpacing: 0.5,
+    Factoidheading: {
+        paddingTop: height / 19.825,
+    },
+    FactoidHeadingTxt: {
+        fontSize: width / 17,
+        color: Colors.palette_secondary,
+        fontFamily: 'SF-Pro-Rounded-Semibold',
+        letterSpacing: 0.4,
+    },
+    FactContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        maxHeight: 300,
+        marginTop: height / 79.3,
+        borderRadius: 25,
+        backgroundColor: Colors.palette_white,
+        shadowColor: Colors.palette_secondary,
+        elevation: 6,
+    },
+    FactBox: {
+        flex: 0.6,
+        height: '100%',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        backgroundColor: Colors.palette_primary,
+        borderTopLeftRadius: 25,
+        borderBottomLeftRadius: 25,
+    },
+    FactheadingBox: {
+        paddingBottom: width / 78.2,
+    },
+    Factheading: {
+        color: Colors.palette_white,
+        fontFamily: 'SF-Pro-Rounded-Semibold',
+        fontSize: width / 24.4375,
+        letterSpacing: 1.4,
+    },
+    FactContentBox: {
+        paddingRight: width / 39.1,
+    },
+    FactContentTxt: {
+        color: Colors.palette_secondary,
+        fontFamily: 'SF-Pro-Rounded-Medium',
+        fontSize: width / 21.72,
+    },
+    FactBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+        paddingVertical: width / 49.875,
+        paddingHorizontal: width / 26.1,
+        borderRadius: 8,
+        backgroundColor: 'rgba(255,255,255,0.6)',
+    },
+    FactBtnTitle: {
+        color: Colors.palette_white,
+        fontSize: width / 24.438,
+        fontFamily: 'SF-Pro-Rounded-Semibold',
+    },
+    FactImageBox: {
+        flex: 0.4,
+        alignItems: 'center',
+    },
+    FactImage: {
+        width: width / 2.589,
+        height: width / 2.429,
+    },
+    ListContainer: {
+        height: height * 0.4,
+        paddingTop: height / 39.65,
+        marginLeft: width / 78.2,
+    },
+    ListOptions: {
+        flexDirection: 'row',
+        width: '100%',
+        height: width / 8.69,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        borderRadius: 12,
+        backgroundColor: 'rgba(0,0,0,0.1)',
+    },
+    ListHeaderTxt: {
+        fontSize: width / 26.06,
+        color: Colors.palette_secondary,
+        fontFamily: 'SF-Pro-Text-Semibold',
+        opacity: 0.7,
+    },
+    Sectiondivider: {
+        width: 1,
+        height: width / 15.64,
+        backgroundColor: 'rgba(0,0,0,0.35)',
     },
 });
 

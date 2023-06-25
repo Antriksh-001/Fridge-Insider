@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
             width: width / 8.31,
             height: width / 8.31,
             borderRadius: width / 26.07,
-            backgroundColor: Colors.body_light2,
+            backgroundColor: Colors.palette_secondary,
       },
       iconContainerBox: {
             borderRadius: 15,

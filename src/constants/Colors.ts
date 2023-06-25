@@ -13,5 +13,9 @@ const Colors = {
   text_dark2: '#247BC6',
   text_gray_light: '#B2B2B2',
   blur: 'rgba(10,25,30,0.23)',
+  palette_primary: '#52a2e7',
+  palette_secondary: '#121212',
+  palette_gray_dark: '#9DA5C1',
+  palette_white: '#FFFFFF',
 };
 export {Colors};

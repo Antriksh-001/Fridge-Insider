@@ -10,28 +10,34 @@ const SVGComponent = (props) => (
             {...props}
       >
             <Path
-                  d="M5 19.2V4.8C5 3.80589 5.72754 3 6.62499 3H16.375C17.2724 3 18 3.80589 18 4.8V19.2C18 20.1941 17.2724 21 16.375 21H6.625C5.72754 21 5 20.1941 5 19.2Z"
-                  fill="#52a2e7"
-                  stroke="#52a2e7"
+                  d="M15.7161 16.2234H8.49609"
+                  stroke="#121212"
+                  strokeWidth={1.5}
                   strokeLinecap="round"
+                  strokeLinejoin="round"
             />
             <Path
-                  d="M5.18994 9L17.7999 9"
-                  stroke="#F2F2F2"
-                  strokeWidth={1.4}
-                  strokeLinecap="square"
+                  d="M15.7161 12.0369H8.49609"
+                  stroke="#121212"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
             />
             <Path
-                  d="M8.19629 12V15.6602"
-                  stroke="#F2F2F2"
-                  strokeWidth={1.4}
+                  d="M11.2511 7.86008H8.49609"
+                  stroke="#121212"
+                  strokeWidth={1.5}
                   strokeLinecap="round"
+                  strokeLinejoin="round"
             />
             <Path
-                  d="M8.19629 5.59467V6.50997"
-                  stroke="#F2F2F2"
-                  strokeWidth={1.4}
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M15.9085 2.74979C15.9085 2.74979 8.23149 2.75379 8.21949 2.75379C5.45949 2.77079 3.75049 4.58679 3.75049 7.35679V16.5528C3.75049 19.3368 5.47249 21.1598 8.25649 21.1598C8.25649 21.1598 15.9325 21.1568 15.9455 21.1568C18.7055 21.1398 20.4155 19.3228 20.4155 16.5528V7.35679C20.4155 4.57279 18.6925 2.74979 15.9085 2.74979Z"
+                  stroke="#121212"
+                  strokeWidth={1.5}
                   strokeLinecap="round"
+                  strokeLinejoin="round"
             />
       </Svg>
 );

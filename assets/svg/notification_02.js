@@ -1,5 +1,5 @@
 import * as React from "react";
-import Svg, { G, Mask, Path, Defs, ClipPath, Rect } from "react-native-svg";
+import Svg, { G, Path } from "react-native-svg";
 const SVGComponent = (props) => (
       <Svg
             width={24}
@@ -9,32 +9,16 @@ const SVGComponent = (props) => (
             xmlns="http://www.w3.org/2000/svg"
             {...props}
       >
-            <G clipPath="url(#clip0_396_2569)">
-                  <Mask
-                        id="mask0_396_2569"
-                        style={{
-                              maskType: "luminance",
-                        }}
-                        maskUnits="userSpaceOnUse"
-                        x={0}
-                        y={0}
-                        width={24}
-                        height={24}
-                  >
-                        <Path d="M24 0H0V24H24V0Z" fill="white" />
-                  </Mask>
-                  <G mask="url(#mask0_396_2569)">
-                        <Path
-                              d="M10.01 21.01C10.01 22.11 10.9 23 12 23C13.1 23 13.99 22.11 13.99 21.01H10.01ZM18.88 16.82V11C18.88 7.75 16.63 5.03 13.59 4.31V3.59C13.59 2.71 12.88 2 12 2C11.12 2 10.41 2.71 10.41 3.59V4.31C7.37 5.03 5.12 7.75 5.12 11V16.82L3 18.94V20H21V18.94L18.88 16.82Z"
-                              fill="white"
-                        />
-                  </G>
+            <G id="Communication / Bell">
+                  <Path
+                        id="Vector"
+                        d="M15 17V18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18V17M15 17H9M15 17H18.5905C18.973 17 19.1652 17 19.3201 16.9478C19.616 16.848 19.8475 16.6156 19.9473 16.3198C19.9997 16.1643 19.9997 15.9715 19.9997 15.5859C19.9997 15.4172 19.9995 15.3329 19.9863 15.2524C19.9614 15.1004 19.9024 14.9563 19.8126 14.8312C19.7651 14.7651 19.7048 14.7048 19.5858 14.5858L19.1963 14.1963C19.0706 14.0706 19 13.9001 19 13.7224V10C19 6.134 15.866 2.99999 12 3C8.13401 3.00001 5 6.13401 5 10V13.7224C5 13.9002 4.92924 14.0706 4.80357 14.1963L4.41406 14.5858C4.29476 14.7051 4.23504 14.765 4.1875 14.8312C4.09766 14.9564 4.03815 15.1004 4.0132 15.2524C4 15.3329 4 15.4172 4 15.586C4 15.9715 4 16.1642 4.05245 16.3197C4.15225 16.6156 4.3848 16.848 4.68066 16.9478C4.83556 17 5.02701 17 5.40956 17H9"
+                        stroke="white"
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                  />
             </G>
-            <Defs>
-                  <ClipPath id="clip0_396_2569">
-                        <Rect width={24} height={24} fill="white" />
-                  </ClipPath>
-            </Defs>
       </Svg>
 );
 export default SVGComponent;
