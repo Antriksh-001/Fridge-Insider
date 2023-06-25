@@ -4,7 +4,7 @@ import HomeNavigator from '../../containers/HomeNavigator';
 import Drawer from '../drawer';
 import Svginserter from '../../components/shared/Svginserter';
 import { MotiView } from 'moti';
-import { Colors } from '../../constants/Colors';
+// import { Colors } from '../../constants/Colors';
 import * as Screen from '../../constants/Screen';
 
 const width = Screen.SCREEN_WIDTH;

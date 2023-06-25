@@ -6,6 +6,7 @@ import { MotiPressable } from 'moti/interactions';
 import Svginserter from '../../components/shared/Svginserter';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
