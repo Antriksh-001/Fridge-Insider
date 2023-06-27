@@ -3,25 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { MotiView } from "moti";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
 import { Colors } from "../../constants/Colors";
+import Svginserter from "../../components/shared/Svginserter";
+import menus from "../../components/shared/temp_data";
 
-const menus = [
-  { id: '1', type: 'Fruit', title: 'Apple', cnt: '3', expire: '-1', day: '23', month: 'May', time: '13:30', msel: false, image: require('../../../assets/images/apple.png') },
-  { id: '2', type: 'Drink', title: 'Milk', cnt: '4', expire: '-2', day: '3', month: 'May', time: '15:30', msel: false, image: require('../../../assets/images/tomato.png') },
-  { id: '3', type: 'Fruit', title: 'Papaya', cnt: '1', expire: '3', day: '21', month: 'May', time: '14:30', msel: false, image: require('../../../assets/images/apple.png') },
-  { id: '4', type: 'Fruit', title: 'Tomato', cnt: '2', expire: '3', day: '13', month: 'May', time: '11:30', msel: false, image: require('../../../assets/images/tomato.png') },
-  { id: '5', type: 'Vegetable', title: 'Carrot', cnt: '1', expire: '-4', day: '2', month: 'May', time: '13:30', msel: false, image: require('../../../assets/images/apple.png') },
-  { id: '6', type: 'Vegetable', title: 'Potato', cnt: '5', expire: '6', day: '6', month: 'May', time: '12:30', msel: false, image: require('../../../assets/images/tomato.png') },
-  { id: '7', type: 'Fruit', title: 'Lemon', cnt: '1', expire: '7', day: '19', month: 'May', time: '11:30', msel: false, image: require('../../../assets/images/tomato.png') },
-  { id: '8', type: 'Fruit', title: 'Apple', cnt: '3', expire: '1', day: '16', month: 'May', time: '13:30', msel: false, image: require('../../../assets/images/apple.png') },
-  { id: '9', type: 'Drink', title: 'Milk', cnt: '4', expire: '-2', day: '13', month: 'May', time: '5:30', msel: false, image: require('../../../assets/images/tomato.png') },
-  { id: '10', type: 'Fruit', title: 'Papaya', cnt: '1', expire: '3', day: '15', month: 'May', time: '19:30', msel: false, image: require('../../../assets/images/apple.png') },
-  { id: '11', type: 'Fruit', title: 'Tomato', cnt: '2', expire: '-3', day: '24', month: 'May', time: '17:30', msel: false, image: require('../../../assets/images/tomato.png') },
-  { id: '12', type: 'Vegetable', title: 'Carrot', cnt: '1', expire: '4', day: '6', month: 'May', time: '14:30', msel: false, image: require('../../../assets/images/apple.png') },
-  { id: '13', type: 'Vegetable', title: 'Potato', cnt: '5', expire: '6', day: '8', month: 'May', time: '13:30', msel: false, image: require('../../../assets/images/tomato.png') },
-  { id: '14', type: 'Fruit', title: 'Lemon', cnt: '1', expire: '-7', day: '4', month: 'May', time: '8:30', msel: false, image: require('../../../assets/images/tomato.png') },
-]
-
-const Notifications = () => {
+const Notifications = (props) => {
   const [alert, setAlert] = useState(true);
   const [visible, setVisible] = useState(false);
   const [data1, setData1] = useState([]);
@@ -56,7 +41,11 @@ const Notifications = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <MotiView style={styles.container}
+    from={{ borderRadius: 0 }}
+    animate={{ borderRadius: props.showMenu ? 35 : 0 }}
+    transition={props.showMenu ? { type: 'timing', duration: 100 } : { type: 'timing', duration: 650 }}
+    >
 
       <View style={styles.comp1}>
         <Text style={styles.comp1Text}>Notification</Text>
@@ -100,7 +89,6 @@ const Notifications = () => {
             <TouchableOpacity style={styles.filterComp1}
               ref={searchRef}
               onPress={() => {
-
                 let tempdata = data2.filter((item) => item.expire <= 0)
                 setData1(tempdata);
                 setVisible(false);
@@ -194,7 +182,7 @@ const Notifications = () => {
         </View>
       )}
 
-      <View style={styles.container}>
+      <View style={styles.container1}>
         {alert == true ? (
           <View>
             <View>
@@ -204,7 +192,8 @@ const Notifications = () => {
                   let color1: string, fresh: string;
                   { item.expire <= '2' ? color1 = 'red' : color1 = 'orange' }
                   { item.expire <= '0' ? fresh = 'red' : fresh = 'green' }
-
+                  let lastMargin;
+                  {index == menus.length-1 ? lastMargin=60:lastMargin=0}
                   return (
                     <MotiView
                       from={{ opacity: 0, translateX: -40 }}
@@ -213,7 +202,7 @@ const Notifications = () => {
                       style={{ paddingTop: 10 }}
                     >
                       <View style={styles.cornerDot}></View>
-                      <TouchableOpacity style={[styles.alertItemContainer, { backgroundColor: item.msel == true ? '#e9f5f8' : 'white' }]}
+                      <TouchableOpacity style={[styles.alertItemContainer, {marginBottom:lastMargin, backgroundColor: item.msel == true ? '#e9f5f8' : 'white' }]}
                         onPress={() => (multiselect && onSelect(index))}
                         onLongPress={() => {
                           (!multiselect && onSelect(index)); setMultiselect(true)
@@ -258,13 +247,15 @@ const Notifications = () => {
               />
             </View>
           </View>
-        ) : (
+
+          ):(
+
           <View>
             <Text>Garbage Pickup</Text>
           </View>
         )}
       </View>
-    </View>
+    </MotiView>
   );
 };
 
@@ -274,6 +265,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  container1: {
+    flex: 1,
+    marginBottom:3.8,
   },
   cornerDot: {
     backgroundColor: 'grey',

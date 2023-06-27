@@ -30,7 +30,7 @@ export default function HomeNavigator(props) {
                               tabBarLabel: "Home",
                               title: "Home",
                         }} />
-                        <Tab.Screen name="Fridge" component={Fridge} options={{
+                        <Tab.Screen name="Fridge" children={() => <Fridge showMenu={props.showMenu} />} options={{
                               tabBarLabel: "Fridge",
                               title: "Fridge"
                         }} />
@@ -38,11 +38,11 @@ export default function HomeNavigator(props) {
                               tabBarLabel: "MenuWrapper",
                               title: "MenuWrapper"
                         }} />
-                        <Tab.Screen name="Notifications" component={Notifications} options={{
+                        <Tab.Screen name="Notifications" children={() => <Notifications showMenu={props.showMenu} />} options={{
                               tabBarLabel: "Notifications",
                               title: "Notifications"
                         }} />
-                        <Tab.Screen name="Profile" component={Profile} options={{
+                        <Tab.Screen name="Profile" children={() => <Profile showMenu={props.showMenu} />} options={{
                               tabBarLabel: "Profile",
                               title: "Profile"
                         }} />

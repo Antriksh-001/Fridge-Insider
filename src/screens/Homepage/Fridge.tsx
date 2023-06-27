@@ -4,6 +4,7 @@ import { Colors } from '../../constants/Colors';
 import { MotiView } from 'moti';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
 import { AntDesign } from '@expo/vector-icons';
+// import menus from '../../components/shared/temp_data';
 
 const menus = [
   {id : '1',type:'Fruit', title : 'Apple' , cnt : '3' ,expire : '1', image: require('../../../assets/images/apple.png')},
@@ -15,12 +16,16 @@ const menus = [
   {id : '7',type:'Fruit',title : 'Papaya', cnt : '1',expire : '7', image: require('../../../assets/images/tomato.png')},
 ]
 
-const Fridge = () => {
+const Fridge = (props) => {
   return (
-    <View style={styles.container}>
+    <MotiView style={styles.container}
+    from={{ borderRadius: 0 }}
+    animate={{ borderRadius: props.showMenu ? 35 : 0 }}
+    transition={props.showMenu ? { type: 'timing', duration: 100 } : { type: 'timing', duration: 650 }}
+     >
 
     {/* search bar  */}
-      <View style={{marginLeft:130,marginTop:6,marginBottom:10}}>
+      <View style={{marginLeft:130,marginTop:40,marginBottom:10}}>
         <View style={{width:220 , height:35 , borderRadius: 20 , borderWidth:0.4 , flexDirection:'row',alignItems:'center',marginTop:5,marginRight:10}}> 
             <Image source={require('../../../assets/images/search.png')} style={{height:20 , width:20, marginLeft:12,opacity:0.5}}/>
             <TextInput ref={undefined} placeholder="Search Items..." style={{marginLeft:10}} value={undefined} onChangeText={txt=>{}}/>
@@ -122,7 +127,7 @@ const Fridge = () => {
                   >
                   <TouchableOpacity style={{
                       width:SCREEN_WIDTH/1.12,
-                      height:SCREEN_HEIGHT/8,
+                      height:SCREEN_HEIGHT/10,
                       marginLeft:8,
                       marginTop:0,
                       marginBottom:lastMargin,
@@ -135,7 +140,7 @@ const Fridge = () => {
                       shadowColor:'grey',
                       elevation:10
                   }}>
-                    <View style={{backgroundColor:'white',alignItems:'center',justifyContent:'center', width:80,height:80}}>
+                    <View style={{backgroundColor:'white',alignItems:'center',justifyContent:'center', width:50,height:50}}>
                       <Image source={item.image} style={{width:50 ,margin:9, height:50 }}/>
                     </View>
 
@@ -161,9 +166,9 @@ const Fridge = () => {
                   </MotiView> 
                 )}}
           />
-        </View>
+      </View>
     </ScrollView>  
-    </View>
+    </MotiView>
 
   );
 };
@@ -174,7 +179,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    // top:35
     // Bottom:60
   },
 });

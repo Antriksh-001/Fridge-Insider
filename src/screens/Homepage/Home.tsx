@@ -1,54 +1,86 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View, TextInput } from 'react-native';
-import { LinearGradient } from "expo-linear-gradient";
+import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View, TextInput, Animated } from 'react-native';
 import { MotiView } from 'moti';
 import { MotiPressable } from 'moti/interactions';
 import Svginserter from '../../components/shared/Svginserter';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
+import menus from '../../components/shared/temp_data';
+import Recent from '../../components/Home/Recent';
+import { ScrollView } from 'react-native-gesture-handler';
+import Near_expiry from '../../components/Home/Near_expiry';
+import Expired from '../../components/Home/Expired';
+import Factoid from '../../components/Home/Factoid';
+import Pagination from '../../components/Home/Pagination';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-const menus = [
-    { id: '1', type: 'fruit', title: 'Apple', cnt: '3', expire: '1', image: require('../../../assets/images/apple.png') },
-    { id: '2', type: 'drink', title: 'Milk', cnt: '4', expire: '2', image: require('../../../assets/images/tomato.png') },
-    { id: '3', type: 'fruit', title: 'Papaya', cnt: '1', expire: '3', image: require('../../../assets/images/apple.png') },
-    { id: '4', type: 'vegetable', title: 'Tomato', cnt: '2', expire: '3', image: require('../../../assets/images/tomato.png') },
-    { id: '5', type: 'fruit', title: 'Apple', cnt: '1', expire: '4', image: require('../../../assets/images/apple.png') },
-    { id: '6', type: 'vegetable', title: 'Potato', cnt: '5', expire: '6', image: require('../../../assets/images/tomato.png') },
-    { id: '7', type: 'fruit', title: 'Papaya', cnt: '1', expire: '7', image: require('../../../assets/images/tomato.png') },
+let fact_data = [
+    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
 ]
 
-const Home = (props) => {
+const Home = (props: { showMenu: any; }) => {
     const [profile, setProfile] = useState(false);
-    const [name, setname] = useState('Antriksh');
+    const [name, setname] = useState('Sajal ');
     const [temp, setTemp] = useState('');
-    const [List, onChangeList] = useState('Recent');
+    // const [List, onChangeList] = useState('Recent');
     const [data1, setData1] = useState([]);
-    const [oldData, setOldData] = useState([]);
-    const [search, setSearch] = useState('');
-    const searchRef = useRef();
+    // const [oldData, setOldData] = useState([]);
+    const [switching , setSwitching] = useState('1');
+    // const [search, setSearch] = useState('');
+    // const searchRef = useRef();
 
     useEffect(() => {
         setData1(menus);
-        setOldData(menus);
+        // setOldData(menus);
     }, []);
 
-    console.log(List);;
+    // const onSearch = text => {
+    //     if (text == '') {
+    //         setData1(oldData);
+    //     }
+    //     else {
+    //         let tempList = menus.filter(item => {
+    //             return item.title.toLowerCase().indexOf(text.toLowerCase()) > -1;
+    //         })
+    //         setData1(tempList);
+    //     }
+    // }
 
-    const onSearch = text => {
-        if (text == '') {
-            setData1(oldData);
-        }
-        else {
-            let tempList = menus.filter(item => {
-                return item.title.toLowerCase().indexOf(text.toLowerCase()) > -1;
-            })
-            setData1(tempList);
-        }
-    }
+    // Pagination functions
+    const [index, setIndex] = useState(0);
+    const scrollX = useRef(new Animated.Value(0)).current;
+
+    const handleOnScroll = event => {
+    Animated.event(
+      [
+        {
+          nativeEvent: {
+            contentOffset: {
+              x: scrollX,
+            },
+          },
+        },
+      ],
+      {
+        useNativeDriver: false,
+      },
+    )(event);
+  };
+
+  const handleOnViewableItemsChanged = useRef(({viewableItems}) => {
+    // console.log('viewableItems', viewableItems);
+    setIndex(viewableItems[0].index);
+  }).current;
+
+  const viewabilityConfig = useRef({
+    itemVisiblePercentThreshold: 50,
+  }).current;
 
     return (
         <MotiView style={[styles.container]}
@@ -76,6 +108,7 @@ const Home = (props) => {
             </MotiView>
 
             <MotiView style={styles.mainContainer}>
+                <ScrollView>
                 <View style={styles.header}>
                     <View style={styles.WelcomeHeaderBox}>
                         <View style={styles.WelcomeBox}>
@@ -121,37 +154,25 @@ const Home = (props) => {
                         {/* factoid Component starts */}
                         {/* Use Horizontal List Here and use this Component for Items. */}
                         {/* I will do the designing */}
-                        <View style={styles.FactContainer}>
-                            <LinearGradient colors={['#f9a236', '#df7325']} locations={[0, 0.8]} style={styles.FactBox}>
-                                <View style={{ paddingLeft: 30 }}>
-                                    <View style={styles.FactheadingBox}>
-                                        <Text style={styles.Factheading}>ARTICLE</Text>
-                                    </View>
-                                    <View style={styles.FactContentBox}>
-                                        <Text style={styles.FactContentTxt}>Discover the health benefits of 60 Kiwi species.</Text>
-                                    </View>
-                                    <TouchableOpacity
-                                        activeOpacity={0.6}
-                                        style={styles.FactBtn}
-                                        onPress={() => { console.log('Clicked on Trending Read Now') }} >
-                                        <View>
-                                            <Text style={styles.FactBtnTitle}>Read Now</Text>
-                                        </View>
-                                        <View>
-                                            <Svginserter tag={'ArrowRight'} width={24} height={24} />
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </LinearGradient>
-                            <View style={styles.FactImageBox}>
-                                <Image source={require('../../../assets/images/kiwi_illustration.png')} style={styles.FactImage} />
-                            </View>
-                        </View>
+                        <FlatList 
+                         data={fact_data}
+                         renderItem={({item})=> <Factoid item={item}/>}
+                         horizontal
+                         pagingEnabled
+                         bounces={false}
+                         snapToAlignment="center"
+                         showsHorizontalScrollIndicator={false}
+                         onScroll={handleOnScroll}
+                         onViewableItemsChanged={handleOnViewableItemsChanged}
+                         viewabilityConfig={viewabilityConfig}
+                        />
                         {/* factoid Component ends */}
+                         <Pagination data={fact_data} scrollX={scrollX} index={index} />
                     </View>
                     <View style={styles.ListContainer}>
                         <View style={styles.ListOptions}>
-                            <MotiPressable style={{ padding: 10, paddingLeft: 20 }} onPress={() => { onChangeList('Recent') }}
+                            <MotiPressable style={{ padding: 10, paddingLeft: 20 }} onPress={() => { setSwitching('1');
+                                }}
                                 from={{ scale: 1, opacity: 1 }}
                                 animate={({ pressed }) => {
                                     'worklet'
@@ -162,10 +183,10 @@ const Home = (props) => {
                                 }}
                                 transition={{ type: 'timing', duration: 100 }}
                             >
-                                <Text style={styles.ListHeaderTxt}>Recent</Text>
+                                <Text style={[styles.ListHeaderTxt,(switching == '1'?styles.button:null)]}>Recent</Text>
                             </MotiPressable>
                             <View style={styles.Sectiondivider} />
-                            <MotiPressable style={{ padding: 10 }} onPress={() => { onChangeList('NearExpiry') }}
+                            <MotiPressable style={{ padding: 10 }} onPress={() => { setSwitching('2') }}
                                 from={{ scale: 1, opacity: 1 }}
                                 animate={({ pressed }) => {
                                     'worklet'
@@ -176,10 +197,10 @@ const Home = (props) => {
                                 }}
                                 transition={{ type: 'timing', duration: 100 }}
                             >
-                                <Text style={styles.ListHeaderTxt}>Near Expiry</Text>
+                                <Text style={[styles.ListHeaderTxt,(switching == '2'?styles.button:null)]}>Near Expiry</Text>
                             </MotiPressable>
                             <View style={styles.Sectiondivider} />
-                            <MotiPressable style={{ padding: 10, paddingRight: 20 }} onPress={() => { onChangeList('Expired') }}
+                            <MotiPressable style={{ padding: 10, paddingRight: 20 }} onPress={() => { setSwitching('3') }}
                                 from={{ scale: 1, opacity: 1 }}
                                 animate={({ pressed }) => {
                                     'worklet'
@@ -190,15 +211,18 @@ const Home = (props) => {
                                 }}
                                 transition={{ type: 'timing', duration: 100 }}
                             >
-                                <Text style={styles.ListHeaderTxt}>Expired</Text>
+                                <Text style={[styles.ListHeaderTxt,(switching == '3'?styles.button:null)]}>Expired</Text>
                             </MotiPressable>
                         </View>
+
                         {/* Make a Component Separately for better code Structure and less headache */}
                     </View>
+
+                  <View style={{flex:1}}>{switching == '1' ? (<Recent/>):(switching == '2' ? (<Near_expiry/>):(<Expired/>))}</View>
                 </View>
+                </ScrollView>
             </MotiView>
         </MotiView>
-
     );
 };
 
@@ -233,7 +257,7 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     mainContainer: {
-        height: height,
+        height: height*1.05,
     },
     WelcomeHeaderBox: {
         paddingHorizontal: width / 14.48,
@@ -297,14 +321,17 @@ const styles = StyleSheet.create({
     },
     mainContent: {
         height: '100%',
-        marginHorizontal: width / 65.17,
-        paddingHorizontal: width / 14.5,
+        // marginHorizontal: width / 65.17,
+        // paddingHorizontal: width / 14.5,
     },
     FactoidHeader: {
-        marginLeft: width / 78.2,
+        // marginLeft: width / 78.2,
+        // paddingHorizontal: width / 14.5,
     },
     Factoidheading: {
+        marginLeft: width / 78.2,
         paddingTop: height / 19.825,
+        paddingHorizontal: width / 14.5
     },
     FactoidHeadingTxt: {
         fontSize: width / 17,
@@ -312,69 +339,13 @@ const styles = StyleSheet.create({
         fontFamily: 'SF-Pro-Rounded-Semibold',
         letterSpacing: 0.4,
     },
-    FactContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        maxHeight: 300,
-        marginTop: height / 79.3,
-        borderRadius: 25,
-        backgroundColor: Colors.palette_white,
-        shadowColor: Colors.palette_secondary,
-        elevation: 6,
-    },
-    FactBox: {
-        flex: 0.6,
-        height: '100%',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        backgroundColor: Colors.palette_primary,
-        borderTopLeftRadius: 25,
-        borderBottomLeftRadius: 25,
-    },
-    FactheadingBox: {
-        paddingBottom: width / 78.2,
-    },
-    Factheading: {
-        color: Colors.palette_white,
-        fontFamily: 'SF-Pro-Rounded-Semibold',
-        fontSize: width / 24.4375,
-        letterSpacing: 1.4,
-    },
-    FactContentBox: {
-        paddingRight: width / 39.1,
-    },
-    FactContentTxt: {
-        color: Colors.palette_secondary,
-        fontFamily: 'SF-Pro-Rounded-Medium',
-        fontSize: width / 21.72,
-    },
-    FactBtn: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        alignSelf: 'flex-start',
-        paddingVertical: width / 49.875,
-        paddingHorizontal: width / 26.1,
-        borderRadius: 8,
-        backgroundColor: 'rgba(255,255,255,0.6)',
-    },
-    FactBtnTitle: {
-        color: Colors.palette_white,
-        fontSize: width / 24.438,
-        fontFamily: 'SF-Pro-Rounded-Semibold',
-    },
-    FactImageBox: {
-        flex: 0.4,
-        alignItems: 'center',
-    },
-    FactImage: {
-        width: width / 2.589,
-        height: width / 2.429,
-    },
     ListContainer: {
-        height: height * 0.4,
-        paddingTop: height / 39.65,
-        marginLeft: width / 78.2,
+        height: height * 0.09,
+        paddingTop: height / 89.65,
+        // marginLeft: width / 78.2,
+        // marginHorizontal:width/12
+        paddingHorizontal: width / 14.5,
+        // borderStartColor:'blue'
     },
     ListOptions: {
         flexDirection: 'row',
@@ -384,12 +355,20 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         borderRadius: 12,
         backgroundColor: 'rgba(0,0,0,0.1)',
+        // paddingHorizontal: width / 14.5,
     },
     ListHeaderTxt: {
         fontSize: width / 26.06,
         color: Colors.palette_secondary,
         fontFamily: 'SF-Pro-Text-Semibold',
         opacity: 0.7,
+        // backgroundColor:'blue'
+    },
+    button:{
+    //   backgroundColor:'blue',
+       borderBottomColor:'black',
+       borderBottomWidth:1.2,
+       color:'black',   
     },
     Sectiondivider: {
         width: 1,

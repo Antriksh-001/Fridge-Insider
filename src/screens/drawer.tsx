@@ -8,7 +8,7 @@ import { Colors } from '../constants/Colors';
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-const menus = [
+const drawer_list = [
   { icon: 'user', title: 'Profile' },
   { icon: 'barschart', title: 'Contribution Graph' },
   { icon: 'infocirlceo', title: 'FAQs' },
@@ -16,7 +16,7 @@ const menus = [
   { icon: 'setting', title: 'Settings' },
 ]
 
-const Drawer = (props) => {
+const Drawer = (props: { setShowMenu: (arg0: boolean) => void; }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity activeOpacity={0.35} onPress={() => { props.setShowMenu(false) }} >
@@ -26,7 +26,7 @@ const Drawer = (props) => {
       </TouchableOpacity>
       <View style={styles.List}>
         <FlatList
-          data={menus}
+          data={drawer_list}
           renderItem={({ item, index }) => {
             return (
               <View style={styles.ListItemContent}>
@@ -38,7 +38,7 @@ const Drawer = (props) => {
                     <Text style={styles.ListTitle}>{item.title}</Text>
                   </View>
                 </TouchableOpacity>
-                {index === menus.length - 1 ? null : <View style={styles.underline} />}
+                {index === drawer_list.length - 1 ? null : <View style={styles.underline} />}
               </View>
             )
           }}
