@@ -7,7 +7,6 @@ import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
 import menus from '../../components/shared/temp_data';
 import Recent from '../../components/Home/Recent';
-import { ScrollView } from 'react-native-gesture-handler';
 import Near_expiry from '../../components/Home/Near_expiry';
 import Expired from '../../components/Home/Expired';
 import Factoid from '../../components/Home/Factoid';
@@ -17,40 +16,23 @@ const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
 let fact_data = [
-    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
-    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
-    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
-    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
-    {heading : 'ARTICLE', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE1', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE2', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE3', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE4', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    {heading : 'ARTICLE5', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
 ]
 
 const Home = (props: { showMenu: any; }) => {
     const [profile, setProfile] = useState(false);
     const [name, setname] = useState('Sajal ');
     const [temp, setTemp] = useState('');
-    // const [List, onChangeList] = useState('Recent');
     const [data1, setData1] = useState([]);
-    // const [oldData, setOldData] = useState([]);
     const [switching , setSwitching] = useState('1');
-    // const [search, setSearch] = useState('');
-    // const searchRef = useRef();
 
     useEffect(() => {
         setData1(menus);
-        // setOldData(menus);
     }, []);
-
-    // const onSearch = text => {
-    //     if (text == '') {
-    //         setData1(oldData);
-    //     }
-    //     else {
-    //         let tempList = menus.filter(item => {
-    //             return item.title.toLowerCase().indexOf(text.toLowerCase()) > -1;
-    //         })
-    //         setData1(tempList);
-    //     }
-    // }
 
     // Pagination functions
     const [index, setIndex] = useState(0);
@@ -74,7 +56,6 @@ const Home = (props: { showMenu: any; }) => {
   };
 
   const handleOnViewableItemsChanged = useRef(({viewableItems}) => {
-    // console.log('viewableItems', viewableItems);
     setIndex(viewableItems[0].index);
   }).current;
 
@@ -108,7 +89,7 @@ const Home = (props: { showMenu: any; }) => {
             </MotiView>
 
             <MotiView style={styles.mainContainer}>
-                <ScrollView>
+                <View>
                 <View style={styles.header}>
                     <View style={styles.WelcomeHeaderBox}>
                         <View style={styles.WelcomeBox}>
@@ -171,7 +152,7 @@ const Home = (props: { showMenu: any; }) => {
                     </View>
                     <View style={styles.ListContainer}>
                         <View style={styles.ListOptions}>
-                            <MotiPressable style={{ padding: 10, paddingLeft: 20 }} onPress={() => { setSwitching('1');
+                            <MotiPressable style={[(switching == '1'?styles.button:null)]} onPress={() => { setSwitching('1');
                                 }}
                                 from={{ scale: 1, opacity: 1 }}
                                 animate={({ pressed }) => {
@@ -183,10 +164,10 @@ const Home = (props: { showMenu: any; }) => {
                                 }}
                                 transition={{ type: 'timing', duration: 100 }}
                             >
-                                <Text style={[styles.ListHeaderTxt,(switching == '1'?styles.button:null)]}>Recent</Text>
+                                <Text style={styles.ListHeaderTxt}>Recent</Text>
                             </MotiPressable>
                             <View style={styles.Sectiondivider} />
-                            <MotiPressable style={{ padding: 10 }} onPress={() => { setSwitching('2') }}
+                            <MotiPressable style={[(switching == '2'?styles.button:null)]} onPress={() => { setSwitching('2') }}
                                 from={{ scale: 1, opacity: 1 }}
                                 animate={({ pressed }) => {
                                     'worklet'
@@ -197,10 +178,10 @@ const Home = (props: { showMenu: any; }) => {
                                 }}
                                 transition={{ type: 'timing', duration: 100 }}
                             >
-                                <Text style={[styles.ListHeaderTxt,(switching == '2'?styles.button:null)]}>Near Expiry</Text>
+                                <Text style={styles.ListHeaderTxt}>Near Expiry</Text>
                             </MotiPressable>
                             <View style={styles.Sectiondivider} />
-                            <MotiPressable style={{ padding: 10, paddingRight: 20 }} onPress={() => { setSwitching('3') }}
+                            <MotiPressable style={[(switching == '3'?styles.button:null)]} onPress={() => { setSwitching('3') }}
                                 from={{ scale: 1, opacity: 1 }}
                                 animate={({ pressed }) => {
                                     'worklet'
@@ -211,7 +192,7 @@ const Home = (props: { showMenu: any; }) => {
                                 }}
                                 transition={{ type: 'timing', duration: 100 }}
                             >
-                                <Text style={[styles.ListHeaderTxt,(switching == '3'?styles.button:null)]}>Expired</Text>
+                                <Text style={styles.ListHeaderTxt}>Expired</Text>
                             </MotiPressable>
                         </View>
 
@@ -220,7 +201,7 @@ const Home = (props: { showMenu: any; }) => {
 
                   <View style={{flex:1}}>{switching == '1' ? (<Recent/>):(switching == '2' ? (<Near_expiry/>):(<Expired/>))}</View>
                 </View>
-                </ScrollView>
+                </View>
             </MotiView>
         </MotiView>
     );
@@ -320,7 +301,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.palette_secondary,
     },
     mainContent: {
-        height: '100%',
+        height:'67%',
+        // backgroundColor:'blue',
+        marginTop:30
         // marginHorizontal: width / 65.17,
         // paddingHorizontal: width / 14.5,
     },
@@ -330,7 +313,7 @@ const styles = StyleSheet.create({
     },
     Factoidheading: {
         marginLeft: width / 78.2,
-        paddingTop: height / 19.825,
+        // paddingTop: height / 19.825,
         paddingHorizontal: width / 14.5
     },
     FactoidHeadingTxt: {
@@ -365,10 +348,16 @@ const styles = StyleSheet.create({
         // backgroundColor:'blue'
     },
     button:{
-    //   backgroundColor:'blue',
+       backgroundColor:'white',
+       height:30,
+       paddingHorizontal:10,
+       borderRadius:10,
+       justifyContent:'center',
+       alignItems:'center',
        borderBottomColor:'black',
-       borderBottomWidth:1.2,
-       color:'black',   
+       borderBottomWidth:1.2,  
+       shadowColor:'black', 
+       elevation:10
     },
     Sectiondivider: {
         width: 1,

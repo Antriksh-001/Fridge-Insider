@@ -6,16 +6,22 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
 import menus from '../shared/temp_data';
 
 const Expired = ()=> {
+  const [data1,setData] = useState(menus);
+  let tempdata = data1.filter((item)=> item.expire < 0);
+  useEffect(() => {
+    setData(tempdata);
+  }, []);
+
    return (
     <View style={{flex:2}}>
     <FlatList 
-        //  horizontal
-        data={menus}
+        showsVerticalScrollIndicator={false}
+        data={data1}
         renderItem={({item,index})=> {
           let color1: string ;
           {item.expire <= 2 ? color1='red':color1='orange'}
           let lastMargin;
-          {index == menus.length-1 ? lastMargin=60:lastMargin=0}
+          {index == data1.length-1 ? lastMargin=60:lastMargin=0}
           if(item.expire < 0){
             return (
               <MotiView 

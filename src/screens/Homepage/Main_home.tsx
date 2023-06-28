@@ -23,7 +23,7 @@ const Main_home = () => {
       <MotiView style={styles.container}
         from={{ scale: 1, translateX: 0 }}
         animate={showMenu ? { scale: 0.75, translateX: width / 1.2 } : { scale: 1, translateX: 0 }}
-        transition={{ type: 'timing', duration: 550 }} >
+        transition={{ type: 'timing', duration:550 }} >
 
         <MotiView style={styles.Main_homeShadow}
           from={{ scale: 1, translateX: 0 }}

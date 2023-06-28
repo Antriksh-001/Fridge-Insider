@@ -47,7 +47,7 @@ const Fridge = (props) => {
         </View>
       </View>
 
-    <ScrollView style={{flex:1}}>     
+    <View style={{flex:1}}>     
       {/* categories */}
         <View>
           <Text style={{fontFamily:'SF-Pro-Rounded-Bold',
@@ -108,9 +108,9 @@ const Fridge = (props) => {
         </View> 
       
       {/* favourite list */}
-      <View style={{marginLeft:16}}>
+      <View style={{marginLeft:16,height:'37.5%'}}>
           <FlatList 
-              //  horizontal
+              showsVerticalScrollIndicator={false}
               data={menus}
               renderItem={({item,index})=> {
                 let color1: string ;
@@ -167,7 +167,7 @@ const Fridge = (props) => {
                 )}}
           />
       </View>
-    </ScrollView>  
+    </View>  
     </MotiView>
 
   );

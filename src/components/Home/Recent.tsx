@@ -6,17 +6,22 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
 import menus from '../shared/temp_data';
 
 const Recent = ()=> {
+  const [data1,setData] = useState(menus);
+  let tempdata = data1.filter((item)=> item.when_added < '2');
+  useEffect(() => {
+    setData(tempdata);
+}, []);
+
    return (
-    <View style={{flex:1}}>
     <FlatList 
-        //  horizontal
-        data={menus}
+        showsVerticalScrollIndicator={false}
+        data={data1}
         renderItem={({item,index})=> {
           let color1: string ;
           {item.expire <= 2 ? color1='red':color1='orange'}
           let lastMargin;
-          {index == menus.length-1 ? lastMargin=60:lastMargin=0}
-          if(item.when_added < '2'){
+          {index == data1.length-1 ? lastMargin=60:lastMargin=0}
+          // if(item.when_added < '2'){
             return (
               <MotiView 
               from={{opacity:0 , translateX:-40}}
@@ -63,11 +68,10 @@ const Recent = ()=> {
   
               </TouchableOpacity>
               </MotiView> 
-            )}
+            )
         }}
     />
-</View>
-
+// </View>
    )
 }
 
