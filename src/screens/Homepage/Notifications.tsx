@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, FlatList, Modal } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, FlatList, Modal, TouchableWithoutFeedback } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { MotiView } from "moti";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
@@ -42,11 +42,12 @@ const Notifications = (props) => {
 
   return (
     <MotiView style={styles.container}
-    from={{ borderRadius: 0 }}
-    animate={{ borderRadius: props.showMenu ? 35 : 0 }}
-    transition={props.showMenu ? { type: 'timing', duration: 100 } : { type: 'timing', duration: 650 }}
+      from={{ borderRadius: 0 }}
+      animate={{ borderRadius: props.showMenu ? 35 : 0 }}
+      transition={props.showMenu ? { type: 'timing', duration: 100 } : { type: 'timing', duration: 650 }}
     >
 
+      {/* Filter or Cross Button Decision */}
       <View style={styles.comp1}>
         <Text style={styles.comp1Text}>Notification</Text>
 
@@ -77,64 +78,66 @@ const Notifications = (props) => {
 
       {/* FilterMenu  */}
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={visible}
         onRequestClose={() => {
           setVisible(!visible)
         }}>
-        <View style={styles.filterMenu}>
-          <View style={styles.filterComp}>
+        <TouchableWithoutFeedback onPress={() => { setVisible(false) }}>
+          <View style={styles.filterMenu}>
+            <View style={styles.filterComp}>
 
-            <TouchableOpacity style={styles.filterComp1}
-              ref={searchRef}
-              onPress={() => {
-                let tempdata = data2.filter((item) => item.expire <= 0)
-                setData1(tempdata);
-                setVisible(false);
-              }}>
-              <Text style={styles.filterComp1Text}>Only Expired</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.filterComp1}
-              ref={searchRef}
-              onPress={() => {
+              <TouchableOpacity style={styles.filterComp1}
+                ref={searchRef}
+                onPress={() => {
+                  let tempdata = data2.filter((item) => item.expire <= 0)
+                  setData1(tempdata);
+                  setVisible(false);
+                }}>
+                <Text style={styles.filterComp1Text}>Only Expired</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.filterComp1}
+                ref={searchRef}
+                onPress={() => {
 
-                let tempdata = data2.filter((item) => item.expire > 0)
-                setData1(tempdata);
-                setVisible(false)
-              }}>
-              <Text style={styles.filterComp1Text}>Only Fresh</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.filterComp1}
-              onPress={() => {
-                let tempdata = data1.sort((a, b) => a.title > b.title ? 1 : -1)
-                setData1(tempdata);
-                setVisible(false);
-              }}>
-              <Text style={styles.filterComp1Text}>Sort by Name</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.filterComp1}
-              onPress={() => {
-                let tempdata = data1.sort((a, b) => a.expire - b.expire)
-                setData1(tempdata)
-                setVisible(false)
-              }}>
-              <Text style={styles.filterComp1Text}>Sort by Expiry</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.filterComp1}
-              onPress={() => {
-                let tempdata = data1.sort((a, b) => (a.day - b.day));
-                setData1(tempdata);
-                setVisible(false);
-              }}>
-              <Text style={styles.filterComp1Text}>Sort by Date</Text>
-            </TouchableOpacity>
+                  let tempdata = data2.filter((item) => item.expire > 0)
+                  setData1(tempdata);
+                  setVisible(false)
+                }}>
+                <Text style={styles.filterComp1Text}>Only Fresh</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.filterComp1}
+                onPress={() => {
+                  let tempdata = data1.sort((a, b) => a.title > b.title ? 1 : -1)
+                  setData1(tempdata);
+                  setVisible(false);
+                }}>
+                <Text style={styles.filterComp1Text}>Sort by Name</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.filterComp1}
+                onPress={() => {
+                  let tempdata = data1.sort((a, b) => a.expire - b.expire)
+                  setData1(tempdata)
+                  setVisible(false)
+                }}>
+                <Text style={styles.filterComp1Text}>Sort by Expiry</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.filterComp1}
+                onPress={() => {
+                  let tempdata = data1.sort((a, b) => (a.day - b.day));
+                  setData1(tempdata);
+                  setVisible(false);
+                }}>
+                <Text style={styles.filterComp1Text}>Sort by Date</Text>
+              </TouchableOpacity>
 
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
 
-
+      {/* 2 Navigation Buttons */}
       <View style={styles.comp2}>
         <TouchableOpacity style={[styles.comp2a, { backgroundColor: color1 }]}
           onPress={() => { setAlert(true) }}>
@@ -146,7 +149,8 @@ const Notifications = (props) => {
         </TouchableOpacity>
       </View>
 
-      {multiselect ? (
+      {/* Select & Delete Menu */}
+      {multiselect && (
 
         <View style={styles.multiselectMenu}>
 
@@ -177,11 +181,9 @@ const Notifications = (props) => {
           </TouchableOpacity>
 
         </View>
-      ) : (
-        <View>
-        </View>
       )}
 
+      {/* Expiry alert and Garbage Pickup Lists */}
       <View style={styles.container1}>
         {alert == true ? (
           <View>
@@ -193,7 +195,7 @@ const Notifications = (props) => {
                   { item.expire <= '2' ? color1 = 'red' : color1 = 'orange' }
                   { item.expire <= '0' ? fresh = 'red' : fresh = 'green' }
                   let lastMargin;
-                  {index == menus.length-1 ? lastMargin=60:lastMargin=0}
+                  { index == menus.length - 1 ? lastMargin = 60 : lastMargin = 0 }
                   return (
                     <MotiView
                       from={{ opacity: 0, translateX: -40 }}
@@ -202,7 +204,7 @@ const Notifications = (props) => {
                       style={{ paddingTop: 10 }}
                     >
                       <View style={styles.cornerDot}></View>
-                      <TouchableOpacity style={[styles.alertItemContainer, {marginBottom:lastMargin, backgroundColor: item.msel == true ? '#e9f5f8' : 'white' }]}
+                      <TouchableOpacity style={[styles.alertItemContainer, { marginBottom: lastMargin, backgroundColor: item.msel == true ? '#e9f5f8' : 'white' }]}
                         onPress={() => (multiselect && onSelect(index))}
                         onLongPress={() => {
                           (!multiselect && onSelect(index)); setMultiselect(true)
@@ -248,13 +250,14 @@ const Notifications = (props) => {
             </View>
           </View>
 
-          ):(
+        ) : (
 
           <View>
             <Text>Garbage Pickup</Text>
           </View>
         )}
       </View>
+
     </MotiView>
   );
 };
@@ -268,7 +271,7 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
-    marginBottom:3.8,
+    marginBottom: 3.8,
   },
   cornerDot: {
     backgroundColor: 'grey',
