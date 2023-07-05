@@ -26,6 +26,8 @@ import UserProfileDefault from '../../../assets/svg/userProfileDefault';
 import SearchIcon from '../../../assets/svg/searchIcon';
 import FilterIcon from '../../../assets/svg/filterIcon';
 import ArrowRight from '../../../assets/svg/arrowRight';
+import Heart from '../../../assets/svg/heart';
+import Trash1  from '../../../assets/svg/trash1';
 
 class Svginserter extends Component {
       components = {
@@ -54,6 +56,8 @@ class Svginserter extends Component {
             SearchIcon: SearchIcon,
             FilterIcon: FilterIcon,
             ArrowRight: ArrowRight,
+            Heart: Heart,
+            Trash1:Trash1,
       };
       render(...props) {
             const TagName = this.components[this.props.tag];

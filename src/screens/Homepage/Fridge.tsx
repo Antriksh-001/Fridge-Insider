@@ -13,14 +13,14 @@ const width = SCREEN_WIDTH;
 const height = SCREEN_HEIGHT;
 
 const categories = [
-  { id: '1', type: 'Fruits', cnt: '5', image: require('../../../assets/images/apple.png') },
-  { id: '2', type: 'Vegetables', cnt: '3', image: require('../../../assets/images/tomato.png') },
-  { id: '3', type: 'Beverages', cnt: '1', image: require('../../../assets/images/tomato.png') },
-  { id: '4', type: 'Meat & Chicken', cnt: '1', image: require('../../../assets/images/apple.png') },
-  { id: '5', type: 'Fish & Sea Food', cnt: '1', image: require('../../../assets/images/apple.png') },
-  { id: '6', type: 'Dairy & Eggs', cnt: '1', image: require('../../../assets/images/apple.png') },
-  { id: '7', type: 'Cereal Food', cnt: '1', image: require('../../../assets/images/tomato.png') },
-  { id: '8', type: 'Others', cnt: '1', image: require('../../../assets/images/tomato.png') },
+  { id: '1', type: 'Fruits', cnt: '5',color:'#ECF2FF', image: require('../../../assets/images/Fruits.png') },
+  { id: '2', type: 'Vegetables', cnt: '3',color:'#C9F4AA', image: require('../../../assets/images/Vegetables.png') },
+  { id: '3', type: 'Beverages', cnt: '1',color:'#D09CFA', image: require('../../../assets/images/Beverages.png') },
+  { id: '4', type: 'Meat & Chicken', cnt: '1',color:'#FFE3E1', image: require('../../../assets/images/Chicken.png') },
+  { id: '5', type: 'Fish & Sea Food', cnt: '1',color:'#ECF2FF', image: require('../../../assets/images/Fish.png') },
+  { id: '6', type: 'Dairy & Eggs', cnt: '1',color:'#ECF2FF', image: require('../../../assets/images/Dairy.png') },
+  { id: '7', type: 'Cereal Food', cnt: '1',color:'#ECF2FF', image: require('../../../assets/images/Cereal.png') },
+  { id: '8', type: 'Others', cnt: '1',color:'#FFE898', image: require('../../../assets/images/other.png') },
 ]
 
 const Fridge = (props) => {
@@ -29,6 +29,7 @@ const Fridge = (props) => {
   const [temp, setTemp] = useState('');
   const [profile, setProfile] = useState(false);
   const [type,setType] = useState('');
+  const [image,setImage] = useState('');
 
   return (
     <MotiView style={styles.container}
@@ -99,8 +100,9 @@ const Fridge = (props) => {
             </View>
           </View>
           <View>
-            <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginRight: 24 }} onPress={() => { setVisible1(true) }}>
-              <View ><Lottie style={{ height: 60, width: 60 }} source={require('../../../assets/animation/add_button_lottie.json')} autoPlay loop /></View>
+            <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}} onPress={() => { setVisible1(true) }}>
+              {/* <View ><Lottie style={{ height: 60, width: 60 }} source={require('../../../assets/animation/add_button_lottie.json')} autoPlay loop /></View> */}
+              <View style={{shadowColor:'black',elevation:8,backgroundColor:'white',borderRadius:12}}><Image source={require('../../../assets/images/add1.png')} style={{ width: 45, height: 45}} /></View>
             </TouchableOpacity>
           </View>
         </View>
@@ -122,10 +124,14 @@ const Fridge = (props) => {
                   animate={{ opacity: 1, translateX: 0 }}
                   transition={{ delay: index * 200 }}
                 >
-                  <TouchableOpacity style={styles.CategoriesComp} onPress={() => { setType(item.type); setVisible2(true) }}>
+                  <TouchableOpacity style={[styles.CategoriesComp,{
+                     height: index%4 == 1 || index%4 == 2 ?SCREEN_WIDTH / 2.6 : SCREEN_WIDTH/2.2,
+                     marginTop : (index%4 == 3) && (index != 0) ? -16:10,
+                     }]} 
+                     onPress={() => { setType(item.type); setImage(item.image); setVisible2(true) }}>
 
                     <View style={styles.CategoriesComp1}>
-                      <Image source={item.image} style={{ width: 40, margin: 9, height: 40 }} />
+                      <Image source={item.image} style={{ width: 58, height: 58}} />
                     </View>
 
                     <Text style={styles.CategoriesComp2}>
@@ -141,7 +147,7 @@ const Fridge = (props) => {
             }}
             />
             {/* Particular Category Page */}
-            <Category_List type1={type} visible={visible2} setVisible={setVisible2}/>
+            <Category_List type1={type} image={image} visible={visible2} setVisible={setVisible2}/>
         </View>
 
       </View>
@@ -241,9 +247,8 @@ const styles = StyleSheet.create({
   },
   CategoriesComp:{
     width: SCREEN_WIDTH / 2.6,
-    height: SCREEN_WIDTH / 2.6,
     marginLeft: 24,
-    marginTop: 10,
+    marginTop:10,
     marginBottom: 10,
     backgroundColor: 'white',
     borderRadius: 10,
@@ -255,9 +260,12 @@ const styles = StyleSheet.create({
   },
   CategoriesComp1:{
     backgroundColor: 'white', 
-    shadowColor: '#213a7c', 
-    elevation: 15, 
-    padding: 0, 
+    shadowColor: '#213a7c',
+    height:80,
+    width:80,
+    justifyContent:'center',
+    alignItems:'center', 
+    elevation: 7,  
     borderRadius: 100  
   },
   CategoriesComp2:{
