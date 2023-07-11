@@ -26,6 +26,7 @@ import UserProfileDefault from '../../../assets/svg/userProfileDefault';
 import SearchIcon from '../../../assets/svg/searchIcon';
 import FilterIcon from '../../../assets/svg/filterIcon';
 import ArrowRight from '../../../assets/svg/arrowRight';
+import Bannerillustration from '../../../assets/svg/bannerillustration';
 import Heart from '../../../assets/svg/heart';
 import Trash1  from '../../../assets/svg/trash1';
 
@@ -56,6 +57,7 @@ class Svginserter extends Component {
             SearchIcon: SearchIcon,
             FilterIcon: FilterIcon,
             ArrowRight: ArrowRight,
+            Bannerillustration: Bannerillustration,
             Heart: Heart,
             Trash1:Trash1,
       };

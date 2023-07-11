@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, Animated, Easing } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Svginserter from "../shared/Svginserter";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
@@ -6,15 +6,6 @@ import { Colors } from '../../constants/Colors';
 import React from "react";
 
 const Factoid = ({item}) => {
-    const translateYImage = new Animated.Value(20);
-
-    Animated.timing(translateYImage, {
-        toValue: 0,
-        duration: 1000,
-        useNativeDriver: true,
-        easing: Easing.bounce,
-    }).start();
-
     return (
       <View style={styles.main}>
         <View style={styles.FactContainer}>
@@ -40,13 +31,7 @@ const Factoid = ({item}) => {
                 </View>
             </LinearGradient>
             <View style={styles.FactImageBox}>
-                <Animated.Image source={require('../../../assets/images/kiwi_illustration.png')} style={[styles.FactImage,{
-            transform: [
-              {
-                translateY: translateYImage,
-              },
-            ],
-          }]} />
+                <Image source={require('../../../assets/images/kiwi_illustration.png')} style={styles.FactImage} />
             </View>
         </View>
       </View>  
