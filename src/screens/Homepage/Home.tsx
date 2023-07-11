@@ -16,11 +16,11 @@ const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
 let fact_data = [
-    {heading : 'ARTICLE1', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
-    {heading : 'ARTICLE2', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
-    {heading : 'ARTICLE3', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
-    {heading : 'ARTICLE4', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
-    {heading : 'ARTICLE5', description : 'Discover the health benefits of 60 Kiwi species.', Image:'../../../assets/images/kiwi_illustration.png'},
+    { heading: 'ARTICLE1', description: 'Discover the health benefits of 60 Kiwi species.', Image: '../../../assets/images/kiwi_illustration.png' },
+    { heading: 'ARTICLE2', description: 'Discover the health benefits of 60 Kiwi species.', Image: '../../../assets/images/kiwi_illustration.png' },
+    { heading: 'ARTICLE3', description: 'Discover the health benefits of 60 Kiwi species.', Image: '../../../assets/images/kiwi_illustration.png' },
+    { heading: 'ARTICLE4', description: 'Discover the health benefits of 60 Kiwi species.', Image: '../../../assets/images/kiwi_illustration.png' },
+    { heading: 'ARTICLE5', description: 'Discover the health benefits of 60 Kiwi species.', Image: '../../../assets/images/kiwi_illustration.png' },
 ]
 
 const Home = (props: { showMenu: any; }) => {
@@ -28,7 +28,7 @@ const Home = (props: { showMenu: any; }) => {
     const [name, setname] = useState('Sajal ');
     const [temp, setTemp] = useState('');
     const [data1, setData1] = useState([]);
-    const [switching , setSwitching] = useState('1');
+    const [switching, setSwitching] = useState('1');
 
     useEffect(() => {
         setData1(menus);
@@ -39,29 +39,29 @@ const Home = (props: { showMenu: any; }) => {
     const scrollX = useRef(new Animated.Value(0)).current;
 
     const handleOnScroll = event => {
-    Animated.event(
-      [
-        {
-          nativeEvent: {
-            contentOffset: {
-              x: scrollX,
+        Animated.event(
+            [
+                {
+                    nativeEvent: {
+                        contentOffset: {
+                            x: scrollX,
+                        },
+                    },
+                },
+            ],
+            {
+                useNativeDriver: false,
             },
-          },
-        },
-      ],
-      {
-        useNativeDriver: false,
-      },
-    )(event);
-  };
+        )(event);
+    };
 
-  const handleOnViewableItemsChanged = useRef(({viewableItems}) => {
-    setIndex(viewableItems[0].index);
-  }).current;
+    const handleOnViewableItemsChanged = useRef(({ viewableItems }) => {
+        setIndex(viewableItems[0].index);
+    }).current;
 
-  const viewabilityConfig = useRef({
-    itemVisiblePercentThreshold: 50,
-  }).current;
+    const viewabilityConfig = useRef({
+        itemVisiblePercentThreshold: 50,
+    }).current;
 
     return (
         <MotiView style={[styles.container]}
@@ -90,117 +90,120 @@ const Home = (props: { showMenu: any; }) => {
 
             <MotiView style={styles.mainContainer}>
                 <View>
-                <View style={styles.header}>
-                    <View style={styles.WelcomeHeaderBox}>
-                        <View style={styles.WelcomeBox}>
-                            <View>
-                                <Text style={styles.WelcomeHeaderTxt}>Hi {name}!</Text>
+                    <View style={styles.header}>
+                        <View style={styles.WelcomeHeaderBox}>
+                            <View style={styles.WelcomeBox}>
+                                <View>
+                                    <Text style={styles.WelcomeHeaderTxt}>Hi {name}!</Text>
+                                </View>
+                                <View style={styles.WelcomeSubHeaderBox}>
+                                    <Text style={styles.WelcomeSubHeaderTxt}>Welcome back</Text>
+                                </View>
                             </View>
-                            <View style={styles.WelcomeSubHeaderBox}>
-                                <Text style={styles.WelcomeSubHeaderTxt}>Welcome back</Text>
-                            </View>
-                        </View>
-                        <View style={styles.Search_FilterContainer}>
-                            <View style={styles.SearchBox}>
-                                <View style={styles.SearchIconBox}>
-                                    <Svginserter tag={'SearchIcon'} width={width / 16.2} height={width / 16.2} />
+                            <View style={styles.Search_FilterContainer}>
+                                <View style={styles.SearchBox}>
+                                    <View style={styles.SearchIconBox}>
+                                        <Svginserter tag={'SearchIcon'} width={width / 16.2} height={width / 16.2} />
+                                    </View>
+                                    <View>
+                                        <TextInput
+                                            style={styles.SearchInput}
+                                            onChangeText={setTemp}
+                                            value={temp}
+                                            placeholder="Search food item"
+                                            keyboardType="email-address"
+                                            cursorColor={Colors.palette_secondary}
+                                            autoFocus={false} >
+                                        </TextInput>
+                                    </View>
                                 </View>
                                 <View>
-                                    <TextInput
-                                        style={styles.SearchInput}
-                                        onChangeText={setTemp}
-                                        value={temp}
-                                        placeholder="Search food item"
-                                        keyboardType="email-address"
-                                        cursorColor={Colors.palette_secondary}
-                                        autoFocus={false} >
-                                    </TextInput>
+                                    <TouchableOpacity activeOpacity={0.5} style={styles.FilterIconBox} onPress={() => { console.log('Clicked on Filter') }}
+                                    >
+                                        <Svginserter tag={'FilterIcon'} width={width / 16.2} height={width / 16.2} />
+                                    </TouchableOpacity>
                                 </View>
                             </View>
-                            <View>
-                                <TouchableOpacity activeOpacity={0.5} style={styles.FilterIconBox} onPress={() => { console.log('Clicked on Filter') }}
-                                >
-                                    <Svginserter tag={'FilterIcon'} width={width / 16.2} height={width / 16.2} />
-                                </TouchableOpacity>
-                            </View>
                         </View>
                     </View>
-                </View>
 
-                <View style={styles.mainContent}>
-                    <View style={styles.FactoidHeader}>
-                        <View style={styles.Factoidheading}>
-                            <Text style={styles.FactoidHeadingTxt}>Trending factoid</Text>
+                    <View style={styles.mainContent}>
+                        <View style={styles.FactoidHeader}>
+                            <View style={styles.Factoidheading}>
+                                <Text style={styles.FactoidHeadingTxt}>Trending factoid</Text>
+                            </View>
+                            {/* factoid Component starts */}
+                            {/* Use Horizontal List Here and use this Component for Items. */}
+                            {/* I will do the designing */}
+                            <FlatList
+                                data={fact_data}
+                                renderItem={({ item }) => <Factoid item={item} />}
+                                horizontal
+                                pagingEnabled
+                                bounces={false}
+                                snapToAlignment="center"
+                                showsHorizontalScrollIndicator={false}
+                                onScroll={handleOnScroll}
+                                onViewableItemsChanged={handleOnViewableItemsChanged}
+                                viewabilityConfig={viewabilityConfig}
+                            />
+                            {/* factoid Component ends */}
+                            <Pagination data={fact_data} scrollX={scrollX} index={index} />
                         </View>
-                        {/* factoid Component starts */}
-                        {/* Use Horizontal List Here and use this Component for Items. */}
-                        {/* I will do the designing */}
-                        <FlatList
-                         data={fact_data}
-                         renderItem={({item})=> <Factoid item={item}/>}
-                         horizontal
-                         pagingEnabled
-                         bounces={false}
-                         snapToAlignment="center"
-                         showsHorizontalScrollIndicator={false}
-                         onScroll={handleOnScroll}
-                         onViewableItemsChanged={handleOnViewableItemsChanged}
-                         viewabilityConfig={viewabilityConfig}
-                        />
-                        {/* factoid Component ends */}
-                         <Pagination data={fact_data} scrollX={scrollX} index={index} />
-                    </View>
-                    <View style={styles.ListContainer}>
-                        <View style={styles.ListOptions}>
-                            <MotiPressable style={[(switching == '1'?styles.button:null)]} onPress={() => { setSwitching('1');
+                        <View style={styles.ListContainer}>
+                            <View style={styles.ListOptions}>
+                                <MotiPressable style={[(switching == '1' ? styles.button : null)]} onPress={() => {
+                                    setSwitching('1');
                                 }}
-                                from={{ scale: 1, opacity: 1 }}
-                                animate={({ pressed }) => {
-                                    'worklet'
-                                    return {
-                                        scale: pressed ? 0.95 : 1,
-                                        opacity: pressed ? 0.5 : 1,
-                                    }
-                                }}
-                                transition={{ type: 'timing', duration: 100 }}
-                            >
-                                <Text style={styles.ListHeaderTxt}>Recent</Text>
-                            </MotiPressable>
-                            <View style={styles.Sectiondivider} />
-                            <MotiPressable style={[(switching == '2'?styles.button:null)]} onPress={() => { setSwitching('2') }}
-                                from={{ scale: 1, opacity: 1 }}
-                                animate={({ pressed }) => {
-                                    'worklet'
-                                    return {
-                                        scale: pressed ? 0.95 : 1,
-                                        opacity: pressed ? 0.5 : 1,
-                                    }
-                                }}
-                                transition={{ type: 'timing', duration: 100 }}
-                            >
-                                <Text style={styles.ListHeaderTxt}>Near Expiry</Text>
-                            </MotiPressable>
-                            <View style={styles.Sectiondivider} />
-                            <MotiPressable style={[(switching == '3'?styles.button:null)]} onPress={() => { setSwitching('3') }}
-                                from={{ scale: 1, opacity: 1 }}
-                                animate={({ pressed }) => {
-                                    'worklet'
-                                    return {
-                                        scale: pressed ? 0.95 : 1,
-                                        opacity: pressed ? 0.5 : 1,
-                                    }
-                                }}
-                                transition={{ type: 'timing', duration: 100 }}
-                            >
-                                <Text style={styles.ListHeaderTxt}>Expired</Text>
-                            </MotiPressable>
+                                    from={{ scale: 1, opacity: 1 }}
+                                    animate={({ pressed }) => {
+                                        'worklet'
+                                        return {
+                                            scale: pressed ? 0.95 : 1,
+                                            opacity: pressed ? 0.5 : 1,
+                                        }
+                                    }}
+                                    transition={{ type: 'timing', duration: 100 }}
+                                >
+                                    <Text style={styles.ListHeaderTxt}>Recent</Text>
+                                </MotiPressable>
+                                <View style={styles.Sectiondivider} />
+                                <MotiPressable style={[(switching == '2' ? styles.button : null)]} onPress={() => { setSwitching('2') }}
+                                    from={{ scale: 1, opacity: 1 }}
+                                    animate={({ pressed }) => {
+                                        'worklet'
+                                        return {
+                                            scale: pressed ? 0.95 : 1,
+                                            opacity: pressed ? 0.5 : 1,
+                                        }
+                                    }}
+                                    transition={{ type: 'timing', duration: 100 }}
+                                >
+                                    <Text style={styles.ListHeaderTxt}>Near Expiry</Text>
+                                </MotiPressable>
+                                <View style={styles.Sectiondivider} />
+                                <MotiPressable style={[(switching == '3' ? styles.button : null)]} onPress={() => { setSwitching('3') }}
+                                    from={{ scale: 1, opacity: 1 }}
+                                    animate={({ pressed }) => {
+                                        'worklet'
+                                        return {
+                                            scale: pressed ? 0.95 : 1,
+                                            opacity: pressed ? 0.5 : 1,
+                                        }
+                                    }}
+                                    transition={{ type: 'timing', duration: 100 }}
+                                >
+                                    <Text style={styles.ListHeaderTxt}>Expired</Text>
+                                </MotiPressable>
+                            </View>
+
                         </View>
 
                         {/* Make a Component Separately for better code Structure and less headache */}
+                        <View style={{ flex: 1 }}>
+                            {switching == '1' ? (<Recent />) : (switching == '2' ? (<Near_expiry />) : (<Expired />))}
+                        </View>
                     </View>
-
-                  <View style={{flex:1}}>{switching == '1' ? (<Recent/>):(switching == '2' ? (<Near_expiry/>):(<Expired/>))}</View>
-                </View>
                 </View>
             </MotiView>
         </MotiView>
@@ -238,7 +241,7 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     mainContainer: {
-        height: height*1.05,
+        height: height * 1.05,
     },
     WelcomeHeaderBox: {
         paddingHorizontal: width / 14.48,
@@ -301,9 +304,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.palette_secondary,
     },
     mainContent: {
-        height:'67%',
+        height: '67%',
         // backgroundColor:'blue',
-        marginTop:30
+        marginTop: 30
         // marginHorizontal: width / 65.17,
         // paddingHorizontal: width / 14.5,
     },
@@ -347,17 +350,17 @@ const styles = StyleSheet.create({
         opacity: 0.7,
         // backgroundColor:'blue'
     },
-    button:{
-       backgroundColor:'white',
-       height:30,
-       paddingHorizontal:10,
-       borderRadius:10,
-       justifyContent:'center',
-       alignItems:'center',
-       borderBottomColor:'black',
-       borderBottomWidth:1.2,  
-       shadowColor:'black', 
-       elevation:10
+    button: {
+        backgroundColor: 'white',
+        height: 30,
+        paddingHorizontal: 10,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1.2,
+        shadowColor: 'black',
+        elevation: 10
     },
     Sectiondivider: {
         width: 1,
