@@ -135,7 +135,7 @@ const Home = (props: { showMenu: any; }) => {
                         {/* factoid Component starts */}
                         {/* Use Horizontal List Here and use this Component for Items. */}
                         {/* I will do the designing */}
-                        <FlatList 
+                        <FlatList
                          data={fact_data}
                          renderItem={({item})=> <Factoid item={item}/>}
                          horizontal

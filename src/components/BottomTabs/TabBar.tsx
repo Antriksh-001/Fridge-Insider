@@ -63,7 +63,7 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                                     if (label == "Home") setTab("Home");
                                     else if (label == "Notifications") setTab("Notifications");
                                     else if (label == "Fridge") setTab("Fridge");
-                                    else if (label == "Profile") setTab("Profile");
+                                    else if (label == "TrashPickup") setTab("TrashPickup");
                               };
                               return (
                                     <MotiView key={index} style={[styles.mainItemContainer, label == "MenuWrapper" ? null : { paddingVertical: 5 }, wrap ? { display: 'none' } : { display: 'flex' }]}
@@ -79,7 +79,7 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                                                             transform: [
                                                                   tab == "Fridge" ? { translateX: width / 6.256 }
                                                                         : tab == "Notifications" ? { translateX: width / 2.079 }
-                                                                              : tab == "Profile" ? { translateX: width / 1.56 } : { translateX: 0 },
+                                                                              : tab == "TrashPickup" ? { translateX: width / 1.56 } : { translateX: 0 },
                                                             ]
                                                       }}
                                                       transition={{

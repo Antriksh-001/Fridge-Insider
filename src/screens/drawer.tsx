@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Svginserter from '../components/shared/Svginserter';
 import { AntDesign } from '@expo/vector-icons';
@@ -16,47 +16,68 @@ const drawer_list = [
   { icon: 'setting', title: 'Settings' },
 ]
 
-const Drawer = (props: { setShowMenu: (arg0: boolean) => void; }) => {
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity activeOpacity={0.35} onPress={() => { props.setShowMenu(false) }} >
-        <View style={styles.MenuBox} >
-          <Svginserter tag={'MenuClose'} />
-        </View>
-      </TouchableOpacity>
-      <View style={styles.List}>
-        <FlatList
-          data={drawer_list}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.ListItemContent}>
-                <TouchableOpacity activeOpacity={0.45} style={styles.ListItem} onPress={() => { console.log(item.title + ' Btn is clicked') }}>
-                  <View>
+const renderItem = ({ item, index }) => {
+    console.log('Drawer Item is rendered');
+    return (
+        <View style={styles.ListItemContent}>
+            <TouchableOpacity
+                activeOpacity={0.45}
+                style={styles.ListItem}
+                onPress={() => {
+                    console.log(item.title + ' Btn is clicked');
+                }}
+            >
+                <View>
                     <AntDesign name={item.icon} size={width / 16} color="white" />
-                  </View>
-                  <View style={styles.ListTitleBox}>
+                </View>
+                <View style={styles.ListTitleBox}>
                     <Text style={styles.ListTitle}>{item.title}</Text>
-                  </View>
+                </View>
+            </TouchableOpacity>
+            {index === drawer_list.length - 1 ? null : (
+                <View style={styles.underline} />
+            )}
+        </View>
+    );
+};
+
+const Drawer = React.memo((props: { setShowMenu: (arg0: boolean) => void;}) => {
+    console.log('Drawer is rendered');
+
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity
+                activeOpacity={0.35}
+                onPress={() => {
+                    props.setShowMenu(false)
+                }}
+            >
+                <View style={styles.MenuBox}>
+                    <Svginserter tag={'MenuClose'} />
+                </View>
+            </TouchableOpacity>
+            <View style={styles.List}>
+                <FlatList
+                    data={drawer_list}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+
+                <TouchableOpacity style={styles.LogoutBox}>
+                    <View>
+                        <AntDesign name="logout" size={width / 16.3} color="white" />
+                    </View>
+                    <View>
+                        <Text style={styles.LogoutTxt}>LogOut</Text>
+                    </View>
                 </TouchableOpacity>
-                {index === drawer_list.length - 1 ? null : <View style={styles.underline} />}
-              </View>
-            )
-          }}
-        />
-
-        <TouchableOpacity style={styles.LogoutBox}>
-          <View>
-            <AntDesign name='logout' size={width / 16.3} color="white" />
-          </View>
-          <View>
-            <Text style={styles.LogoutTxt}>LogOut</Text>
-          </View>
-        </TouchableOpacity>
-
-      </View>
-    </View>
-  )
-}
+            </View>
+        </View>
+    );
+}, (prevProps, nextProps) => {
+    // Memo comparison logic
+    return true; // or false based on your comparison
+});
 
 const styles = StyleSheet.create({
   container: {
