@@ -54,7 +54,7 @@ export default function ScreenNavigator() {
       }
       else if (screen == 'MainHome') {
             return (
-                  <Main_home changeScreen={changeScreen} />
+                  <Main_home changeScreen={changeScreen}/>
             )
       }
       else if (screen == 'Fridge') {

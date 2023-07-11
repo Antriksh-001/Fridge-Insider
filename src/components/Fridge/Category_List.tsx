@@ -1,3 +1,4 @@
+import {useContext, useRef} from 'react';
 import { Modal, Text, View, StyleSheet, TouchableWithoutFeedback, FlatList, TouchableOpacity, Image } from "react-native";
 import { Colors } from '../../constants/Colors';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
@@ -5,19 +6,34 @@ import menus from "../shared/temp_data";
 import { useEffect, useState } from "react";
 import { MotiView } from "moti";
 import { Ionicons } from '@expo/vector-icons';
+import Data1 from '../../Context/Data1';
 
 const height = SCREEN_HEIGHT;
 const width = SCREEN_WIDTH;
 
-const Category_List = ({ type1,image, visible, setVisible }) => {
-    console.log(type1);
-    const [data1, setData1] = useState(menus);
-    const [oldData, setOldData] = useState(menus);
+const Category_List = ({ type1, image1, visible, setVisible}) => {
 
-    let tempdata = oldData.filter((item) => item.type == type1);
+    const [gdata,setGdata] = useContext(Data1)
+    const [data1, setData1] = useState([]);
+    const [oldData, setOldData] = useState([]); 
+    console.log(gdata);
+     
     useEffect(() => {
+        setData1(gdata);
+        setOldData(gdata);
+    }, [type1,gdata]);
+    
+    useEffect(() => {
+        let tempdata = oldData.filter((item) => item.type == type1);
         setData1(tempdata);
-    }, [type1]);
+    }, [type1,gdata]);
+
+    const deleteItemById = id => {
+        const filteredData2 = gdata.filter(item => item.id !== id);
+        setGdata(filteredData2);
+        const filteredData = data1.filter(item => item.id !== id);
+        setData1(filteredData);
+      }
 
     return (
         <Modal
@@ -43,7 +59,7 @@ const Category_List = ({ type1,image, visible, setVisible }) => {
                         <Text style={styles.IntroSubHeaderTxt}>5 Items</Text>
                     </View>
                     <View style={{flex:1,position:'absolute',right:30,top:40}}>
-                      <Image source={image} style={{ width: 120, height: 120}} />
+                      <Image source={image1} style={{ width: 120, height: 120}} />
                     </View>
                 </View>
 
@@ -105,7 +121,7 @@ const Category_List = ({ type1,image, visible, setVisible }) => {
                                       </View>
                                       {/* Delete button */}
                                       <View style={styles.deleteButton}>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => deleteItemById(item.id)}>
                                           <Image source={require('../../../assets/images/trash.png')} style={{ width: width/12, height: width/12}} />                                        
                                         </TouchableOpacity>
                                       </View>  

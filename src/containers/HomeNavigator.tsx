@@ -30,7 +30,7 @@ export default function HomeNavigator(props) {
                               tabBarLabel: "Home",
                               title: "Home",
                         }} />
-                        <Tab.Screen name="Fridge" children={() => <Fridge showMenu={props.showMenu} />} options={{
+                        <Tab.Screen name="Fridge" children={() => <Fridge showMenu={props.showMenu}/>} options={{
                               tabBarLabel: "Fridge",
                               title: "Fridge"
                         }} />

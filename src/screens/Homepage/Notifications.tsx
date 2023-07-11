@@ -2,8 +2,6 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, FlatList, 
 import React, { useEffect, useRef, useState } from "react";
 import { MotiView } from "moti";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
-import { Colors } from "../../constants/Colors";
-import Svginserter from "../../components/shared/Svginserter";
 import menus from "../../components/shared/temp_data";
 
 const Notifications = (props) => {
@@ -274,7 +272,7 @@ const styles = StyleSheet.create({
     marginBottom: 3.8,
   },
   cornerDot: {
-    backgroundColor: 'grey',
+    backgroundColor: '#99ff99',
     position: 'absolute',
     zIndex: 2,
     right: 12,

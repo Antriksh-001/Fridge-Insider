@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, ScrollView, Modal } from 'react-native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Colors } from '../../constants/Colors';
 import { MotiView } from 'moti';
-import Lottie from 'lottie-react-native';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
 import ADD_ITEM from '../../components/Fridge/ADD_Item';
 import Svginserter from '../../components/shared/Svginserter';
@@ -30,6 +29,7 @@ const Fridge = (props) => {
   const [profile, setProfile] = useState(false);
   const [type,setType] = useState('');
   const [image,setImage] = useState('');
+  const searchRef = useRef();
 
   return (
     <MotiView style={styles.container}
@@ -58,7 +58,7 @@ const Fridge = (props) => {
         </MotiPressable>
       </MotiView>
 
-      <View style={{ flex: 1, marginTop: 70 }}>
+      <View style={{ flex: 1, marginTop: 80 }}>
         {/*Heading and Subheading Box*/}
         <View style={styles.IntroBox}>
 
@@ -128,6 +128,7 @@ const Fridge = (props) => {
                      height: index%4 == 1 || index%4 == 2 ?SCREEN_WIDTH / 2.6 : SCREEN_WIDTH/2.2,
                      marginTop : (index%4 == 3) && (index != 0) ? -16:10,
                      }]} 
+                     ref={searchRef}
                      onPress={() => { setType(item.type); setImage(item.image); setVisible2(true) }}>
 
                     <View style={styles.CategoriesComp1}>
@@ -147,7 +148,7 @@ const Fridge = (props) => {
             }}
             />
             {/* Particular Category Page */}
-            <Category_List type1={type} image={image} visible={visible2} setVisible={setVisible2}/>
+            <Category_List type1={type} image1={image} visible={visible2} setVisible={setVisible2}/>
         </View>
 
       </View>
