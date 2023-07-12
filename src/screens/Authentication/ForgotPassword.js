@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { MotiView } from 'moti';
 import { Feather } from '@expo/vector-icons';
-import Svginserter from '../shared/Svginserter';
+import Svginserter from '../../components/shared/Svginserter';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
 
@@ -36,7 +36,7 @@ export default function ForgotPassword(props) {
                         <View style={styles.lowermaincont}>
                               <TouchableOpacity onPress={() => { props.setForgotpass(false) }}>
                                     <View style={styles.backbtn}>
-                                          <Feather name="chevron-left" size={width / 14} color="#52A2E7" style={{ paddingRight: width / 196 }} />
+                                          <Feather name="chevron-left" size={width / 14} color={Colors.palette_primary} style={{ paddingRight: width / 196 }} />
                                     </View>
                               </TouchableOpacity>
                               <View style={styles.ForgotHeadingBox}>
@@ -56,7 +56,7 @@ export default function ForgotPassword(props) {
                                     </View>
                               </View>
                               <View style={styles.NoteBox}>
-                                    <Text style={styles.NoteTxt}><Text style={{ color: '#52A2E7' }}>*</Text> We will send you a message to set or reset your new password</Text>
+                                    <Text style={styles.NoteTxt}><Text style={{ color: Colors.palette_primary }}>*</Text> We will send you a message to set or reset your new password</Text>
                               </View>
                               <View style={styles.Sendbtncont}>
                                     <TouchableOpacity onPress={() => { console.log('Clicked on Send Button') }}>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
       Sendbtn: {
             width: width / 7,
             height: width / 7,
-            backgroundColor: '#52A2E7',
+            backgroundColor: Colors.palette_primary,
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 50,

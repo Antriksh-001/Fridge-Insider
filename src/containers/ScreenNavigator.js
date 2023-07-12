@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import Index from '../screens/GetStarted/index';
-import AuthenticationPage from '../screens/GetStarted/AuthenticationPage';
+import AuthenticationPage from '../screens/Authentication/AuthenticationPage';
 import Location from '../screens/Location/Location';
 import ProvideLocation from '../screens/Location/ProvideLocation';
 import Main_home from '../screens/Homepage/Main_home';
@@ -8,7 +8,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 export default function ScreenNavigator() {
-      const [screen, changeScreen] = useState('MainHome');
+      const [screen, changeScreen] = useState('AuthenticationPage');
 
       const [fontsLoaded] = useFonts({
             'SF-Pro-Rounded-Regular': require('../../assets/fonts/FontsFree-Net-SF-Pro-Rounded-Regular.ttf'),

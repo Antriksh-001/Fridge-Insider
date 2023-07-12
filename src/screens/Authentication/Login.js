@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Keyboard, View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { MotiView } from 'moti';
-import Svginserter from '../shared/Svginserter';
+import Svginserter from '../../components/shared/Svginserter';
 import Lottie from 'lottie-react-native';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
-import Login from '../../components/Authentication/Login';
-import Signup from '../../components/Authentication/Signup';
-import ForgotPassword from '../../components/Authentication/ForgotPassword';
+import Login from './Login';
+import Signup from './Signup';
+import ForgotPassword from './ForgotPassword';
 import Lottie from 'lottie-react-native';
 import { MotiView } from 'moti';
 import * as Screen from '../../constants/Screen';

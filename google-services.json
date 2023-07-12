@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "725327738963",
+    "project_id": "fridge-insider",
+    "storage_bucket": "fridge-insider.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725327738963:android:31643af871faccee51aea6",
+        "android_client_info": {
+          "package_name": "com.antriksh01.FridgeInsider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725327738963-rrp0m2n5qlqe4oee7653l97rscc0ol9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqhGrMdyGQ9A_didlPqGs9SKNJgqScyLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725327738963-rrp0m2n5qlqe4oee7653l97rscc0ol9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

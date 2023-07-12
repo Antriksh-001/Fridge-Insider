@@ -18,13 +18,24 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.antriksh01.FridgeInsider"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "29e5767b-1f43-43b2-976f-27e68e79c992"
+      }
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      "expo-build-properties"
+    ]
   }
 }
