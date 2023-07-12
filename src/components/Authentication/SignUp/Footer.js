@@ -12,7 +12,7 @@ const height = Screen.SCREEN_HEIGHT;
 const Footer = (props) => {
     return (
         <View style={styles.footer}>
-            <Button Title={"Sign-up"} BtnBox={styles.btnhighlightbox} BtnTxt={styles.btn} handleonPress={props.Register} />
+            <Button Title={"Sign-up"} BtnHighlight={styles.btnhighlight} BtnBox={styles.btnbox} BtnTxt={styles.btn} handleonPress={props.Register} />
             <TouchableOpacity onPress={() => { props.setLogin(true) }}>
                 <View>
                     <Text style={styles.AccAlreadytxt}>Already have{'\n'}Account?
@@ -30,12 +30,17 @@ const styles = {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: height / 30,
+        marginTop: height / 52.87,
         paddingHorizontal: width / 9,
     },
-    btnhighlightbox: {
-        width: width / 2.5,
+    btnhighlight: {
+        width: width / 2.6,
         height: width / 6.8,
+        borderRadius: 30,
+        backgroundColor: Colors.body_light,
+    },
+    btnbox: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,

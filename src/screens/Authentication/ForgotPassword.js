@@ -9,75 +9,68 @@ import { Colors } from '../../constants/Colors';
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-export default function ForgotPassword(props) {
+const ForgotPassword = React.memo((props) => {
       const [email, onChangeEmail] = useState('');
       const [loaded, setLoaded] = useState(false);
 
-      useEffect(() => {
-            setLoaded(true);
-      }, [loaded])
-
-      if (loaded) {
-            return (
-                  <MotiView style={styles.lowercont}
-                        from={{
-                              scale: 0.7,
-                              opacity: 0
-                        }}
-                        animate={{
-                              scale: 1,
-                              opacity: 1
-                        }}
-                        transition={{
-                              type: 'timing',
-                              duration: 400,
-                        }}
-                  >
-                        <View style={styles.lowermaincont}>
-                              <TouchableOpacity onPress={() => { props.setForgotpass(false) }}>
-                                    <View style={styles.backbtn}>
-                                          <Feather name="chevron-left" size={width / 14} color={Colors.palette_primary} style={{ paddingRight: width / 196 }} />
+      console.log('Forgot Password Screen Loaded');
+      return (
+            <MotiView style={styles.lowercont}
+                  from={{
+                        scale: 0.7,
+                        opacity: 0
+                  }}
+                  animate={{
+                        scale: 1,
+                        opacity: 1
+                  }}
+                  transition={{
+                        type: 'timing',
+                        duration: 400,
+                  }}
+            >
+                  <View style={styles.lowermaincont}>
+                        <TouchableOpacity onPress={() => { props.setForgotpass(false) }}>
+                              <View style={styles.backbtn}>
+                                    <Feather name="chevron-left" size={width / 14} color={Colors.palette_primary} style={{ paddingRight: width / 196 }} />
+                              </View>
+                        </TouchableOpacity>
+                        <View style={styles.ForgotHeadingBox}>
+                              <Text style={styles.ForgotHeadingtxt}>Forgot{'\n'}password?</Text>
+                        </View>
+                        <View style={styles.inputTextBox}>
+                              <View style={styles.EntryLogoBox}><Svginserter tag={'Mail'} width={width / 16.2} height={width / 16.2} /></View>
+                              <View><TextInput
+                                    style={styles.input}
+                                    onChangeText={onChangeEmail}
+                                    value={email}
+                                    placeholder="Enter your email address"
+                                    keyboardType="email-address"
+                                    cursorColor={'black'}
+                                    autoFocus={false} >
+                              </TextInput>
+                              </View>
+                        </View>
+                        <View style={styles.NoteBox}>
+                              <Text style={styles.NoteTxt}><Text style={{ color: Colors.palette_primary }}>*</Text> We will send you a message to set or reset your new password</Text>
+                        </View>
+                        <View style={styles.Sendbtncont}>
+                              <TouchableOpacity onPress={() => { console.log('Clicked on Send Button') }}>
+                                    <View style={styles.Sendbtn}>
+                                          <Feather name="arrow-right" size={width / 14} color="white" />
                                     </View>
                               </TouchableOpacity>
-                              <View style={styles.ForgotHeadingBox}>
-                                    <Text style={styles.ForgotHeadingtxt}>Forgot{'\n'}password?</Text>
-                              </View>
-                              <View style={styles.inputTextBox}>
-                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Mail'} width={width / 16.2} height={width / 16.2} /></View>
-                                    <View><TextInput
-                                          style={styles.input}
-                                          onChangeText={onChangeEmail}
-                                          value={email}
-                                          placeholder="Enter your email address"
-                                          keyboardType="email-address"
-                                          cursorColor={'black'}
-                                          autoFocus={false} >
-                                    </TextInput>
-                                    </View>
-                              </View>
-                              <View style={styles.NoteBox}>
-                                    <Text style={styles.NoteTxt}><Text style={{ color: Colors.palette_primary }}>*</Text> We will send you a message to set or reset your new password</Text>
-                              </View>
-                              <View style={styles.Sendbtncont}>
-                                    <TouchableOpacity onPress={() => { console.log('Clicked on Send Button') }}>
-                                          <View style={styles.Sendbtn}>
-                                                <Feather name="arrow-right" size={width / 14} color="white" />
-                                          </View>
-                                    </TouchableOpacity>
-                              </View>
-
                         </View>
-                  </MotiView>
-            )
-      }
-      else {
-            console.log('data not loaded yet');
-      }
-}
+
+                  </View>
+            </MotiView>
+      );
+}, (prevProps, nextProps) => {
+      return true;
+});
 
 const styles = StyleSheet.create({
       lowercont: {
-            width: width,
             alignItems: 'center',
       },
       lowermaincont: {
@@ -147,4 +140,6 @@ const styles = StyleSheet.create({
             justifyContent: 'center',
             borderRadius: 50,
       },
-})
+});
+
+export default ForgotPassword;

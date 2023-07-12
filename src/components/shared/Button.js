@@ -1,11 +1,13 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, TouchableHighlight } from "react-native";
 
 const Button = (props) => {
     return (
-        <TouchableOpacity activeOpacity={0.45} style={props.BtnBox} onPress={props.handleonPress}>
-            <Text style={props.BtnTxt}>{props.Title}</Text>
-        </TouchableOpacity>
+        <TouchableHighlight style={props.BtnHighlight} onPress={props.handleonPress}>
+            <View style={props.BtnBox}>
+                <Text style={props.BtnTxt}>{props.Title}</Text>
+            </View>
+        </TouchableHighlight>
     )
 }
 

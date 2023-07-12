@@ -1,144 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import { Keyboard, View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import React, { useState, useMemo } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { MotiView } from 'moti';
-import Svginserter from '../../components/shared/Svginserter';
-import Lottie from 'lottie-react-native';
+import { Snackbar } from 'react-native-paper';
+
+// Constants
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
+// Components
+import { animateStyles, transitionConfig } from '../../components/Authentication/motiConfig';
+import InputBox from '../../components/Authentication/AuthInputBox';
+import Button from '../../components/shared/Button';
+import GoogleBtn from '../../components/Authentication/LogIn/GoogleBtn';
+
+// Firebase
+import { handleLogin } from '../../Firebase/FirebaseLogin';
+
 export default function Login(props) {
       const [email, onChangeEmail] = useState('');
       const [password, onChangePassword] = useState('');
-      const [loaded,setLoaded] = useState(false);
-      // const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      //       console.log('keyboard dismissed');
-      // });
+      const [loading, setLoading] = useState(false);
+      const [error, setError] = useState('');
 
-      useEffect(() => {
-        setLoaded(true);
-      }, [loaded])
-      
-      if(loaded){
-            console.log('data loaded');
-            return (
-                  <MotiView style={styles.lowercont} 
-                        from = {{
-                              translateX: -width,
-                              opacity: 0
+      const handleLoginPress = useMemo(() => () =>
+            handleLogin(email, password, props.changeScreen, setLoading, setError),
+            [email, password, props]
+      );
+      console.log('Login Screen rendered');
+      return (
+            <MotiView style={styles.lowercont} from={{ translateX: -width, opacity: 0 }} animate={animateStyles} transition={transitionConfig} >
+                  <View style={styles.InputBoxes}>
+                        <InputBox SvgName={'Email'} onChangeText={onChangeEmail} value={email} placeholder={'Enter Your Email'} />
+                        <InputBox SvgName={'Password'} onChangeText={onChangePassword} value={password} placeholder={'Enter Your Password'} />
+                  </View>
+                  <View style={styles.forgotPassBox}>
+                        <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => props.setForgotpass(true)}>
+                              <Text style={styles.forgotpasstext}>Forgot Password?</Text>
+                        </TouchableOpacity>
+                  </View>
+                  {loading ? (
+                        <ActivityIndicator style={styles.spinner} size={35} color={Colors.palette_secondary} />
+                  ) : (
+                        <View style={{ alignItems: 'center' }}>
+                              <Button
+                                    Title={'Login'}
+                                    BtnHighlight={styles.btnhighlight}
+                                    BtnBox={styles.btnbox}
+                                    BtnTxt={styles.btntxt}
+                                    handleonPress={handleLoginPress}
+                              />
+                              <View style={styles.SeparatorBox}>
+                                    <View style={styles.lineSeparator} />
+                                    <Text style={styles.Or_Separator}>Or</Text>
+                                    <View style={styles.lineSeparator} />
+                              </View>
+                              <GoogleBtn />
+                        </View>
+                  )}
+                  <Snackbar
+                        visible={!!error}
+                        onDismiss={() => setError('')}
+                        action={{
+                              label: 'Close',
+                              onPress: () => setError(''),
                         }}
-                        animate={{
-                              translateX: 0,
-                              opacity: 1
-                        }}
-                        transition={{
-                              type: 'timing',
-                              duration: 400,
-                        }}
+                        style={styles.snackbar}
                   >
-                        <View style={styles.InputBoxes}>
-                              <View style={styles.inputTextBox}>
-                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Email'} width={width / 16.2} height={width / 16.2} /></View>
-                                    <View><TextInput
-                                          style={styles.input}
-                                          onChangeText={onChangeEmail}
-                                          value={email}
-                                          placeholder="Enter Your Email"
-                                          keyboardType="email-address"
-                                          cursorColor={'black'}
-                                          autoFocus={false}
-                                    // hideSubscription
-                                    >
-                                    </TextInput>
-                                    </View>
-                              </View>
-                              <View style={styles.inputTextBox}>
-                                    <View style={styles.EntryLogoBox}><Svginserter tag={'Password'} width={width/16.2} height={width/16.2} /></View>
-                                    <View><TextInput
-                                          style={styles.input}
-                                          onChangeText={onChangePassword}
-                                          value={password}
-                                          placeholder="Enter Your Password"
-                                          keyboardType="email-address"
-                                          cursorColor={'black'}
-                                          autoFocus={false}
-                                          onSubmitEditing={() => { console.log('Keyboard dismiss') }}
-                                          onFocus={() => console.log("focus received")}
-                                          onBlur={() => console.log("focus lost")}
-                                    // hideSubscription
-                                    // onPointerCancel={()=>{console.log('clicked')}}
-                                    // onEndEditing={() => { console.log('clicked') }}
-                                    // onEndEditing={props.onChangeUI(false)}
-                                    >
-                                    </TextInput>
-                                    </View>
-                              </View>
-                        </View>
-                        <View style={styles.forgotPassBox} >
-                              <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => { props.setForgotpass(true)}}>
-                                    <Text style={styles.forgotpasstext}>Forgot Password?</Text>
-                              </TouchableOpacity>
-                        </View>
-                        <TouchableHighlight style={styles.btnhighlightbox} onPress={() => { console.log('Login Button Pressed') }}>
-                              <View style={styles.btnbox}>
-                                    <Text style={styles.btn}>Login</Text>
-                              </View>
-                        </TouchableHighlight>
-                        <View style={styles.SeparatorBox}>
-                              <View style={styles.lineSeparator} />
-                              <Text style={styles.Or_Separator}>Or</Text>
-                              <View style={styles.lineSeparator} />
-                        </View>
-                        <View>
-                              <TouchableHighlight style={styles.GoogleHighlightBox} onPress={() => { console.log('Google Login Button Pressed and rendering the HomePage') }}>
-                                    <View style={styles.Googlebtnbox}>
-                                          <View style={styles.GoogleLogoAnim} >
-                                                <Lottie source={require('../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} />
-                                          </View>
-                                          <View>
-                                                <Text style={styles.Googlebtntext}>Log In with Google</Text>
-                                          </View>
-                                    </View>
-                              </TouchableHighlight>
-                        </View>
-                  </MotiView>
-            )
-      }
-      else{
-            console.log('not loaded yet');
-      }
+                        {error}
+                  </Snackbar>
+            </MotiView>
+      );
 }
 
 const styles = StyleSheet.create({
       lowercont: {
-            width: width,
+            width,
             alignItems: 'center',
       },
       InputBoxes: {
             paddingTop: height / 22,
-      },
-      inputTextBox: {
-            width: width / 1.28,
-            height: height / 13,
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: 'white',
-            borderRadius: 10,
-            margin: height / 79,
-            shadowColor: Colors.body_dark,
-            shadowOffset: { width: 0, height: 2 },
-            shadowRadius: 10,
-            elevation: 8,
-      },
-      EntryLogoBox: {
-            padding: height / 80,
-      },
-      input: {
-            width: width / 1.65,
-            height: height / 13,
-            fontSize: width / 30,
       },
       forgotPassBox: {
             width: width / 1.28,
@@ -150,7 +93,7 @@ const styles = StyleSheet.create({
             color: Colors.body_dark,
             fontSize: width / 27.9,
       },
-      btnhighlightbox: {
+      btnhighlight: {
             width: width / 1.28,
             height: width / 6.4,
             alignSelf: 'center',
@@ -164,7 +107,7 @@ const styles = StyleSheet.create({
             borderRadius: 30,
             backgroundColor: Colors.body_light,
       },
-      btn: {
+      btntxt: {
             fontSize: width / 23,
             fontFamily: 'SF-Pro-Rounded-Bold',
             letterSpacing: 0.8,
@@ -187,30 +130,10 @@ const styles = StyleSheet.create({
             fontSize: width / 21.5,
             fontFamily: 'SF-Pro-Rounded-Bold',
       },
-      GoogleHighlightBox: {
-            width: width / 1.28,
-            height: width / 6.4,
-            alignSelf: 'center',
-            borderRadius: 30,
-            margin: height / 25,
+      snackbar: {
+            marginBottom: width / 39.1,
       },
-      Googlebtnbox: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 30,
-            backgroundColor: '#FFFFFF',
+      spinner: {
+            marginVertical: height / 10,
       },
-      GoogleLogoAnim: {
-            width: width / 8,
-            height: width / 8,
-      },
-      Googlebtntext: {
-            fontSize: width / 21,
-            fontFamily: 'SF-Pro-Rounded-Heavy',
-            color: 'rgba(0,0,0,0.50)',
-            paddingHorizontal: width/30,
-            letterSpacing: 0.5,
-      },
-})
+});

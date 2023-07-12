@@ -1,50 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
-import Login from './Login';
-import Signup from './Signup';
-import ForgotPassword from './ForgotPassword';
 import Lottie from 'lottie-react-native';
 import { MotiView } from 'moti';
+
+// constants
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-export default function AuthenticationPage(props) {
+// components
+import { animateStyles2, transitionConfig } from '../../components/Authentication/motiConfig';
+
+// screens
+import Login from './Login';
+import Signup from './Signup';
+import ForgotPassword from './ForgotPassword';
+
+const AuthenticationPage = (props) => {
       const [login, setLogin] = useState(true);
       const [forgotpass, setForgotpass] = useState(false);
 
+      const handleLoginPress = useMemo(() => () => setLogin(true), []);
+      const handleSignupPress = useMemo(() => () => {
+            setLogin(false);
+            setForgotpass(false);
+      }, []);
+      console.log('render');
       return (
             <ScrollView style={styles.maincont}>
-                  <MotiView style={styles.upper}
-                        from={{
-                              translateY: -height * 0.35,
-                        }}
-                        animate={{
-                              translateY: 0,
-                        }}
-                        transition={{
-                              type: 'timing',
-                              duration: 400,
-                        }}
+                  <MotiView
+                        style={styles.upper}
+                        from={{ translateY: -height * 0.35 }}
+                        animate={animateStyles2}
+                        transition={transitionConfig}
                   >
                         <View style={styles.loginAnimBox}>
-                              <Lottie source={require('../../../assets/animation/login_animation.json')} autoPlay={true} loop={true} style={styles.loginAnim} />
+                              <Lottie
+                                    source={require('../../../assets/animation/login_animation.json')}
+                                    autoPlay
+                                    loop
+                                    style={styles.loginAnim}
+                              />
                         </View>
-                        <View style={styles.loginSigninHeaderBox} >
-                              <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setLogin(true) }} >
+                        <View style={styles.loginSigninHeaderBox}>
+                              <Pressable style={styles.AuthCmnHeaderBox} onPress={handleLoginPress}>
                                     <Text style={styles.HeaderCommontxt}>Login</Text>
                               </Pressable>
-                              <Pressable style={styles.AuthCmnHeaderBox} onPress={() => { setLogin(false);setForgotpass(false); }}>
+                              <Pressable style={styles.AuthCmnHeaderBox} onPress={handleSignupPress}>
                                     <Text style={styles.HeaderCommontxt}>Sign-up</Text>
                               </Pressable>
                         </View>
-                        <MotiView style={styles.MovingHighlight}
-                              from={{
-                                    translateX: 0,
-                              }}
-                              animate={login ? { translateX: 0, } : { translateX: width/2.41, }}
+                        <MotiView
+                              style={styles.MovingHighlight}
+                              from={{ translateX: 0 }}
+                              animate={login ? { translateX: 0 } : { translateX: width / 2.41 }}
                               transition={{
                                     type: 'spring',
                                     duration: 800,
@@ -52,11 +63,19 @@ export default function AuthenticationPage(props) {
                         />
                   </MotiView>
                   <View>
-                        {login ? (forgotpass ? <ForgotPassword setForgotpass={setForgotpass} /> : <Login setForgotpass={setForgotpass} />) : <Signup setLogin={setLogin} changeScreen={props.changeScreen}/>}
+                        {login ? (
+                              forgotpass ? (
+                                    <ForgotPassword setForgotpass={setForgotpass} />
+                              ) : (
+                                    <Login changeScreen={props.changeScreen} setForgotpass={setForgotpass} />
+                              )
+                        ) : (
+                              <Signup setLogin={setLogin} changeScreen={props.changeScreen} />
+                        )}
                   </View>
             </ScrollView>
-      )
-}
+      );
+};
 
 const styles = StyleSheet.create({
       maincont: {
@@ -64,7 +83,7 @@ const styles = StyleSheet.create({
             backgroundColor: Colors.bg,
       },
       upper: {
-            width: width,
+            width,
             height: height * 0.35,
             borderBottomLeftRadius: 35,
             borderBottomRightRadius: 35,
@@ -89,7 +108,7 @@ const styles = StyleSheet.create({
       },
       loginSigninHeaderBox: {
             flex: 0.2,
-            width: width,
+            width,
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
@@ -108,11 +127,13 @@ const styles = StyleSheet.create({
       MovingHighlight: {
             width: width * 0.33,
             maxWidth: 160,
-            height: width/97.75,
+            height: width / 97.75,
             maxHeight: 6,
             borderRadius: 20,
             backgroundColor: '#57A2E7',
             position: 'relative',
-            right: width/4.768,
+            right: width / 4.768,
       },
-})
+});
+
+export default AuthenticationPage;

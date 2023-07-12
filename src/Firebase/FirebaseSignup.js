@@ -38,7 +38,7 @@ export const handleSignup = async (email, password, name, confirmPass, setLoadin
 
                 if (response) {
                     await createProfile(response, name, email, password);
-                    props.changeScreen('AuthenticationPage');
+                    props.changeScreen('AuthenticationPage'); // Change to verification screen
                 }
             } catch (error) {
                 if (error.code === 'auth/email-already-in-use') {
@@ -51,9 +51,8 @@ export const handleSignup = async (email, password, name, confirmPass, setLoadin
                     setError('An error occurred during registration.');
                 }
                 console.error(error);
-            } finally {
-                setLoading(false); // Stop loader
             }
+            setLoading(false); // Stop loader
         } else {
             setError('Password and Confirm Password do not match');
         }
