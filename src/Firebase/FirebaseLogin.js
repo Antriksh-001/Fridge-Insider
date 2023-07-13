@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import { isValidEmail } from './FirebaseForgotPass';
 
 export const handleLogin = async (email, password, changeScreen, setLoadingModalVisible, setError) => {
     console.log('Login Button Pressed');
@@ -25,10 +26,4 @@ export const handleLogin = async (email, password, changeScreen, setLoadingModal
         setError('Wrong credentials. Please try again.');
     }
     setLoadingModalVisible(false); // Deactivate the loading spinner
-};
-
-const isValidEmail = (email) => {
-    // Simple email format validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
 };

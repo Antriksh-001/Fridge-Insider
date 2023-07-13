@@ -1,7 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
-import Lottie from 'lottie-react-native';
-import { MotiView } from 'moti';
+import { View, StyleSheet, ScrollView } from 'react-native';
 
 // constants
 import * as Screen from '../../constants/Screen';
