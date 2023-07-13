@@ -4,16 +4,17 @@ import * as Screen from "../../constants/Screen";
 
 const width = Screen.SCREEN_WIDTH;
 
-const SnackBar = ({ error, setError }) => {
+const SnackBar = ({ error, setError, success }) => {
     return (
         <Snackbar
             visible={!!error}
             onDismiss={() => setError('')}
+            duration={4000}
             action={{
-                label: 'Close',
+                label: success? 'OK' : 'Close',
                 onPress: () => setError(''),
             }}
-            style={styles.snackbar}
+            style={[styles.snackbar, { backgroundColor: success ? '#4caf50' : '#323232' }]}
         >
             {error}
         </Snackbar>

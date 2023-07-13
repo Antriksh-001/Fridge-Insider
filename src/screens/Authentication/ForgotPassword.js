@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { MotiView } from 'moti';
 import { Feather } from '@expo/vector-icons';
-import Svginserter from '../../components/shared/Svginserter';
+
+// constants
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
-
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
 // components
 import { animateStyles3, transitionConfig } from '../../components/Authentication/motiConfig';
+import Svginserter from '../../components/shared/Svginserter';
+import SnackBar from '../../components/shared/Snackbar';
+import LoadingModal from '../../components/shared/LoadingModal';
+
+// Firebase Functions
+import { handlePasswordReset } from '../../Firebase/FirebaseForgotPass';
 
 const ForgotPassword = React.memo((props) => {
       const [email, setEmail] = useState('');
+      const [error, setError] = useState('');
+      const [loadingModalVisible, setLoadingModalVisible] = useState(false);
+      const [success, setSuccess] = useState(false);
 
       console.log('Forgot Password Screen Loaded');
+
       return (
-            <MotiView style={styles.lowercont} from={{ scale: 0.7, opacity: 0 }} animate={animateStyles3} transition={transitionConfig} >
+            <MotiView style={styles.lowercont} from={{ scale: 0.7, opacity: 0 }} animate={animateStyles3} transition={transitionConfig}>
                   <View style={styles.lowermaincont}>
                         <TouchableOpacity onPress={() => { props.setForgotpass(false) }}>
                               <View style={styles.backbtn}>
@@ -29,29 +39,31 @@ const ForgotPassword = React.memo((props) => {
                         </View>
                         <View style={styles.inputTextBox}>
                               <View style={styles.EntryLogoBox}><Svginserter tag={'Mail'} width={width / 16.2} height={width / 16.2} /></View>
-                              <View><TextInput
-                                    style={styles.input}
-                                    onChangeText={setEmail}
-                                    value={email}
-                                    placeholder="Enter your email address"
-                                    keyboardType="email-address"
-                                    cursorColor={'black'}
-                                    autoFocus={false} >
-                              </TextInput>
+                              <View>
+                                    <TextInput
+                                          style={styles.input}
+                                          onChangeText={setEmail}
+                                          value={email}
+                                          placeholder="Enter your email address"
+                                          keyboardType="email-address"
+                                          cursorColor={'black'}
+                                          autoFocus={false}
+                                    />
                               </View>
                         </View>
                         <View style={styles.NoteBox}>
                               <Text style={styles.NoteTxt}><Text style={{ color: Colors.palette_primary }}>*</Text> We will send you a message to set or reset your new password</Text>
                         </View>
                         <View style={styles.Sendbtncont}>
-                              <TouchableOpacity onPress={() => { console.log('Clicked on Send Button') }}>
+                              <TouchableOpacity onPress={() => handlePasswordReset(email, setEmail, setError, setSuccess, setLoadingModalVisible)}>
                                     <View style={styles.Sendbtn}>
                                           <Feather name="arrow-right" size={width / 14} color="white" />
                                     </View>
                               </TouchableOpacity>
                         </View>
-
                   </View>
+                  <SnackBar error={error} setError={setError} success={success} />
+                  <LoadingModal loadingModalVisible={loadingModalVisible} />
             </MotiView>
       );
 }, (prevProps, nextProps) => {
@@ -60,6 +72,7 @@ const ForgotPassword = React.memo((props) => {
 
 const styles = StyleSheet.create({
       lowercont: {
+            height: height / 1.6,
             alignItems: 'center',
       },
       lowermaincont: {

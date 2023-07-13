@@ -14,7 +14,6 @@ import Mainheader from '../../components/Authentication/SignUp/Mainheader';
 import InputBox from '../../components/Authentication/AuthInputBox';
 import Footer from '../../components/Authentication/SignUp/Footer';
 import SnackBar from '../../components/shared/Snackbar';
-
 import LoadingModal from '../../components/shared/LoadingModal';
 
 //Firebase Authentication
