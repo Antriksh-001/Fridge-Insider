@@ -9,26 +9,15 @@ import { Colors } from '../../constants/Colors';
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
+// components
+import { animateStyles3, transitionConfig } from '../../components/Authentication/motiConfig';
+
 const ForgotPassword = React.memo((props) => {
-      const [email, onChangeEmail] = useState('');
-      const [loaded, setLoaded] = useState(false);
+      const [email, setEmail] = useState('');
 
       console.log('Forgot Password Screen Loaded');
       return (
-            <MotiView style={styles.lowercont}
-                  from={{
-                        scale: 0.7,
-                        opacity: 0
-                  }}
-                  animate={{
-                        scale: 1,
-                        opacity: 1
-                  }}
-                  transition={{
-                        type: 'timing',
-                        duration: 400,
-                  }}
-            >
+            <MotiView style={styles.lowercont} from={{ scale: 0.7, opacity: 0 }} animate={animateStyles3} transition={transitionConfig} >
                   <View style={styles.lowermaincont}>
                         <TouchableOpacity onPress={() => { props.setForgotpass(false) }}>
                               <View style={styles.backbtn}>
@@ -42,7 +31,7 @@ const ForgotPassword = React.memo((props) => {
                               <View style={styles.EntryLogoBox}><Svginserter tag={'Mail'} width={width / 16.2} height={width / 16.2} /></View>
                               <View><TextInput
                                     style={styles.input}
-                                    onChangeText={onChangeEmail}
+                                    onChangeText={setEmail}
                                     value={email}
                                     placeholder="Enter your email address"
                                     keyboardType="email-address"
@@ -94,9 +83,6 @@ const styles = StyleSheet.create({
             fontSize: width / 10,
             fontFamily: 'SF-Pro-Rounded-Bold',
             color: Colors.body_dark,
-      },
-      InputBoxes: {
-            paddingTop: height / 22,
       },
       inputTextBox: {
             width: width / 1.28,

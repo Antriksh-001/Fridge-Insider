@@ -1,0 +1,23 @@
+# Exclude the %ProgramData% directory
+%ProgramData%/
+
+# Ignore Android build artifacts
+/android/app/build/
+/android/build/
+
+# Ignore unnecessary file types
+# *.log
+# *.gz
+# *.tar
+# *.zip
+# *.rar
+# *.png
+# *.jpg
+# *.jpeg
+# *.gif
+
+# Ignore unnecessary directories
+/node_modules/
+/.expo/
+/coverage/
+/.git/

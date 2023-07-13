@@ -1,7 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { MotiView } from 'moti';
-import { Snackbar } from 'react-native-paper';
 
 // Constants
 import * as Screen from '../../constants/Screen';
@@ -15,20 +14,54 @@ import { animateStyles, transitionConfig } from '../../components/Authentication
 import InputBox from '../../components/Authentication/AuthInputBox';
 import Button from '../../components/shared/Button';
 import GoogleBtn from '../../components/Authentication/LogIn/GoogleBtn';
+import SnackBar from '../../components/shared/Snackbar';
+import LoadingModal from '../../components/shared/LoadingModal';
 
 // Firebase
+import auth from '@react-native-firebase/auth';
 import { handleLogin } from '../../Firebase/FirebaseLogin';
+import { signInWithGoogle, signOutFromGoogle } from '../../Firebase/FirebaseGoogleAuth';
 
 export default function Login(props) {
       const [email, onChangeEmail] = useState('');
       const [password, onChangePassword] = useState('');
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState('');
+      const [initializing, setInitializing] = useState(true);
+      const [user, setUser] = useState();
+      const [loadingModalVisible, setLoadingModalVisible] = useState(false);
+
+      useEffect(() => {
+            console.log('UseEffect 1 called');
+            const subscriber = auth().onAuthStateChanged((user) => {
+                  setUser(user);
+                  if (initializing) setInitializing(false);
+            });
+
+            return () => subscriber(); // Unsubscribe on unmount
+      }, [initializing]);
+
+      useEffect(() => {
+            console.log('UseEffect 2 called');
+            if (!initializing && user) {
+                  console.log('User is signed in');
+                  props.changeScreen('GetStarted');
+                  signOutFromGoogle();  // Calling only for development and debugging purpose
+            }
+      }, [initializing, user, props]);
+
+      const onGoogleButtonPress = useMemo(
+            () => async () => {
+                  const user = await signInWithGoogle(setLoadingModalVisible);
+                  console.log(user);
+            }, []
+      );
 
       const handleLoginPress = useMemo(() => () =>
-            handleLogin(email, password, props.changeScreen, setLoading, setError),
+            handleLogin(email, password, props.changeScreen, setLoadingModalVisible, setError),
             [email, password, props]
       );
+
       console.log('Login Screen rendered');
       return (
             <MotiView style={styles.lowercont} from={{ translateX: -width, opacity: 0 }} animate={animateStyles} transition={transitionConfig} >
@@ -41,36 +74,23 @@ export default function Login(props) {
                               <Text style={styles.forgotpasstext}>Forgot Password?</Text>
                         </TouchableOpacity>
                   </View>
-                  {loading ? (
-                        <ActivityIndicator style={styles.spinner} size={35} color={Colors.palette_secondary} />
-                  ) : (
-                        <View style={{ alignItems: 'center' }}>
-                              <Button
-                                    Title={'Login'}
-                                    BtnHighlight={styles.btnhighlight}
-                                    BtnBox={styles.btnbox}
-                                    BtnTxt={styles.btntxt}
-                                    handleonPress={handleLoginPress}
-                              />
-                              <View style={styles.SeparatorBox}>
-                                    <View style={styles.lineSeparator} />
-                                    <Text style={styles.Or_Separator}>Or</Text>
-                                    <View style={styles.lineSeparator} />
-                              </View>
-                              <GoogleBtn />
+                  <View style={{ alignItems: 'center' }}>
+                        <Button
+                              Title={'Login'}
+                              BtnHighlight={styles.btnhighlight}
+                              BtnBox={styles.btnbox}
+                              BtnTxt={styles.btntxt}
+                              handleonPress={handleLoginPress}
+                        />
+                        <View style={styles.SeparatorBox}>
+                              <View style={styles.lineSeparator} />
+                              <Text style={styles.Or_Separator}>Or</Text>
+                              <View style={styles.lineSeparator} />
                         </View>
-                  )}
-                  <Snackbar
-                        visible={!!error}
-                        onDismiss={() => setError('')}
-                        action={{
-                              label: 'Close',
-                              onPress: () => setError(''),
-                        }}
-                        style={styles.snackbar}
-                  >
-                        {error}
-                  </Snackbar>
+                        <GoogleBtn handleonPress={onGoogleButtonPress}/>
+                  </View>
+                  <SnackBar error={error} setError={setError} />
+                  <LoadingModal loadingModalVisible={loadingModalVisible} />
             </MotiView>
       );
 }
@@ -129,9 +149,6 @@ const styles = StyleSheet.create({
       Or_Separator: {
             fontSize: width / 21.5,
             fontFamily: 'SF-Pro-Rounded-Bold',
-      },
-      snackbar: {
-            marginBottom: width / 39.1,
       },
       spinner: {
             marginVertical: height / 10,

@@ -11,7 +11,7 @@ const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
 // components
-import { animateStyles2, transitionConfig } from '../../components/Authentication/motiConfig';
+import Header from '../../components/Authentication/Header';
 
 // screens
 import Login from './Login';
@@ -30,38 +30,7 @@ const AuthenticationPage = (props) => {
       console.log('render');
       return (
             <ScrollView style={styles.maincont}>
-                  <MotiView
-                        style={styles.upper}
-                        from={{ translateY: -height * 0.35 }}
-                        animate={animateStyles2}
-                        transition={transitionConfig}
-                  >
-                        <View style={styles.loginAnimBox}>
-                              <Lottie
-                                    source={require('../../../assets/animation/login_animation.json')}
-                                    autoPlay
-                                    loop
-                                    style={styles.loginAnim}
-                              />
-                        </View>
-                        <View style={styles.loginSigninHeaderBox}>
-                              <Pressable style={styles.AuthCmnHeaderBox} onPress={handleLoginPress}>
-                                    <Text style={styles.HeaderCommontxt}>Login</Text>
-                              </Pressable>
-                              <Pressable style={styles.AuthCmnHeaderBox} onPress={handleSignupPress}>
-                                    <Text style={styles.HeaderCommontxt}>Sign-up</Text>
-                              </Pressable>
-                        </View>
-                        <MotiView
-                              style={styles.MovingHighlight}
-                              from={{ translateX: 0 }}
-                              animate={login ? { translateX: 0 } : { translateX: width / 2.41 }}
-                              transition={{
-                                    type: 'spring',
-                                    duration: 800,
-                              }}
-                        />
-                  </MotiView>
+                  <Header handleLoginPress={handleLoginPress} handleSignupPress={handleSignupPress} login={login} />
                   <View>
                         {login ? (
                               forgotpass ? (

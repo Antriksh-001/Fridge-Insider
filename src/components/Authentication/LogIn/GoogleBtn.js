@@ -10,7 +10,7 @@ const height = Screen.SCREEN_HEIGHT;
 const GoogleBtn = (props) => {
     return (
         <View>
-            <TouchableHighlight style={styles.GoogleHighlightBox} onPress={() => { console.log('Google Login Button Pressed and rendering the HomePage') }}>
+            <TouchableHighlight style={styles.GoogleHighlightBox} onPress={props.handleonPress}>
                 <View style={styles.Googlebtnbox}>
                     <View style={styles.GoogleLogoAnim} >
                         <Lottie source={require('../../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} />

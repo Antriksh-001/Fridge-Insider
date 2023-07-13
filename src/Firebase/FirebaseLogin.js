@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 
-export const handleLogin = async (email, password, changeScreen, setLoading, setError) => {
+export const handleLogin = async (email, password, changeScreen, setLoadingModalVisible, setError) => {
     console.log('Login Button Pressed');
 
     try {
@@ -13,7 +13,7 @@ export const handleLogin = async (email, password, changeScreen, setLoading, set
             return;
         }
 
-        setLoading(true); // Activate the loading spinner
+        setLoadingModalVisible(true); // Activate the loading spinner
         const response = await auth().signInWithEmailAndPassword(email, password);
 
         if (response) {
@@ -24,7 +24,7 @@ export const handleLogin = async (email, password, changeScreen, setLoading, set
         console.log('error: ', error);
         setError('Wrong credentials. Please try again.');
     }
-    setLoading(false); // Deactivate the loading spinner
+    setLoadingModalVisible(false); // Deactivate the loading spinner
 };
 
 const isValidEmail = (email) => {

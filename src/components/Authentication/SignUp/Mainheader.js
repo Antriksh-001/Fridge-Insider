@@ -7,13 +7,13 @@ import * as Screen from "../../../constants/Screen";
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-const Header = () => {
+const Mainheader = ({ onGoogleButtonPress }) => {
     return (
         <View style={styles.lowerHeading}>
             <View>
                 <Text style={styles.registertxt}>Register</Text>
             </View>
-            <TouchableOpacity onPress={() => { console.log('Google Register Button Clicked') }}>
+            <TouchableOpacity onPress={onGoogleButtonPress}>
                 <View style={styles.GoogleRegisterBox}>
                     <Lottie source={require('../../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} style={styles.GoogleRegisterLogo} />
                 </View>
@@ -51,4 +51,4 @@ const styles = {
     },
 }
 
-export default Header;
+export default Mainheader;

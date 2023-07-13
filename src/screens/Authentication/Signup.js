@@ -1,7 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import React, { useState, useMemo, useEffect } from 'react';
+import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
 import { MotiView } from 'moti';
-import { Snackbar } from 'react-native-paper';
 
 // constants
 import { Colors } from '../../constants/Colors';
@@ -11,24 +10,64 @@ const width = Screen.SCREEN_WIDTH;
 
 // components
 import { animateStyles, transitionConfig } from '../../components/Authentication/motiConfig';
+import Mainheader from '../../components/Authentication/SignUp/Mainheader';
 import InputBox from '../../components/Authentication/AuthInputBox';
-import Header from '../../components/Authentication/SignUp/Header';
 import Footer from '../../components/Authentication/SignUp/Footer';
+import SnackBar from '../../components/shared/Snackbar';
+
+import LoadingModal from '../../components/shared/LoadingModal';
+
+//Firebase Authentication
+import auth from '@react-native-firebase/auth';
 import { handleSignup } from '../../Firebase/FirebaseSignup';
+import { signInWithGoogle, signOutFromGoogle } from '../../Firebase/FirebaseGoogleAuth';
 
 const Signup = (props) => {
-      const [name, onChangeName] = useState('');
-      const [email, onChangeEmail] = useState('');
-      const [password, onChangePassword] = useState('');
-      const [confirmPass, onChangeConfirmPass] = useState('');
+      const [name, setName] = useState('');
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [confirmPass, setConfirmPass] = useState('');
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState('');
+      const [initializing, setInitializing] = useState(true);
+      const [user, setUser] = useState();
+      const [loadingModalVisible, setLoadingModalVisible] = useState(false);
 
-      const handleSignupPress = useMemo(() => () =>
-            handleSignup(email, password, name, confirmPass, setLoading, setError, props),
+      useEffect(() => {
+            console.log('UseEffect 1 called');
+            const subscriber = auth().onAuthStateChanged((user) => {
+                  setUser(user);
+                  if (initializing) setInitializing(false);
+            });
+
+            return () => subscriber(); // Unsubscribe on unmount
+      }, [initializing]);
+
+      useEffect(() => {
+            console.log('UseEffect 2 called');
+            if (!initializing && user) {
+                  console.log('User is signed in');
+                  props.changeScreen('GetStarted');
+                  signOutFromGoogle();  // Calling only for development and debugging purpose
+            }
+      }, [initializing, user, props]);
+
+      const handleSignupPress = useMemo(
+            () => async () => {
+                  await handleSignup(email, password, name, confirmPass, setLoading, setError, props);
+            },
             [email, password, name, confirmPass, props]
       );
+
+      const onGoogleButtonPress = useMemo(
+            () => async () => {
+                  const user = await signInWithGoogle(setLoadingModalVisible);
+                  console.log(user);
+            }, []
+      );
+
       console.log('Signup Screen rendered');
+
       return (
             <MotiView
                   style={styles.lowercont}
@@ -36,35 +75,26 @@ const Signup = (props) => {
                   animate={animateStyles}
                   transition={transitionConfig}
             >
-                  <Header />
+                  <Mainheader onGoogleButtonPress={onGoogleButtonPress} />
                   <View>
-                        <InputBox SvgName={'Account'} onChangeText={onChangeName} value={name} placeholder={'Enter Your First Name'} />
-                        <InputBox SvgName={'Email'} onChangeText={onChangeEmail} value={email} placeholder={'Enter Your Email'} />
-                        <InputBox SvgName={'Password'} onChangeText={onChangePassword} value={password} placeholder={'Enter Your Password'} />
+                        <InputBox SvgName={'Account'} onChangeText={setName} value={name} placeholder={'Enter Your First Name'} />
+                        <InputBox SvgName={'Email'} onChangeText={setEmail} value={email} placeholder={'Enter Your Email'} />
+                        <InputBox SvgName={'Password'} onChangeText={setPassword} value={password} placeholder={'Enter Your Password'} />
                         <InputBox
                               SvgName={'ConfirmPass'}
-                              onChangeText={onChangeConfirmPass}
+                              onChangeText={setConfirmPass}
                               value={confirmPass}
                               password={password}
                               placeholder={'Confirm Password'}
                         />
                   </View>
                   {loading ? (
-                        <ActivityIndicator style={styles.spinner} size={width / 17.77} color={Colors.palette_secondary} />
+                        <ActivityIndicator style={styles.spinner} size={width / 16.29} color={Colors.palette_secondary} />
                   ) : (
                         <Footer Register={handleSignupPress} setLogin={props.setLogin} />
                   )}
-                  <Snackbar
-                        visible={!!error}
-                        onDismiss={() => setError('')}
-                        action={{
-                              label: 'Close',
-                              onPress: () => setError(''),
-                        }}
-                        style={styles.snackbar}
-                  >
-                        {error}
-                  </Snackbar>
+                  <SnackBar error={error} setError={setError} /> 
+                  <LoadingModal loadingModalVisible={loadingModalVisible} />
             </MotiView>
       );
 };
@@ -79,6 +109,12 @@ const styles = StyleSheet.create({
       },
       snackbar: {
             marginBottom: width / 39.1,
+      },
+      modalContainer: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
       },
 });
 
