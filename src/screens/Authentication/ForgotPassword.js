@@ -24,7 +24,7 @@ const ForgotPassword = React.memo((props) => {
       const [loadingModalVisible, setLoadingModalVisible] = useState(false);
       const [success, setSuccess] = useState(false);
 
-      console.log('Forgot Password Screen Loaded');
+      // console.log('Forgot Password Screen Loaded');
 
       return (
             <MotiView style={styles.lowercont} from={{ scale: 0.7, opacity: 0 }} animate={animateStyles3} transition={transitionConfig}>

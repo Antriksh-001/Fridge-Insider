@@ -17,13 +17,22 @@ export const handleLogin = async (email, password, changeScreen, setLoadingModal
         setLoadingModalVisible(true); // Activate the loading spinner
         const response = await auth().signInWithEmailAndPassword(email, password);
 
-        if (response) {
-            changeScreen('GetStarted');
+        console.log("email Verification Check:"+response.user.emailVerified);
+        if (response && response.user.emailVerified) {
+            console.log(response.user);
+            setTimeout(() => {
+                setLoadingModalVisible(false); // Deactivate the loading spinner
+                changeScreen('GetStarted');
+            }, 500);
             console.log('User Logged In');
+        }
+        else {
+            setLoadingModalVisible(false);
+            setError('Please Verify Your Email.');
         }
     } catch (error) {
         console.log('error: ', error);
+        setLoadingModalVisible(false);
         setError('Wrong credentials. Please try again.');
     }
-    setLoadingModalVisible(false); // Deactivate the loading spinner
 };

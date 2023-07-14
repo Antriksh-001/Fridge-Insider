@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
+import React, { useState, useMemo } from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { MotiView } from 'moti';
 
 // constants
@@ -28,44 +28,24 @@ const Signup = (props) => {
       const [confirmPass, setConfirmPass] = useState('');
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState('');
-      const [initializing, setInitializing] = useState(true);
-      const [user, setUser] = useState();
+      const [success,setSuccess] = useState(false);
       const [loadingModalVisible, setLoadingModalVisible] = useState(false);
-
-      useEffect(() => {
-            console.log('UseEffect 1 called');
-            const subscriber = auth().onAuthStateChanged((user) => {
-                  setUser(user);
-                  if (initializing) setInitializing(false);
-            });
-
-            return () => subscriber(); // Unsubscribe on unmount
-      }, [initializing]);
-
-      useEffect(() => {
-            console.log('UseEffect 2 called');
-            if (!initializing && user) {
-                  console.log('User is signed in');
-                  props.changeScreen('GetStarted');
-                  signOutFromGoogle();  // Calling only for development and debugging purpose
-            }
-      }, [initializing, user, props]);
 
       const handleSignupPress = useMemo(
             () => async () => {
-                  await handleSignup(email, password, name, confirmPass, setLoading, setError, props);
+                  await handleSignup(email, password, name, confirmPass, setName, setEmail, setPassword, setConfirmPass, setLoading, setSuccess, setError, props);
             },
             [email, password, name, confirmPass, props]
       );
 
       const onGoogleButtonPress = useMemo(
             () => async () => {
-                  const user = await signInWithGoogle(setLoadingModalVisible);
+                  const user = await signInWithGoogle(props.changeScreen, setLoadingModalVisible);
                   console.log(user);
             }, []
       );
 
-      console.log('Signup Screen rendered');
+      // console.log('Signup Screen rendered');
 
       return (
             <MotiView
@@ -92,7 +72,7 @@ const Signup = (props) => {
                   ) : (
                         <Footer Register={handleSignupPress} setLogin={props.setLogin} />
                   )}
-                  <SnackBar error={error} setError={setError} /> 
+                  <SnackBar error={error} setError={setError} success={success} />
                   <LoadingModal loadingModalVisible={loadingModalVisible} />
             </MotiView>
       );

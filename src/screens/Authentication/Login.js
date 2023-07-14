@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MotiView } from 'moti';
 
 // Constants
@@ -29,12 +29,16 @@ export default function Login(props) {
       const [error, setError] = useState('');
       const [initializing, setInitializing] = useState(true);
       const [user, setUser] = useState();
+      const [emailVerified, setEmailVerified] = useState(false);
       const [loadingModalVisible, setLoadingModalVisible] = useState(false);
 
       useEffect(() => {
-            console.log('UseEffect 1 called');
             const subscriber = auth().onAuthStateChanged((user) => {
                   setUser(user);
+                  if (user && user.emailVerified === true) {
+                        console.log('reaccccccccched');
+                        setEmailVerified(true);
+                  }
                   if (initializing) setInitializing(false);
             });
 
@@ -42,17 +46,16 @@ export default function Login(props) {
       }, [initializing]);
 
       useEffect(() => {
-            console.log('UseEffect 2 called');
-            if (!initializing && user) {
-                  console.log('User is signed in');
-                  props.changeScreen('GetStarted');
+            if (!initializing && user && emailVerified) {
+                  console.log('User is signed in......Currently in Login Screen UseEffect');
+                  // props.changeScreen('GetStarted'); // Change it to screen you want to render after succesful Login
                   signOutFromGoogle();  // Calling only for development and debugging purpose
             }
       }, [initializing, user, props]);
 
       const onGoogleButtonPress = useMemo(
             () => async () => {
-                  const user = await signInWithGoogle(setLoadingModalVisible);
+                  const user = await signInWithGoogle(props.changeScreen,setLoadingModalVisible);
                   console.log(user);
             }, []
       );
@@ -62,7 +65,7 @@ export default function Login(props) {
             [email, password, props]
       );
 
-      console.log('Login Screen rendered');
+      // console.log('Login Screen rendered');
       return (
             <MotiView style={styles.lowercont} from={{ translateX: -width, opacity: 0 }} animate={animateStyles} transition={transitionConfig} >
                   <View style={styles.InputBoxes}>
@@ -87,7 +90,7 @@ export default function Login(props) {
                               <Text style={styles.Or_Separator}>Or</Text>
                               <View style={styles.lineSeparator} />
                         </View>
-                        <GoogleBtn handleonPress={onGoogleButtonPress}/>
+                        <GoogleBtn handleonPress={onGoogleButtonPress} />
                   </View>
                   <SnackBar error={error} setError={setError} />
                   <LoadingModal loadingModalVisible={loadingModalVisible} />

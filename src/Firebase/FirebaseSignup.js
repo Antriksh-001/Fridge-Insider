@@ -20,20 +20,31 @@ export const registerUserWithEmailAndPassword = async (email, password) => {
     }
 };
 
-// export const sendEmailVerification = async (user) => {
-//     try {
-//         await user.sendEmailVerification();
-//         console.log('Email verification sent');
-//     } catch (error) {
-//         console.error('Error sending email verification:', error);
-//         throw new Error('Email verification failed');
-//     }
-// };
+export const sendEmailVerification = async (user) => {
+    try {
+        if (user) {
+            await user.sendEmailVerification();
+            console.log('Email verification sent');
+        } else {
+            throw new Error('User object is null or undefined');
+        }
+    } catch (error) {
+        console.error('Error sending email verification:', error);
+        throw new Error('Email verification failed');
+    }
+};
 
-export const handleSignup = async (email, password, name, confirmPass, setLoading, setError, props) => {
+const ClearInputFields = (setName, setEmail, setPassword, setConfirmPass) => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPass('');
+}
+
+export const handleSignup = async (email, password, name, confirmPass, setName, setEmail, setPassword, setConfirmPass, setLoading, setSuccess, setError, props) => {
     if (email && password && name && confirmPass) {
         if (password === confirmPass) {
-            if(!isValidEmail(email)){
+            if (!isValidEmail(email)) {
                 setError('Please enter a valid email address');
                 return;
             }
@@ -42,8 +53,21 @@ export const handleSignup = async (email, password, name, confirmPass, setLoadin
                 const response = await registerUserWithEmailAndPassword(email, password);
                 if (response) {
                     await createProfile(response, name, email);
-                    // await sendEmailVerification(response.user);
-                    props.changeScreen('AuthenticationPage'); // Change to verification screen
+                    await sendEmailVerification(response.user)
+                    .then(()=>{
+                        ClearInputFields(setName, setEmail, setPassword, setConfirmPass);
+                    })
+                    .catch(()=>{
+                        setError('Email Verification Failed');
+                    })
+                    .finally(()=>{
+                        setSuccess(true);
+                        setError('Email Verification Sent');
+                        setTimeout(() => {
+                            setLoading(false); // Stop loader
+                            props.changeScreen('GetStarted'); // Change to verification screen
+                        }, 1000);
+                    });
                 }
             } catch (error) {
                 if (error.code === 'auth/email-already-in-use') {
@@ -55,9 +79,9 @@ export const handleSignup = async (email, password, name, confirmPass, setLoadin
                 } else {
                     setError('An error occurred during registration.');
                 }
+                setLoading(false); // Stop loader
                 console.error(error);
             }
-            setLoading(false); // Stop loader
         } else {
             setError('Password and Confirm Password do not match');
         }
