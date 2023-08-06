@@ -11,7 +11,7 @@ const height = Screen.SCREEN_HEIGHT;
 const Rating = ({ rate }) => {
     const stars = [];
     for (let i = 0; i < rate; i++) {
-        stars.push(<FontAwesome key={`star-${i}`} name="star" size={14} color='#428FD2' style={styles.stars} />);
+        stars.push(<FontAwesome key={`star-${i}`} name="star" size={14} color="#428FD2" style={styles.stars} />);
     }
     for (let i = 0; i < 5 - rate; i++) {
         stars.push(<FontAwesome key={`empty-star-${i}`} name="star" size={14} color={Colors.palette_gray_dark} style={styles.stars} />);
@@ -44,9 +44,9 @@ const List = React.memo(() => {
     console.log('rendered list');
     const reviewList = [];
     for (let i = 0; i < 3; i++) {
-        reviewList.push(<RenderItem key={reviews[i].id} item={reviews[i]} />)
+        reviewList.push(<RenderItem key={reviews[i].id} item={reviews[i]} />);
     }
-    return <View style={{ marginBottom: 80 }}>{reviewList}</View>
+    return <View style={{ marginBottom: 80 }}>{reviewList}</View>;
 }, (prevProps, nextProps) => {
     // Memo comparison logic
     return true; // or false based on your comparison
@@ -58,7 +58,7 @@ const Reviews = () => {
         <View style={styles.Review}>
             <View style={styles.ReviewHeader}>
                 <Text style={styles.ReviewHeading}>Ratings and reviews</Text>
-                <TouchableOpacity style={{ marginRight: width / 48.875, opacity: 0.7 }} onPress={() => { console.log('Ratings and Reviews Button Pressed') }}>
+                <TouchableOpacity style={{ marginRight: width / 48.875, opacity: 0.7 }} onPress={() => { console.log('Ratings and Reviews Button Pressed'); }}>
                     <AntDesign name="arrowright" size={24} color={Colors.palette_secondary} />
                 </TouchableOpacity>
             </View>

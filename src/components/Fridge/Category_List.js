@@ -18,10 +18,10 @@ const Category_List = ({ type1, image, visible, setVisible }) => {
     const [data1, setData1] = useState(menus);
     const [oldData, setOldData] = useState(menus);
 
-    let tempdata = oldData.filter((item) => item.type == type1);
+    let tempdata = oldData.filter((item) => item.type === type1);
     useEffect(() => {
         setData1(tempdata);
-    }, [type1]);
+    }, []);
 
     return (
         <Modal
@@ -57,7 +57,7 @@ const Category_List = ({ type1, image, visible, setVisible }) => {
                         numColumns={2}
                         data={data1}
                         renderItem={({ item, index }) => {
-                            let color1: string;
+                            let color1;
                             { item.expire <= 2 ? color1 = 'red' : color1 = 'orange'; }
                             return (
                                 <MotiView

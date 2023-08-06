@@ -6,7 +6,7 @@ import { Colors } from '../../constants/Colors';
 import * as Screen from '../../constants/Screen';
 
 //components
-import InputBox from "./InputBox";
+import InputBox from './InputBox';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
@@ -41,14 +41,14 @@ const ChangeDetailsPopup = (props) => {
                         </View>
                         <View style={styles.popupFooter}>
                             <MotiPressable
-                                onPress={() => { handleDetailsChange() }}
+                                onPress={() => { handleDetailsChange(); }}
                                 style={styles.saveBtn}
                                 from={{ scale: 1 }}
                                 animate={({ pressed }) => {
-                                    'worklet'
+                                    'worklet';
                                     return {
                                         scale: pressed ? 0.98 : 1,
-                                    }
+                                    };
                                 }}
                                 transition={{
                                     type: 'timing',
@@ -67,8 +67,8 @@ const ChangeDetailsPopup = (props) => {
 const styles = StyleSheet.create({
     overlay: {
         flex: 1,
-        backgroundColor: "rgba(0, 0, 0, 0.3)",
-        justifyContent: "flex-end",
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        justifyContent: 'flex-end',
     },
     popupContainer: {
         backgroundColor: Colors.white,
@@ -79,15 +79,15 @@ const styles = StyleSheet.create({
         paddingBottom: height / 19.825,
     },
     popupHeader: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         marginBottom: height / 39.65,
         paddingLeft: 0,
     },
     popupTitle: {
         fontSize: width / 16.29,
-        fontFamily: "SF-Pro-Rounded-Medium",
+        fontFamily: 'SF-Pro-Rounded-Medium',
         color: Colors.palette_secondary,
         letterSpacing: 0.5,
     },

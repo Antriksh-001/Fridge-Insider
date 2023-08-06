@@ -15,7 +15,7 @@ const Main_home = () => {
 
   const Opendrawer = () => {
     setShowMenu(true);
-  }
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -27,7 +27,7 @@ const Main_home = () => {
 
         <MotiView style={styles.Main_homeShadow}
           from={{ scale: 1, translateX: 0 }}
-          animate={showMenu ? { scale: 1, translateX: -width/8.75 } : { scale: 1, translateX: 0 }}
+          animate={showMenu ? { scale: 1, translateX: -width / 8.75 } : { scale: 1, translateX: 0 }}
           transition={{ type: 'timing', duration: 650 }} />
 
         <MotiView style={styles.menucontainer}
@@ -36,7 +36,7 @@ const Main_home = () => {
           transition={{ type: 'timing', duration: 350 }} >
 
           <TouchableOpacity onPress={Opendrawer}>
-            <View style={{ height: width/13.03, width: width/13.03 }}>
+            <View style={{ height: width / 13.03, width: width / 13.03 }}>
               <Svginserter tag={'Menu'} style={styles.menuBurger} />
             </View>
           </TouchableOpacity>
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     margin: width / 19.55,
   },
   menuBurger: {
-    height: width/13.03,
-    width: width/13.03,
+    height: width / 13.03,
+    width: width / 13.03,
   },
 });
 export default Main_home;

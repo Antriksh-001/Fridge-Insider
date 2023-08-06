@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Svginserter from '../components/shared/Svginserter';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 // import { AntDesign } from '@expo/vector-icons';
 import * as Screen from '../constants/Screen';
 import { Colors } from '../constants/Colors';
@@ -14,7 +15,7 @@ const drawer_list = [
     { icon: 'infocirlceo', title: 'FAQs' },
     { icon: 'team', title: 'About Us' },
     { icon: 'setting', title: 'Settings' },
-]
+];
 
 const renderItem = ({ item, index }) => {
     console.log('Drawer Item is rendered');
@@ -28,7 +29,7 @@ const renderItem = ({ item, index }) => {
                 }}
             >
                 <View>
-                    {/* <AntDesign name={item.icon} size={width / 16} color="white" /> */}
+                    <AntDesign name={item.icon} size={width / 16} color="white" />
                 </View>
                 <View style={styles.ListTitleBox}>
                     <Text style={styles.ListTitle}>{item.title}</Text>
@@ -49,7 +50,7 @@ const Drawer = React.memo((props: { setShowMenu: (arg0: boolean) => void; }) => 
             <TouchableOpacity
                 activeOpacity={0.35}
                 onPress={() => {
-                    props.setShowMenu(false)
+                    props.setShowMenu(false);
                 }}
             >
                 <View style={styles.MenuBox}>
@@ -65,7 +66,7 @@ const Drawer = React.memo((props: { setShowMenu: (arg0: boolean) => void; }) => 
 
                 <TouchableOpacity style={styles.LogoutBox}>
                     <View>
-                        {/* <AntDesign name="logout" size={width / 16.3} color="white" /> */}
+                        <AntDesign name="logout" size={width / 16.3} color="white" />
                     </View>
                     <View>
                         <Text style={styles.LogoutTxt}>LogOut</Text>

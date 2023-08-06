@@ -15,7 +15,6 @@ import Guidelines from '../../components/TrashPickup/Guidelines';
 import ChangeDetailsPopup from '../../components/TrashPickup/ChangeDetailsPopup';
 
 const width = Screen.SCREEN_WIDTH;
-const height = Screen.SCREEN_HEIGHT;
 
 const TrashPickup = (props) => {
     const [profile, setProfile] = useState(false);
@@ -62,7 +61,7 @@ const TrashPickup = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
+        alignItems: 'center',
         backgroundColor: Colors.white,
     },
     main: {
