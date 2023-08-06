@@ -1,15 +1,19 @@
-import { Modal, Text, View, StyleSheet, TouchableWithoutFeedback, FlatList, TouchableOpacity, Image } from "react-native";
+/* eslint-disable no-lone-blocks */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react-native/no-inline-styles */
+import { useEffect, useState } from 'react';
+import { Modal, Text, View, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Colors } from '../../constants/Colors';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
-import menus from "../shared/temp_data";
-import { useEffect, useState } from "react";
-import { MotiView } from "moti";
-import { Ionicons } from '@expo/vector-icons';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
+import menus from '../shared/temp_data';
+import { MotiView } from 'moti';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { Ionicons } from '@expo/vector-icons';
 
 const height = SCREEN_HEIGHT;
 const width = SCREEN_WIDTH;
 
-const Category_List = ({ type1,image, visible, setVisible }) => {
+const Category_List = ({ type1, image, visible, setVisible }) => {
     console.log(type1);
     const [data1, setData1] = useState(menus);
     const [oldData, setOldData] = useState(menus);
@@ -25,12 +29,12 @@ const Category_List = ({ type1,image, visible, setVisible }) => {
             transparent={false}
             visible={visible}
             onRequestClose={() => {
-                setVisible(false)
+                setVisible(false);
             }}>
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => { setVisible(false) }}>
+                <TouchableOpacity onPress={() => { setVisible(false); }}>
                     <View style={styles.backButton}>
-                        <Ionicons name="chevron-back" size={24} color="black" />
+                        {/* <Ionicons name="chevron-back" size={24} color="black" /> */}
                         <Text>Back</Text>
                     </View>
                 </TouchableOpacity>
@@ -42,8 +46,8 @@ const Category_List = ({ type1,image, visible, setVisible }) => {
                     <View style={styles.IntroSubHeaderBox}>
                         <Text style={styles.IntroSubHeaderTxt}>5 Items</Text>
                     </View>
-                    <View style={{flex:1,position:'absolute',right:30,top:40}}>
-                      <Image source={image} style={{ width: 120, height: 120}} />
+                    <View style={{ flex: 1, position: 'absolute', right: 30, top: 40 }}>
+                        <Image source={image} style={{ width: 120, height: 120 }} />
                     </View>
                 </View>
 
@@ -54,7 +58,7 @@ const Category_List = ({ type1,image, visible, setVisible }) => {
                         data={data1}
                         renderItem={({ item, index }) => {
                             let color1: string;
-                            { item.expire <= 2 ? color1 = 'red' : color1 = 'orange' }
+                            { item.expire <= 2 ? color1 = 'red' : color1 = 'orange'; }
                             return (
                                 <MotiView
                                     from={{ opacity: 0, translateX: -40 }}
@@ -62,66 +66,66 @@ const Category_List = ({ type1,image, visible, setVisible }) => {
                                     transition={{ delay: index * 200 }}
                                 >
                                     <TouchableOpacity style={[styles.CategoriesComp, {
-                                        height: index % 4 == 1 || index % 4 == 2 ? SCREEN_WIDTH / 2.5 : SCREEN_WIDTH / 2,
-                                        marginTop: (index % 4 == 3) && (index != 0) ? -27 : 10,
-                                        justifyContent:'space-between'
+                                        height: index % 4 === 1 || index % 4 === 2 ? SCREEN_WIDTH / 2.5 : SCREEN_WIDTH / 2,
+                                        marginTop: (index % 4 === 3) && (index !== 0) ? -27 : 10,
+                                        justifyContent: 'space-between',
                                     }]}
                                     >
 
-                                    <View style={styles.CategoriesComp1}>
+                                        <View style={styles.CategoriesComp1}>
 
-                                        <View style={styles.CategoriesComp1a}>
-                                            <Image source={item.image} style={{ width: 40, margin: 9, height: 40 }} />
-                                        </View>
+                                            <View style={styles.CategoriesComp1a}>
+                                                <Image source={item.image} style={{ width: 40, margin: 9, height: 40 }} />
+                                            </View>
 
-                                        <View style={styles.CategoriesComp1b}>
+                                            <View style={styles.CategoriesComp1b}>
 
-                                            <Text style={styles.CategoriesComp1b1}>
-                                                {item.title}
-                                            </Text>
-                                            <Text style={styles.CategoriesComp1b2}>
-                                                {item.cnt} {item.cnt > '1' ? 'Items' : 'Item'}
-                                            </Text>
-                                            <View style={{ flexDirection: 'row', marginTop: 6 }}>
-                                                <View style={{ backgroundColor: color1, height: 8, width: 8, borderRadius: 5 }}></View>
-                                                <Text style={{ fontSize: 14, marginTop: -10, marginLeft: 4, fontFamily: 'SF-Pro-Rounded-Bold', color: '#89889D' }}>{item.expire}</Text>
-                                                <Text style={{ fontSize: 10, marginTop: -6, marginLeft: 3, fontFamily: 'SF-Pro-Rounded-Bold', color: '#89889D' }}>{item.expire == 1 ? 'day' : 'days'} left</Text>
+                                                <Text style={styles.CategoriesComp1b1}>
+                                                    {item.title}
+                                                </Text>
+                                                <Text style={styles.CategoriesComp1b2}>
+                                                    {item.cnt} {item.cnt > '1' ? 'Items' : 'Item'}
+                                                </Text>
+                                                <View style={{ flexDirection: 'row', marginTop: 6 }}>
+                                                    <View style={{ backgroundColor: color1, height: 8, width: 8, borderRadius: 5 }} />
+                                                    <Text style={{ fontSize: 14, marginTop: -10, marginLeft: 4, fontFamily: 'SF-Pro-Rounded-Bold', color: '#89889D' }}>{item.expire}</Text>
+                                                    <Text style={{ fontSize: 10, marginTop: -6, marginLeft: 3, fontFamily: 'SF-Pro-Rounded-Bold', color: '#89889D' }}>{item.expire == 1 ? 'day' : 'days'} left</Text>
+                                                </View>
                                             </View>
                                         </View>
-                                    </View>
 
-                                    <View style={styles.CardBottom}>
-                                      {/* add substract buttons   */}
-                                      <View style={styles.addSubUpper}>
-                                        <View style={styles.addSubLower}>
-                                          <TouchableOpacity>
-                                            <Image source={require('../../../assets/images/minus.png')} style={{ width: width/15, height: width/15}} />
-                                          </TouchableOpacity> 
-                                          <Text>{item.cnt}</Text> 
-                                          <TouchableOpacity>
-                                            <Image source={require('../../../assets/images/plus.png')} style={{ width: width/15, height: width/15}} />                                          
-                                          </TouchableOpacity>  
+                                        <View style={styles.CardBottom}>
+                                            {/* add substract buttons   */}
+                                            <View style={styles.addSubUpper}>
+                                                <View style={styles.addSubLower}>
+                                                    <TouchableOpacity>
+                                                        <Image source={require('../../../assets/images/minus.png')} style={{ width: width / 15, height: width / 15 }} />
+                                                    </TouchableOpacity>
+                                                    <Text>{item.cnt}</Text>
+                                                    <TouchableOpacity>
+                                                        <Image source={require('../../../assets/images/plus.png')} style={{ width: width / 15, height: width / 15 }} />
+                                                    </TouchableOpacity>
+                                                </View>
+                                            </View>
+                                            {/* Delete button */}
+                                            <View style={styles.deleteButton}>
+                                                <TouchableOpacity>
+                                                    <Image source={require('../../../assets/images/trash.png')} style={{ width: width / 12, height: width / 12 }} />
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
-                                      </View>
-                                      {/* Delete button */}
-                                      <View style={styles.deleteButton}>
-                                        <TouchableOpacity>
-                                          <Image source={require('../../../assets/images/trash.png')} style={{ width: width/12, height: width/12}} />                                        
-                                        </TouchableOpacity>
-                                      </View>  
-                                    </View>
 
                                     </TouchableOpacity>
                                 </MotiView>
-                            )
+                            );
                         }}
                     />
                 </View>
 
             </View>
         </Modal>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -146,7 +150,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: 24,
-        width:180
+        width: 180,
     },
     IntroHeaderTxt: {
         fontSize: width / 10.3,
@@ -168,65 +172,65 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
         flexDirection: 'column',
-        paddingTop:10,
+        paddingTop: 10,
         shadowColor: 'black',
-        elevation: 10
+        elevation: 10,
     },
-    CategoriesComp1:{
-        flexDirection:'row',
+    CategoriesComp1: {
+        flexDirection: 'row',
         // backgroundColor:'black',
-        alignItems:'center'
+        alignItems: 'center',
     },
     CategoriesComp1a: {
         backgroundColor: 'white',
         shadowColor: '#213a7c',
         elevation: 8,
         borderRadius: 100,
-        marginLeft:8
+        marginLeft: 8,
     },
-    CategoriesComp1b:{
-        flex:1,
-        alignItems:'flex-end',
-        paddingRight:8
+    CategoriesComp1b: {
+        flex: 1,
+        alignItems: 'flex-end',
+        paddingRight: 8,
     },
     CategoriesComp1b1: {
         fontSize: 16,
         marginTop: 2,
         fontFamily: 'SF-Pro-Rounded-Bold',
-        color: 'grey'
+        color: 'grey',
     },
     CategoriesComp1b2: {
         fontSize: 12,
         marginTop: -2 - 3 - 4,
         fontFamily: 'SF-Pro-Rounded-Bold',
-        color: Colors.palette_gray_dark
+        color: Colors.palette_gray_dark,
     },
-    CardBottom:{
-        flexDirection:'row',
-        marginBottom:4,
-        justifyContent:'space-between',
-        alignItems:'center',
-        height:40
+    CardBottom: {
+        flexDirection: 'row',
+        marginBottom: 4,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 40,
     },
-    addSubUpper:{
-        flex:0.55,
-        marginLeft:8,
-        padding:2,
-        backgroundColor:'white',
-        shadowColor:'black',
-        elevation:3,
-        borderRadius:16,
-        height:28
+    addSubUpper: {
+        flex: 0.55,
+        marginLeft: 8,
+        padding: 2,
+        backgroundColor: 'white',
+        shadowColor: 'black',
+        elevation: 3,
+        borderRadius: 16,
+        height: 28,
     },
-    addSubLower:{
-        flexDirection:'row',
-        justifyContent:'space-around',
+    addSubLower: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
     },
-    deleteButton:{
-        flex:0.25,
-        alignItems:'center',
-        justifyContent:'center'
-    }
+    deleteButton: {
+        flex: 0.25,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 

@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import React from 'react';
+import { View, Text, Pressable } from 'react-native';
 import Lottie from 'lottie-react-native';
 import { MotiView } from 'moti';
 

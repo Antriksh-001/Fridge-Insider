@@ -17,9 +17,9 @@ import SnackBar from '../../components/shared/Snackbar';
 import LoadingModal from '../../components/shared/LoadingModal';
 
 //Firebase Authentication
-import auth from '@react-native-firebase/auth';
+// import auth from '@react-native-firebase/auth';
 import { handleSignup } from '../../Firebase/FirebaseSignup';
-import { signInWithGoogle, signOutFromGoogle } from '../../Firebase/FirebaseGoogleAuth';
+import { signInWithGoogle } from '../../Firebase/FirebaseGoogleAuth';
 
 const Signup = (props) => {
       const [name, setName] = useState('');
@@ -42,10 +42,8 @@ const Signup = (props) => {
             () => async () => {
                   const user = await signInWithGoogle(props.changeScreen, setLoadingModalVisible);
                   console.log(user);
-            }, []
+            }, [props.changeScreen]
       );
-
-      // console.log('Signup Screen rendered');
 
       return (
             <MotiView

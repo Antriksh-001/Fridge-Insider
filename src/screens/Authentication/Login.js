@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MotiView } from 'moti';
@@ -25,7 +26,7 @@ import { signInWithGoogle, signOutFromGoogle } from '../../Firebase/FirebaseGoog
 export default function Login(props) {
       const [email, onChangeEmail] = useState('');
       const [password, onChangePassword] = useState('');
-      const [loading, setLoading] = useState(false);
+      // const [loading, setLoading] = useState(false);
       const [error, setError] = useState('');
       const [initializing, setInitializing] = useState(true);
       const [user, setUser] = useState();
@@ -33,31 +34,31 @@ export default function Login(props) {
       const [loadingModalVisible, setLoadingModalVisible] = useState(false);
 
       useEffect(() => {
-            const subscriber = auth().onAuthStateChanged((user) => {
+            const subscriber = auth().onAuthStateChanged(( user ) => {
                   setUser(user);
                   if (user && user.emailVerified === true) {
-                        console.log('reaccccccccched');
                         setEmailVerified(true);
                   }
-                  if (initializing) setInitializing(false);
+                  if (initializing) { setInitializing(false); }
             });
 
             return () => subscriber(); // Unsubscribe on unmount
-      }, [initializing]);
+      }, [initializing, user]);
 
       useEffect(() => {
             if (!initializing && user && emailVerified) {
                   console.log('User is signed in......Currently in Login Screen UseEffect');
-                  // props.changeScreen('GetStarted'); // Change it to screen you want to render after succesful Login
-                  signOutFromGoogle();  // Calling only for development and debugging purpose
+                  props.changeScreen('Location'); // Change it to screen you want to render after succesful Login
+                  // signOutFromGoogle();  // Calling only for development and debugging purpose
             }
-      }, [initializing, user, props]);
+      });
 
       const onGoogleButtonPress = useMemo(
             () => async () => {
-                  const user = await signInWithGoogle(props.changeScreen,setLoadingModalVisible);
-                  console.log(user);
-            }, []
+                  const User = await signInWithGoogle(props.changeScreen, setLoadingModalVisible);
+                  setUser(User);
+                  console.log(User);
+            }, [props.changeScreen]
       );
 
       const handleLoginPress = useMemo(() => () =>
@@ -65,7 +66,6 @@ export default function Login(props) {
             [email, password, props]
       );
 
-      // console.log('Login Screen rendered');
       return (
             <MotiView style={styles.lowercont} from={{ translateX: -width, opacity: 0 }} animate={animateStyles} transition={transitionConfig} >
                   <View style={styles.InputBoxes}>

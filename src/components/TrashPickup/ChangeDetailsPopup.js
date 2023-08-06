@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Modal, TouchableWithoutFeedback, TextInput } from "react-native";
-import { MotiPressable } from "moti/interactions";
-import { AntDesign } from "@expo/vector-icons";
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native';
+import { MotiPressable } from 'moti/interactions';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Colors } from '../../constants/Colors';
 import * as Screen from '../../constants/Screen';
 

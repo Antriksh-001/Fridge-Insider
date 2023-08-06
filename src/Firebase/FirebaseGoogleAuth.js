@@ -12,26 +12,29 @@ export const createProfile = async (response) => {
     await db().ref(`/users/${uid}`).set({ displayName, email, profilePictureURL: photoURL, uid });
 };
 
-export const signInWithGoogle = async (changeScreen,setLoadingModalVisible) => {
+export const signInWithGoogle = async (changeScreen, setLoadingModalVisible) => {
     try {
         setLoadingModalVisible(true);
+
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
         const { idToken } = await GoogleSignin.signIn();
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
         const response = await auth().signInWithCredential(googleCredential);
+
         if (response) {
             await createProfile(response);
             setTimeout(() => {
                 setLoadingModalVisible(false);
-                changeScreen('GetStarted');  //Change it to the screen you want to render
+                changeScreen('Location');  //Change it to the screen you want to render
             }, 500);
         }
         return response.user;
     } catch (error) {
         console.log('Error signing in with Google:', error);
         throw error;
+    } finally {
+        setLoadingModalVisible(false);
     }
-    setLoadingModalVisible(false);
 };
 
 export const signOutFromGoogle = async () => {

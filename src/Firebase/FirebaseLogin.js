@@ -17,12 +17,12 @@ export const handleLogin = async (email, password, changeScreen, setLoadingModal
         setLoadingModalVisible(true); // Activate the loading spinner
         const response = await auth().signInWithEmailAndPassword(email, password);
 
-        console.log("email Verification Check:"+response.user.emailVerified);
+        console.log('email Verification Check:' + response.user.emailVerified);
         if (response && response.user.emailVerified) {
             console.log(response.user);
             setTimeout(() => {
                 setLoadingModalVisible(false); // Deactivate the loading spinner
-                changeScreen('GetStarted');
+                changeScreen('Location');
             }, 500);
             console.log('User Logged In');
         }
@@ -34,5 +34,7 @@ export const handleLogin = async (email, password, changeScreen, setLoadingModal
         console.log('error: ', error);
         setLoadingModalVisible(false);
         setError('Wrong credentials. Please try again.');
+    } finally {
+        setLoadingModalVisible(false);
     }
 };

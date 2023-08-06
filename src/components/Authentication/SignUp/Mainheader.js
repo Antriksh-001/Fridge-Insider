@@ -1,8 +1,10 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Lottie from 'lottie-react-native';
-import { Colors } from "../../../constants/Colors";
-import * as Screen from "../../../constants/Screen";
+
+// constants
+import { Colors } from '../../../constants/Colors';
+import * as Screen from '../../../constants/Screen';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;

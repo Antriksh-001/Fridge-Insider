@@ -28,7 +28,8 @@ import FilterIcon from '../../../assets/svg/filterIcon';
 import ArrowRight from '../../../assets/svg/arrowRight';
 import Bannerillustration from '../../../assets/svg/bannerillustration';
 import Heart from '../../../assets/svg/heart';
-import Trash1  from '../../../assets/svg/trash1';
+import Trash1 from '../../../assets/svg/trash1';
+import Back from '../../../assets/svg/back';
 
 class Svginserter extends Component {
       components = {
@@ -59,12 +60,13 @@ class Svginserter extends Component {
             ArrowRight: ArrowRight,
             Bannerillustration: Bannerillustration,
             Heart: Heart,
-            Trash1:Trash1,
+            Trash1: Trash1,
+            Back: Back,
       };
       render(...props) {
             const TagName = this.components[this.props.tag];
             const st = this.props.style;
-            return <TagName style={st} width={this.props.width} height={this.props.height} />
+            return <TagName style={st} width={this.props.width} height={this.props.height} />;
       }
 }
 

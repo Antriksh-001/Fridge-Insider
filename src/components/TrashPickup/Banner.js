@@ -1,7 +1,8 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { MotiPressable } from "moti/interactions";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, Text } from 'react-native';
+import { MotiPressable } from 'moti/interactions';
+import LinearGradient from 'react-native-linear-gradient';
 import Svginserter from '../../components/shared/Svginserter';
 import { Colors } from '../../constants/Colors';
 import * as Screen from '../../constants/Screen';
@@ -12,13 +13,13 @@ const height = Screen.SCREEN_HEIGHT;
 const Banner = () => {
     console.log('Banner');
     return (
-        <MotiPressable style={{ width: '100%', borderRadius: 32 }} onPress={() => { console.log('Clicked on Banner') }}
+        <MotiPressable style={{ width: '100%', borderRadius: 32 }} onPress={() => { console.log('Clicked on Banner'); }}
             from={{ scale: 1 }}
             animate={({ pressed }) => {
-                'worklet'
+                'worklet';
                 return {
                     scale: pressed ? 0.98 : 1,
-                }
+                };
             }}
             transition={{
                 type: 'timing',
@@ -38,7 +39,7 @@ const Banner = () => {
                 </View>
             </LinearGradient>
         </MotiPressable>
-    )
+    );
 };
 
 const styles = {
@@ -74,6 +75,6 @@ const styles = {
         right: 0,
         alignSelf: 'center',
     },
-}
+};
 
 export default Banner;

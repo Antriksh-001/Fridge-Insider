@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 import Lottie from 'lottie-react-native';
 import * as Screen from '../../../constants/Screen';
 import { Colors } from '../../../constants/Colors';
@@ -13,7 +13,7 @@ const GoogleBtn = (props) => {
             <TouchableHighlight style={styles.GoogleHighlightBox} onPress={props.handleonPress}>
                 <View style={styles.Googlebtnbox}>
                     <View style={styles.GoogleLogoAnim} >
-                        <Lottie source={require('../../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} />
+                        <Lottie source={require('../../../../assets/animation/googleLogoAnim.json')} autoPlay={true} loop={true} style={styles.GoogleLoginLogo} />
                     </View>
                     <View>
                         <Text style={styles.Googlebtntext}>Log In with Google</Text>
@@ -44,6 +44,10 @@ const styles = {
         width: width / 8,
         height: width / 8,
     },
+    GoogleLoginLogo: {
+        width: width / 8.68,
+        height: width / 8.68,
+    },
     Googlebtntext: {
         fontSize: width / 21,
         fontFamily: 'SF-Pro-Rounded-Heavy',
@@ -51,6 +55,6 @@ const styles = {
         paddingHorizontal: width / 30,
         letterSpacing: 0.5,
     },
-}
+};
 
 export default GoogleBtn;

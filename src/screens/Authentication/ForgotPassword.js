@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { MotiView } from 'moti';
-import { Feather } from '@expo/vector-icons';
+// import { Feather } from '@expo/vector-icons';
 
 // constants
 import * as Screen from '../../constants/Screen';
@@ -31,7 +31,9 @@ const ForgotPassword = React.memo((props) => {
                   <View style={styles.lowermaincont}>
                         <TouchableOpacity onPress={() => { props.setForgotpass(false) }}>
                               <View style={styles.backbtn}>
-                                    <Feather name="chevron-left" size={width / 14} color={Colors.palette_primary} style={{ paddingRight: width / 196 }} />
+                                    <View style={{ paddingRight: width / 196 }} >
+                                          <Svginserter tag={'Back'} width={width / 14} height={width / 14} />
+                                    </View>
                               </View>
                         </TouchableOpacity>
                         <View style={styles.ForgotHeadingBox}>
@@ -57,7 +59,7 @@ const ForgotPassword = React.memo((props) => {
                         <View style={styles.Sendbtncont}>
                               <TouchableOpacity onPress={() => handlePasswordReset(email, setEmail, setError, setSuccess, setLoadingModalVisible)}>
                                     <View style={styles.Sendbtn}>
-                                          <Feather name="arrow-right" size={width / 14} color="white" />
+                                          <Svginserter tag={'ArrowRight'} width={width / 14} height={width / 14} />
                                     </View>
                               </TouchableOpacity>
                         </View>

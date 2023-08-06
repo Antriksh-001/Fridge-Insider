@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
-import { MotiView } from "moti";
+import React, { useState } from 'react';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import { MotiView } from 'moti';
 import { Colors } from '../../constants/Colors';
 import * as Screen from '../../constants/Screen';
 
@@ -8,10 +8,10 @@ import * as Screen from '../../constants/Screen';
 import Header from '../../components/TrashPickup/Header';
 import Banner from '../../components/TrashPickup/Banner';
 import PointsDisplay from '../../components/TrashPickup/PointsDisplay';
-import PickupDetails from "../../components/TrashPickup/PickupDetails";
+import PickupDetails from '../../components/TrashPickup/PickupDetails';
 import ScheduleBtn from '../../components/TrashPickup/ScheduleBtn';
 import Guidelines from '../../components/TrashPickup/Guidelines';
-import Reviews from '../../components/TrashPickup/Reviews';
+// import Reviews from '../../components/TrashPickup/Reviews';
 import ChangeDetailsPopup from '../../components/TrashPickup/ChangeDetailsPopup';
 
 const width = Screen.SCREEN_WIDTH;
@@ -43,7 +43,7 @@ const TrashPickup = (props) => {
                     <ScheduleBtn setHidewrapper={props.setHidewrapper} />
                     <Guidelines />
                 </View>
-                <Reviews />
+                {/* <Reviews /> */}
             </ScrollView>
             <ChangeDetailsPopup
                 isVisible={props.hidewrapper}

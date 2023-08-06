@@ -25,6 +25,7 @@ const AuthenticationPage = (props) => {
             setLogin(false);
             setForgotpass(false);
       }, []);
+
       console.log('render');
       return (
             <ScrollView style={styles.maincont}>

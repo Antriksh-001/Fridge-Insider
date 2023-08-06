@@ -1,7 +1,9 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image, ImageBackground, TouchableOpacity, TouchableHighlight } from "react-native";
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, ImageBackground, TouchableOpacity, TouchableHighlight } from 'react-native';
 import Lottie from 'lottie-react-native';
-import { Feather } from '@expo/vector-icons';
+// import { Feather } from '@expo/vector-icons';
+import Svginserter from '../../components/shared/Svginserter';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
 
@@ -17,9 +19,9 @@ export default function ProvideLocation(props) {
                   </View>
                   <View style={styles.MapViewBox}>
                         <View style={styles.BackBtnBox}>
-                              <TouchableOpacity activeOpacity={0.48} onPress={() => {props.changeScreen('Location')}} style={styles.BackBtn}>
+                              <TouchableOpacity activeOpacity={0.75} onPress={() => { props.changeScreen('Location'); }} style={styles.BackBtn}>
                                     <View style={styles.BackIcon}>
-                                          <Feather name="chevron-left" size={width / 14.5} style={{color:'black',marginBottom: width/250}} />
+                                          <Svginserter tag={'Back'} width={width / 14.5} height={width / 14.5} style={{ color: 'black', marginBottom: width / 250 }} />
                                     </View>
                                     <View style={styles.BackBtnTxtBox}>
                                           <Text style={styles.BackBtnTxt}>Back</Text>
@@ -47,12 +49,12 @@ export default function ProvideLocation(props) {
                                           </View>
                                     </View>
                                     <View>
-                                          <TouchableHighlight style={styles.ConfirmLocationHighlightBox} onPress={() => { console.log('Confirm Location Button Pressed and rendering the HomePage') }}>
+                                          <TouchableHighlight style={styles.ConfirmLocationHighlightBox} onPress={() => { console.log('Confirm Location Button Pressed and rendering the HomePage'); }}>
                                                 <View style={styles.ConfirmLocationbtnbox}>
-                                                      <View style={styles.ConfirmLocationLogoAnim} >
-                                                            <Lottie source={require('../../../assets/animation/lottie_location.json')} autoPlay={true} loop={true} />
+                                                      <View>
+                                                            <Lottie source={require('../../../assets/animation/lottie_location.json')} autoPlay={true} loop={true} style={styles.LocationLottie} />
                                                       </View>
-                                                      <View style={{position: 'relative', right: width/30 }}>
+                                                      <View style={{ position: 'relative', right: width / 30 }}>
                                                             <Text style={styles.ConfirmLocationbtntext}>Confirm Location</Text>
                                                       </View>
                                                 </View>
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
       },
       LogoBlurImg: {
             width: width,
-            height: width/3,
+            height: width / 3,
       },
       MapViewBox: {
             flex: 0.87,
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
             borderRadius: 30,
             backgroundColor: Colors.body_dark,
       },
-      ConfirmLocationLogoAnim: {
+      LocationLottie: {
             width: width / 6,
             height: width / 6,
       },
@@ -183,4 +185,4 @@ const styles = StyleSheet.create({
             paddingHorizontal: width / 30,
             letterSpacing: 0.5,
       },
-})
+});

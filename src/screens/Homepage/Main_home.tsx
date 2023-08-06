@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { Animated, StyleSheet, StatusBar, Text, View, TouchableOpacity, Image } from 'react-native';
-import HomeNavigator from '../../containers/HomeNavigator';
+import React, { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import HomeNavigator from '../../navigators/HomeNavigator';
 import Drawer from '../drawer';
 import Svginserter from '../../components/shared/Svginserter';
 import { MotiView } from 'moti';

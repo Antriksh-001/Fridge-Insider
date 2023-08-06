@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Svginserter from '../components/shared/Svginserter';
-import { AntDesign } from '@expo/vector-icons';
+// import { AntDesign } from '@expo/vector-icons';
 import * as Screen from '../constants/Screen';
 import { Colors } from '../constants/Colors';
 
@@ -9,11 +9,11 @@ const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
 const drawer_list = [
-  { icon: 'user', title: 'Profile' },
-  { icon: 'barschart', title: 'Contribution Graph' },
-  { icon: 'infocirlceo', title: 'FAQs' },
-  { icon: 'team', title: 'About Us' },
-  { icon: 'setting', title: 'Settings' },
+    { icon: 'user', title: 'Profile' },
+    { icon: 'barschart', title: 'Contribution Graph' },
+    { icon: 'infocirlceo', title: 'FAQs' },
+    { icon: 'team', title: 'About Us' },
+    { icon: 'setting', title: 'Settings' },
 ]
 
 const renderItem = ({ item, index }) => {
@@ -28,7 +28,7 @@ const renderItem = ({ item, index }) => {
                 }}
             >
                 <View>
-                    <AntDesign name={item.icon} size={width / 16} color="white" />
+                    {/* <AntDesign name={item.icon} size={width / 16} color="white" /> */}
                 </View>
                 <View style={styles.ListTitleBox}>
                     <Text style={styles.ListTitle}>{item.title}</Text>
@@ -41,7 +41,7 @@ const renderItem = ({ item, index }) => {
     );
 };
 
-const Drawer = React.memo((props: { setShowMenu: (arg0: boolean) => void;}) => {
+const Drawer = React.memo((props: { setShowMenu: (arg0: boolean) => void; }) => {
     console.log('Drawer is rendered');
 
     return (
@@ -65,7 +65,7 @@ const Drawer = React.memo((props: { setShowMenu: (arg0: boolean) => void;}) => {
 
                 <TouchableOpacity style={styles.LogoutBox}>
                     <View>
-                        <AntDesign name="logout" size={width / 16.3} color="white" />
+                        {/* <AntDesign name="logout" size={width / 16.3} color="white" /> */}
                     </View>
                     <View>
                         <Text style={styles.LogoutTxt}>LogOut</Text>
@@ -74,68 +74,68 @@ const Drawer = React.memo((props: { setShowMenu: (arg0: boolean) => void;}) => {
             </View>
         </View>
     );
-}, (prevProps, nextProps) => {
+}, () => {
     // Memo comparison logic
     return true; // or false based on your comparison
 });
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.body_light2,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-  },
-  MenuBox: {
-    position: 'relative',
-    top: height / 11.3,
-    left: width / 15.6,
-    width: width / 11.2,
-    height: height / 22.65,
-  },
-  List: {
-    marginTop: height / 7.93,
-    marginLeft: width / 19.55,
-  },
-  ListItemContent: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-start',
-    marginLeft: width / 19.55,
-  },
-  ListItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingTop: 18,
-    paddingBottom: 18,
-  },
-  ListTitleBox: {
-    paddingLeft: width / 19.55,
-  },
-  ListTitle: {
-    color: 'white',
-    fontSize: width / 22,
-    fontFamily: 'SF-Pro-Rounded-Semibold',
-    letterSpacing: 0.7,
-  },
-  underline: {
-    width: width/2.9,
-    height: height/1400,
-    marginLeft: width / 8.9,
-    borderRadius: 30,
-    backgroundColor: 'white',
-  },
-  LogoutBox: {
-    marginLeft: width/19.55,
-    marginBottom: height / 11.3,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  LogoutTxt: {
-    fontSize: width / 19.55,
-    paddingLeft: 20,
-    fontFamily: 'SF-Pro-Rounded-Bold',
-    color: 'white'
-  },
+    container: {
+        flex: 1,
+        backgroundColor: Colors.body_light2,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+    },
+    MenuBox: {
+        position: 'relative',
+        top: height / 11.3,
+        left: width / 15.6,
+        width: width / 11.2,
+        height: height / 22.65,
+    },
+    List: {
+        marginTop: height / 7.93,
+        marginLeft: width / 19.55,
+    },
+    ListItemContent: {
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        marginLeft: width / 19.55,
+    },
+    ListItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingTop: 18,
+        paddingBottom: 18,
+    },
+    ListTitleBox: {
+        paddingLeft: width / 19.55,
+    },
+    ListTitle: {
+        color: 'white',
+        fontSize: width / 22,
+        fontFamily: 'SF-Pro-Rounded-Semibold',
+        letterSpacing: 0.7,
+    },
+    underline: {
+        width: width / 2.9,
+        height: height / 1400,
+        marginLeft: width / 8.9,
+        borderRadius: 30,
+        backgroundColor: 'white',
+    },
+    LogoutBox: {
+        marginLeft: width / 19.55,
+        marginBottom: height / 11.3,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    LogoutTxt: {
+        fontSize: width / 19.55,
+        paddingLeft: 20,
+        fontFamily: 'SF-Pro-Rounded-Bold',
+        color: 'white',
+    },
 });
 
-export default Drawer
+export default Drawer;

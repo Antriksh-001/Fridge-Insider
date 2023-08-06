@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from 'react-native-vector-icons';
 import { Colors } from '../../constants/Colors';
 import * as Screen from '../../constants/Screen';
 import { reviews } from './temp_data';

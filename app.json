@@ -1,42 +1,4 @@
 {
-  "expo": {
-    "name": "Fridge-Insider",
-    "slug": "Fridge-Insider",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/images/SplashScreen.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#406c94"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "googleServicesFile": "google-services.json",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.antriksh01.FridgeInsider"
-    },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "29e5767b-1f43-43b2-976f-27e68e79c992"
-      }
-    },
-    "plugins": [
-      "@react-native-firebase/app",
-      "expo-build-properties",
-      "@react-native-google-signin/google-signin"
-    ]
-  }
+  "name": "FridgeInsider",
+  "displayName": "FridgeInsider"
 }

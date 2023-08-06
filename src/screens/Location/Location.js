@@ -1,23 +1,84 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Feather } from '@expo/vector-icons';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, PermissionsAndroid } from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
+
+// components
+import Svginserter from '../../components/shared/Svginserter';
 import * as Screen from '../../constants/Screen';
 import { Colors } from '../../constants/Colors';
+import LoadingModal from '../../components/shared/LoadingModal';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
-export default function Location(props) {
+// Firebase
+import auth from '@react-native-firebase/auth';
+import db from '@react-native-firebase/database';
+
+const LocationPage = (props) => {
+      const [loadingModalVisible, setLoadingModalVisible] = useState(false);
+
+      const requestLocationPermission = async () => {
+            try {
+                  console.log('Requesting Location Permission');
+                  const granted = await PermissionsAndroid.request(
+                        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                        {
+                              title: 'Location Permission',
+                              message: 'App needs access to your location for better services.',
+                              buttonNeutral: 'Ask Me Later',
+                              buttonNegative: 'Cancel',
+                              buttonPositive: 'OK',
+                        },
+                  );
+                  if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                        console.log('Location permission granted');
+                        getCurrentLocation();
+                  } else {
+                        console.log('Location permission denied');
+                  }
+            } catch (err) {
+                  console.warn(err);
+            } finally {
+                  setTimeout(() => {
+                        setLoadingModalVisible(false);
+                        props.changeScreen('MainHome');
+                  }, 1000);
+            }
+      };
+
+      const getCurrentLocation = () => {
+            try {
+                  setLoadingModalVisible(true);
+
+                  Geolocation.getCurrentPosition(position => {
+                        const { latitude, longitude } = position.coords;
+                        console.log('Latitude: ', latitude);
+                        console.log('Longitude: ', longitude);
+                        const user = auth().currentUser;
+                        if (user) {
+                              db().ref('users/' + user.uid).child('location').set({
+                                    latitude: latitude,
+                                    longitude: longitude,
+                              });
+                        }
+                  });
+            } catch (error) {
+                  throw error;
+            }
+      };
+
       return (
             <View style={styles.cont}>
                   <View style={styles.skikbtncont}>
-                        <TouchableOpacity onPress={()=>{console.log('Skip Button Pressed')}}>
+                        <TouchableOpacity onPress={() => { console.log('Skip Button Pressed'); }}>
                               <View style={styles.skipbtn}>
                                     <View>
                                           <Text style={styles.skipTxt}>SKIP</Text>
                                     </View>
-                                    <View style={{ position: 'relative', bottom: width/390}}>
-                                          <Feather name="chevrons-right" size={width / 14.5} color={Colors.bg} />
+                                    <View style={{ position: 'relative', bottom: width / 390 }}>
+                                          <Svginserter tag={'ArrowRight'} width={width / 14.5} height={width / 14.5} color={Colors.bg} />
                                     </View>
                               </View>
                         </TouchableOpacity>
@@ -40,7 +101,7 @@ export default function Location(props) {
                               </View>
                         </View>
                         <View style={{ width: '100%' }}>
-                              <TouchableOpacity activeOpacity={.34} style={styles.LocationBtnCont} onPress={() => { console.log('Locate Me Button Clicked') }}>
+                              <TouchableOpacity activeOpacity={0.34} style={styles.LocationBtnCont} onPress={() => requestLocationPermission()}>
                                     <View style={{ paddingLeft: width / 20, paddingRight: width / 30 }}>
                                           <Image source={require('../../../assets/images/search-locate.png')} style={styles.LocationIcon} />
                                     </View>
@@ -50,7 +111,7 @@ export default function Location(props) {
                               </TouchableOpacity>
                         </View>
                         <View style={{ width: '100%' }}>
-                              <TouchableOpacity activeOpacity={.34} style={styles.LocationBtnCont} onPress={() => { props.changeScreen('ProvideLocation') }}>
+                              <TouchableOpacity activeOpacity={0.34} style={styles.LocationBtnCont} onPress={() => { props.changeScreen('ProvideLocation'); }}>
                                     <View style={{ paddingLeft: width / 20, paddingRight: width / 30 }}>
                                           <Image source={require('../../../assets/images/locate.png')} style={styles.LocationIcon} />
                                     </View>
@@ -60,9 +121,10 @@ export default function Location(props) {
                               </TouchableOpacity>
                         </View>
                   </View>
+                  <LoadingModal loadingModalVisible={loadingModalVisible} />
             </View>
       );
-}
+};
 
 const styles = StyleSheet.create({
       cont: {
@@ -75,7 +137,7 @@ const styles = StyleSheet.create({
       skikbtncont: {
             width: '100%',
             position: 'relative',
-            right: -width/26,
+            right: -width / 26,
             bottom: 5,
             flex: 0.1,
             justifyContent: 'flex-end',
@@ -99,8 +161,8 @@ const styles = StyleSheet.create({
             alignItems: 'center',
       },
       Logo: {
-            width: width/1.77,
-            height: width/2.05,
+            width: width / 1.77,
+            height: width / 2.05,
       },
       Heading: {
             flex: 0.6,
@@ -142,7 +204,7 @@ const styles = StyleSheet.create({
             color: 'white',
             opacity: 0.6,
             fontFamily: 'SF-Pro-Rounded-Bold',
-            fontSize: width/19.55,
+            fontSize: width / 19.55,
             letterSpacing: 0.5,
       },
       LocationBtnCont: {
@@ -167,4 +229,6 @@ const styles = StyleSheet.create({
             color: Colors.text_dark,
             letterSpacing: 0.5,
       },
-})
+});
+
+export default LocationPage;

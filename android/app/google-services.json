@@ -50,6 +50,43 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725327738963:android:edb05093344cfe7151aea6",
+        "android_client_info": {
+          "package_name": "com.fridgeinsider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725327738963-60tjr8o3vusjginp5ms5908dnqi6m9so.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fridgeinsider",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "725327738963-s1sedj4i2ap1ovp98gluo4oic0ri7c04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqhGrMdyGQ9A_didlPqGs9SKNJgqScyLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725327738963-rrp0m2n5qlqe4oee7653l97rscc0ol9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

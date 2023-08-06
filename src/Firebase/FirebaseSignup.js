@@ -29,7 +29,7 @@ export const sendEmailVerification = async (user) => {
             throw new Error('User object is null or undefined');
         }
     } catch (error) {
-        console.error('Error sending email verification:', error);
+        setError('Email verification failed');
         throw new Error('Email verification failed');
     }
 };
@@ -54,20 +54,20 @@ export const handleSignup = async (email, password, name, confirmPass, setName, 
                 if (response) {
                     await createProfile(response, name, email);
                     await sendEmailVerification(response.user)
-                    .then(()=>{
-                        ClearInputFields(setName, setEmail, setPassword, setConfirmPass);
-                    })
-                    .catch(()=>{
-                        setError('Email Verification Failed');
-                    })
-                    .finally(()=>{
-                        setSuccess(true);
-                        setError('Email Verification Sent');
-                        setTimeout(() => {
+                        .then(() => {
+                            ClearInputFields(setName, setEmail, setPassword, setConfirmPass);
+                        })
+                        .catch(() => {
+                            setError('Email Verification Failed');
+                        })
+                        .finally(() => {
                             setLoading(false); // Stop loader
-                            props.changeScreen('GetStarted'); // Change to verification screen
-                        }, 1000);
-                    });
+                            setSuccess(true);
+                            setError('Email Verification Sent');
+                            setTimeout(() => {
+                                props.changeScreen('GetStarted'); // Change to verification screen
+                            }, 1000);
+                        });
                 }
             } catch (error) {
                 if (error.code === 'auth/email-already-in-use') {
