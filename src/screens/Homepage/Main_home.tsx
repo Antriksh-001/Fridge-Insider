@@ -5,15 +5,17 @@ import Drawer from '../drawer';
 import Svginserter from '../../components/shared/Svginserter';
 import { MotiView } from 'moti';
 import * as Screen from '../../constants/Screen';
-import menus from '../../components/shared/temp_data';
 import Data1 from '../../Context/Data1';
+import Data2 from '../../Context/Data2';
+// import menus from '../../components/shared/temp_data';
 
 const width = Screen.SCREEN_WIDTH;
 const height = Screen.SCREEN_HEIGHT;
 
 const Main_home = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const [gdata, setGdata] = useState(menus);
+  const [gdata, setGdata] = useState([]);
+  const [notifydata, setNotifydata] = useState([]);
 
   const Opendrawer = () => {
     setShowMenu(true);
@@ -21,6 +23,7 @@ const Main_home = () => {
 
   return (
     <Data1.Provider value={[gdata,setGdata]}>
+     <Data2.Provider value={[notifydata,setNotifydata]}>
       <View style={{ flex: 1 }}>
         <Drawer setShowMenu={setShowMenu} />
         <MotiView style={styles.container}
@@ -50,6 +53,7 @@ const Main_home = () => {
 
         </MotiView>
       </View>
+     </Data2.Provider>
     </Data1.Provider>
   );
 };

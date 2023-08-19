@@ -1,16 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View, TextInput, ScrollView } from 'react-native';
 // import { AntDesign } from '@expo/vector-icons';
 import { MotiView } from 'moti';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
-import menus from '../shared/temp_data';
+import Data1 from '../../Context/Data1';
 
 const Near_expiry = ()=> {
-  const [data1,setData] = useState(menus);
-  let tempdata = data1.filter((item)=> (item.expire >= 0 && item.expire <= 2));
+  const [gdata,setGdata] = useContext(Data1);
+  const [data1,setData] = useState(gdata);
+
   useEffect(() => {
+    let tempdata = [];
+    gdata.map((item)=> {
+    if(item.expire*86400000 - (Date.now()-item.id) >= 0 && item.expire*86400000 - (Date.now()-item.id) < 86400000){
+      tempdata.push(item);
+    }
+    })
     setData(tempdata);
-  }, []);
+  }, [gdata]);
 
    return (
     <View style={{flex:2}}>

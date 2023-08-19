@@ -2,7 +2,6 @@ import {useContext, useRef} from 'react';
 import { Modal, Text, View, StyleSheet, TouchableWithoutFeedback, FlatList, TouchableOpacity, Image } from "react-native";
 import { Colors } from '../../constants/Colors';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
-import menus from "../shared/temp_data";
 import { useEffect, useState } from "react";
 import { MotiView } from "moti";
 import { Ionicons } from '@expo/vector-icons';
@@ -13,27 +12,26 @@ const width = SCREEN_WIDTH;
 
 const Category_List = ({ type1, image1, visible, setVisible}) => {
 
-    const [gdata,setGdata] = useContext(Data1)
-    const [data1, setData1] = useState([]);
-    const [oldData, setOldData] = useState([]); 
-    console.log(gdata);
-     
+    const [gdata,setGdata] = useContext(Data1);
+    const [data1, setData1] = useState(gdata); 
+    const [cnt1,setCnt1] = useState(0);
+      
     useEffect(() => {
-        setData1(gdata);
-        setOldData(gdata);
-    }, [type1,gdata]);
-    
-    useEffect(() => {
-        let tempdata = oldData.filter((item) => item.type == type1);
+        let tempdata = [];
+        gdata.map((item) => {
+            if(item.type == type1)
+              tempdata.push(item);
+        });
         setData1(tempdata);
-    }, [type1,gdata]);
-
+        setCnt1(tempdata.length);
+    }, [gdata,type1]);
+    
     const deleteItemById = id => {
-        const filteredData2 = gdata.filter(item => item.id !== id);
-        setGdata(filteredData2);
-        const filteredData = data1.filter(item => item.id !== id);
-        setData1(filteredData);
-      }
+       const filteredData2 = gdata.filter(item => item.id !== id);
+       const filteredData = data1.filter(item => item.id !== id);
+       setData1(filteredData);
+       setGdata(filteredData2);
+    }
 
     return (
         <Modal
@@ -56,7 +54,7 @@ const Category_List = ({ type1, image1, visible, setVisible}) => {
                         <Text style={styles.IntroHeaderTxt}>{type1}</Text>
                     </View>
                     <View style={styles.IntroSubHeaderBox}>
-                        <Text style={styles.IntroSubHeaderTxt}>5 Items</Text>
+                        <Text style={styles.IntroSubHeaderTxt}>{cnt1} Items</Text>
                     </View>
                     <View style={{flex:1,position:'absolute',right:30,top:40}}>
                       <Image source={image1} style={{ width: 120, height: 120}} />
@@ -110,11 +108,20 @@ const Category_List = ({ type1, image1, visible, setVisible}) => {
                                       {/* add substract buttons   */}
                                       <View style={styles.addSubUpper}>
                                         <View style={styles.addSubLower}>
-                                          <TouchableOpacity>
+                                          <TouchableOpacity onPress={()=>{
+                                            item.cnt-=1;
+                                            setGdata([...gdata,item.cnt]);
+                                            if(item.cnt == 0)
+                                              deleteItemById(item.id);
+                                          }}>
                                             <Image source={require('../../../assets/images/minus.png')} style={{ width: width/15, height: width/15}} />
                                           </TouchableOpacity> 
                                           <Text>{item.cnt}</Text> 
-                                          <TouchableOpacity>
+                                          <TouchableOpacity 
+                                           onPress={()=>{
+                                            item.cnt+=1; 
+                                            setGdata([...gdata,item.cnt]);
+                                          }}>
                                             <Image source={require('../../../assets/images/plus.png')} style={{ width: width/15, height: width/15}} />                                          
                                           </TouchableOpacity>  
                                         </View>

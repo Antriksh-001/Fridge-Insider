@@ -1,12 +1,14 @@
-import { Modal, Text, View, TextInput, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Image, FlatList } from "react-native";
+import { Modal, Text, View, TextInput, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Image, FlatList, StatusBar } from "react-native";
 import { Colors } from '../../constants/Colors';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
 import { useContext, useEffect, useRef, useState } from "react";
 import Data1 from '../../Context/Data1';
+import Data2 from '../../Context/Data2';
+import menus from "../shared/temp_data";
 
 const ADD_ITEM = ({ visible, setVisible }) => {
-    const [gdata,setGdata] = useContext(Data1);
-
+    const [gdata, setGdata] = useContext(Data1);
+    const [notifydata, setNotifydata] = useContext(Data2);
     const [search1, setSearch1] = useState('');
     const [search2, setSearch2] = useState('');
     const [search3, setSearch3] = useState('');
@@ -19,7 +21,7 @@ const ADD_ITEM = ({ visible, setVisible }) => {
     const [selectedValue3, setSelectedValue3] = useState('');
 
     const categories = ["Fruits", "Vegetables", "Beverages", "Meat & Chicken", "Fish & Sea Food", "Dairy & Eggs", "Cereal Food", "Others"];
-    const expiries = ["1","2","3","4","5","6"];
+    const expiries = ["0", "1", "2", "3", "4", "5", "6"];
     const [categoryData, setCategoryData] = useState(categories);
     const [nameData, setNameData] = useState([]);
     const [oldNameData, setOldNameData] = useState([]);
@@ -28,10 +30,9 @@ const ADD_ITEM = ({ visible, setVisible }) => {
 
     useEffect(() => {
         let tempData1 = [];
-        gdata.map((item, index) => 
-        {
-            if(item.type == selectedValue1)
-               tempData1.push(item.title);
+        menus.map((item, index) => {
+            if (item.type == selectedValue1)
+                tempData1.push(item.title);
         })
         setNameData(tempData1);
         setOldNameData(tempData1);
@@ -70,7 +71,7 @@ const ADD_ITEM = ({ visible, setVisible }) => {
             setExpireData(expiries);
         }
     };
-     
+
 
     return (
         <Modal
@@ -80,6 +81,7 @@ const ADD_ITEM = ({ visible, setVisible }) => {
             onRequestClose={() => {
                 setVisible(!visible)
             }}>
+
             <TouchableWithoutFeedback onPress={() => { setVisible(false) }}>
                 <View style={styles.formMenu}>
                     <View style={styles.formComp}>
@@ -121,6 +123,7 @@ const ADD_ITEM = ({ visible, setVisible }) => {
                             {clicked1 ? (
                                 <View
                                     style={{
+                                        flex:1,
                                         position: 'absolute',
                                         elevation: 5,
                                         marginTop: 70,
@@ -150,6 +153,7 @@ const ADD_ITEM = ({ visible, setVisible }) => {
                                         }}
                                     />
 
+                                  <View>
                                     <FlatList
                                         showsVerticalScrollIndicator={true}
                                         data={categoryData}
@@ -175,6 +179,7 @@ const ADD_ITEM = ({ visible, setVisible }) => {
                                             );
                                         }}
                                     />
+                                  </View>  
                                 </View>
                             ) : null}
                         </View>
@@ -370,8 +375,45 @@ const ADD_ITEM = ({ visible, setVisible }) => {
                         </View>
 
                         <TouchableOpacity style={styles.button} onPress={() => {
-                            gdata.push({ id: '15', type: selectedValue1,   title: selectedValue2,    cnt: '1', expire: selectedValue3,    day: '4',  when_added:'2', month: 'May', time: '8:30',  msel: false, image: require('../../../assets/images/egg.png') })
-                            setVisible(false)
+                            let flag = false;
+                            const monthNames = ["January", "February", "March", "April", "May", "June",
+                                    "July", "August", "September", "October", "November", "December"
+                                ];
+                                const now = new Date();
+                                let time1 = now.getHours() + ":" + now.getMinutes();
+                                let month1 = monthNames[now.getMonth()];
+
+                            gdata.map((item, index) => {
+                                if (item.type == selectedValue1 && item.title == selectedValue2) {
+                                    console.log('Item already Present..')
+                                    flag = true;
+                                }
+                            })
+                            if (flag == false) {
+                                let img = '';
+                                menus.map((item, index) => {
+                                    if (item.type == selectedValue1 && item.title == selectedValue2) {
+                                        img = item.image;
+                                    }
+                                })
+                                
+                                let tempData = {
+                                    id: Date.now(),
+                                    type: selectedValue1,
+                                    title: selectedValue2,
+                                    cnt: 1,
+                                    expire: selectedValue3,
+                                    day: now.getDate(),
+                                    when_added: '2',
+                                    month: month1,
+                                    time: time1,
+                                    msel: false,
+                                    image: img
+                                }
+                                setGdata([...gdata, tempData]);
+                                setNotifydata([...notifydata, tempData]);
+                            }
+                            setVisible(false);
                         }}>
                             <Text style={styles.buttontxt}>ADD ITEM</Text>
                         </TouchableOpacity>
@@ -406,26 +448,6 @@ const styles = StyleSheet.create({
         borderColor: '#52a2e7',
         paddingVertical: 16
     },
-    // FormBox: {
-    //     width: SCREEN_WIDTH / 2,
-    //     height: SCREEN_WIDTH / 7,
-    //     // flexDirection: 'center',
-    //     alignItems: 'center',
-    //     borderRadius: 12,
-    //     marginBottom: 10,
-    //     backgroundColor: 'white',
-    //     shadowColor: 'black',
-    //     elevation: 10
-    // },
-    // FormInput: {
-    //     fontSize: SCREEN_WIDTH / 21.72,
-    //     fontFamily: 'SF-Pro-Rounded-Medium',
-    //     color: Colors.palette_gray_dark,
-    //     letterSpacing: 0.4,
-    //     width: SCREEN_WIDTH / 2.11,
-    //     height: SCREEN_WIDTH / 7,
-    //     marginLeft: 15,
-    // },
     button: {
         width: SCREEN_WIDTH / 2,
         height: SCREEN_WIDTH / 7,

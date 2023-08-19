@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, ScrollView, Modal } from 'react-native';
-import React, { useRef, useState } from 'react';
+import { StyleSheet, Text, View,Image, TextInput, TouchableOpacity, FlatList, ScrollView, Modal } from 'react-native';
+import React, { useContext, useRef, useState } from 'react';
 import { Colors } from '../../constants/Colors';
 import { MotiView } from 'moti';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
@@ -7,22 +7,24 @@ import ADD_ITEM from '../../components/Fridge/ADD_Item';
 import Svginserter from '../../components/shared/Svginserter';
 import { MotiPressable } from 'moti/interactions';
 import Category_List from '../../components/Fridge/Category_List';
+import Data1 from '../../Context/Data1';
 
 const width = SCREEN_WIDTH;
 const height = SCREEN_HEIGHT;
 
 const categories = [
-  { id: '1', type: 'Fruits', cnt: '5',color:'#ECF2FF', image: require('../../../assets/images/Fruits.png') },
-  { id: '2', type: 'Vegetables', cnt: '3',color:'#C9F4AA', image: require('../../../assets/images/Vegetables.png') },
-  { id: '3', type: 'Beverages', cnt: '1',color:'#D09CFA', image: require('../../../assets/images/Beverages.png') },
-  { id: '4', type: 'Meat & Chicken', cnt: '1',color:'#FFE3E1', image: require('../../../assets/images/Chicken.png') },
-  { id: '5', type: 'Fish & Sea Food', cnt: '1',color:'#ECF2FF', image: require('../../../assets/images/Fish.png') },
-  { id: '6', type: 'Dairy & Eggs', cnt: '1',color:'#ECF2FF', image: require('../../../assets/images/Dairy.png') },
-  { id: '7', type: 'Cereal Food', cnt: '1',color:'#ECF2FF', image: require('../../../assets/images/Cereal.png') },
-  { id: '8', type: 'Others', cnt: '1',color:'#FFE898', image: require('../../../assets/images/other.png') },
+  { id: '1', type: 'Fruits', cnt: '5', image: require('../../../assets/images/Fruits.png') },
+  { id: '2', type: 'Vegetables', cnt: '3', image: require('../../../assets/images/Vegetables.png') },
+  { id: '3', type: 'Beverages', cnt: '1', image: require('../../../assets/images/Beverages.png') },
+  { id: '4', type: 'Meat & Chicken', cnt: '1', image: require('../../../assets/images/Chicken.png') },
+  { id: '5', type: 'Fish & Sea Food', cnt: '1', image: require('../../../assets/images/Fish.png') },
+  { id: '6', type: 'Dairy & Eggs', cnt: '1', image: require('../../../assets/images/Dairy.png') },
+  { id: '7', type: 'Cereal Food', cnt: '1', image: require('../../../assets/images/Cereal.png') },
+  { id: '8', type: 'Others', cnt: '1', image: require('../../../assets/images/other.png') },
 ]
 
 const Fridge = (props) => {
+  const [gdata,setGdata] = useContext(Data1);
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [temp, setTemp] = useState('');
@@ -108,7 +110,7 @@ const Fridge = (props) => {
         </View>
 
         {/*Add Form*/}
-        <ADD_ITEM visible={visible1} setVisible={setVisible1} />
+        <ADD_ITEM visible={visible1} setVisible={setVisible1}/>
 
         {/* categoriesList */}
         <View style={styles.CategoriesContainer}>
@@ -117,7 +119,13 @@ const Fridge = (props) => {
             numColumns={2}
             data={categories}
             renderItem={({ item, index }) => {
-
+              let cnt1=0;
+              gdata.map((item2)=>{
+                if(item2.type == item.type)
+                {
+                  cnt1++; 
+                }
+              })
               return (
                 <MotiView
                   from={{ opacity: 0, translateX: -40 }}
@@ -129,17 +137,17 @@ const Fridge = (props) => {
                      marginTop : (index%4 == 3) && (index != 0) ? -16:10,
                      }]} 
                      ref={searchRef}
-                     onPress={() => { setType(item.type); setImage(item.image); setVisible2(true) }}>
+                     onPress={() => { setType(item.type);setImage(item.image); setVisible2(true) }}>
 
                     <View style={styles.CategoriesComp1}>
                       <Image source={item.image} style={{ width: 58, height: 58}} />
                     </View>
-
+                  
                     <Text style={styles.CategoriesComp2}>
                       {item.type}
                     </Text>
                     <Text style={styles.CategoriesComp3}>
-                      {item.cnt} {item.cnt > '1' ? 'Items' : 'Item'}
+                      {cnt1} {cnt1 > 1 ? 'Items' : 'Item'}
                     </Text>
 
                   </TouchableOpacity>

@@ -1,24 +1,33 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, FlatList, Modal, TouchableWithoutFeedback } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { MotiView } from "moti";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Screen";
 import menus from "../../components/shared/temp_data";
+import Data2 from "../../Context/Data2";
 
 const Notifications = (props) => {
+  const [notifydata,setNotifydata] = useContext(Data2);
   const [alert, setAlert] = useState(true);
   const [visible, setVisible] = useState(false);
   const [data1, setData1] = useState([]);
   const [data2, setData2] = useState([]);
   const [multiselect, setMultiselect] = useState(false);
   const searchRef = useRef();
+  console.log('notify data');
+  console.log(notifydata);
 
   useEffect(() => {
-    setData1(menus);
-    setData2(menus);
-  }, []);
+    setData1(notifydata);
+    setData2(notifydata);
+  }, [notifydata]);
+
+
 
   var color1: any, color2: any;
   { alert ? color1 = '#52a2e7' : color2 = '#52a2e7' };
+
+  var textcolor1: any, textcolor2: any;
+  { alert ? textcolor1 = 'white' : textcolor2 = 'white' };
 
   const onSelect = (idx: number) => {
     const tempdata = data1.map((item, index) => {
@@ -35,6 +44,7 @@ const Notifications = (props) => {
           return { ...item, msel: false };
       }
     });
+    setNotifydata(tempdata);
     setData1(tempdata);
   }
 
@@ -123,7 +133,7 @@ const Notifications = (props) => {
               </TouchableOpacity>
               <TouchableOpacity style={styles.filterComp1}
                 onPress={() => {
-                  let tempdata = data1.sort((a, b) => (a.day - b.day));
+                  let tempdata = data1.sort((a, b) => (b.id - a.id));
                   setData1(tempdata);
                   setVisible(false);
                 }}>
@@ -139,11 +149,11 @@ const Notifications = (props) => {
       <View style={styles.comp2}>
         <TouchableOpacity style={[styles.comp2a, { backgroundColor: color1 }]}
           onPress={() => { setAlert(true) }}>
-          <Text>Expiry Alert</Text>
+          <Text style={{color: textcolor1}}>Expiry Alert</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.comp2a, { backgroundColor: color2 }]}
           onPress={() => { setAlert(false) }}>
-          <Text>Garbage PickUp</Text>
+          <Text style={{color: textcolor2}}>Garbage PickUp</Text>
         </TouchableOpacity>
       </View>
 
@@ -159,6 +169,7 @@ const Notifications = (props) => {
               })
               setData1(tempdata);
               setData2(tempdata);
+              setNotifydata(tempdata);
             }}>
             <Text>Select All</Text>
           </TouchableOpacity>
@@ -167,13 +178,15 @@ const Notifications = (props) => {
               let tempdata = data1.filter((item) => item.msel == false)
               setData1(tempdata);
               setData2(tempdata);
+              setNotifydata(tempdata);
             }}>
             <Text>Delete Selected</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.multiselectComp}
             onPress={() => {
               setData1([]);
-              setData2([])
+              setData2([]);
+              setNotifydata([]);
             }}>
             <Text>Delete All</Text>
           </TouchableOpacity>
@@ -234,7 +247,7 @@ const Notifications = (props) => {
 
                           <View>
                             <View style={styles.alertComp3b}>
-                              <Text style={{ color: '#777' }}>{item.month} {item.day}</Text>
+                              <Text style={{ color: '#777' }}>{item.day} {item.month}</Text>
                             </View>
                           </View>
 
