@@ -8,6 +8,7 @@ import Home from '../screens/Homepage/Home';
 import Fridge from '../screens/Homepage/Fridge';
 import Notifications from '../screens/Homepage/Notifications';
 import TrashPickup from '../screens/Homepage/TrashPickup';
+import { View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +29,7 @@ export default function HomeNavigator(props) {
 
     return (
         <NavigationContainer theme={MyTheme}>
+            <View style={{flex:1,marginTop:-32}}>
             <Tab.Navigator initialRouteName={"home"} screenOptions={{ headerShown: false }} tabBar={props => <TabBar {...props} />}>
                 <Tab.Screen name="Home" children={() => <Home showMenu={props.showMenu} />} options={{
                     tabBarLabel: "Home",
@@ -50,6 +52,7 @@ export default function HomeNavigator(props) {
                     title: "TrashPickup"
                 }} />
             </Tab.Navigator>
+            </View>
         </NavigationContainer>
     );
 }

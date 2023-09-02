@@ -77,7 +77,7 @@ const Home = (props: { showMenu: any; }) => {
                 <MotiPressable onPress={() => { console.log('Clicked on Profile') }}
                     from={{ scale: 1 }}
                     animate={({ pressed }) => {
-                        'worklet'
+                        'worklet';
                         return {
                             scale: pressed ? 0.9 : 1,
                         }
@@ -214,6 +214,7 @@ const Home = (props: { showMenu: any; }) => {
 const styles = StyleSheet.create({
     container: {
         height: '100%',
+        // marginTop: -50,
         backgroundColor: Colors.white,
     },
     header: {

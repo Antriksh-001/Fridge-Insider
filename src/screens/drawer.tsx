@@ -2,7 +2,6 @@ import React from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Svginserter from '../components/shared/Svginserter';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-// import { AntDesign } from '@expo/vector-icons';
 import * as Screen from '../constants/Screen';
 import { Colors } from '../constants/Colors';
 

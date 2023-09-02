@@ -36,7 +36,7 @@ const Main_home = () => {
           transition={{ type: 'timing', duration: 350 }} >
 
           <TouchableOpacity onPress={Opendrawer}>
-            <View style={{ height: width / 13.03, width: width / 13.03 }}>
+            <View style={{marginTop:-28, height: width / 13.03, width: width / 13.03 }}>
               <Svginserter tag={'Menu'} style={styles.menuBurger} />
             </View>
           </TouchableOpacity>

@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, ScrollView, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList} from 'react-native';
 import React, { useState } from 'react';
 import { Colors } from '../../constants/Colors';
 import { MotiView } from 'moti';
-import Lottie from 'lottie-react-native';
+// import Lottie from 'lottie-react-native';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
 import ADD_ITEM from '../../components/Fridge/ADD_Item';
 import Svginserter from '../../components/shared/Svginserter';
