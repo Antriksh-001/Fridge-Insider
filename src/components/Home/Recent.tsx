@@ -1,16 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View, TextInput, ScrollView } from 'react-native';
-// import { AntDesign } from '@expo/vector-icons';
 import { MotiView } from 'moti';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
-import menus from '../shared/temp_data';
+import Data1 from '../../Context/Data1';
 
 const Recent = ()=> {
-  const [data1,setData] = useState(menus);
-  let tempdata = data1.filter((item)=> item.when_added < '2');
+  const [gdata,setGdata] = useContext(Data1);
+  const [data1,setData] = useState([]);
+  console.log(gdata);
   useEffect(() => {
+    let tempdata = [];
+    gdata.map((item)=> {
+    console.log(Date.now()-item.id);  
+    if(Date.now()-item.id <= 86400000){
+      tempdata.push(item);
+    }
+    })
     setData(tempdata);
-}, []);
+}, [gdata]);
 
    return (
     <FlatList 

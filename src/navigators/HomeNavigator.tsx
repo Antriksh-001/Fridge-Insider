@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -24,35 +25,36 @@ const MyTheme = {
     },
 };
 
-export default function HomeNavigator(props) {
+export default function HomeNavigator(props: { showMenu: any; }) {
     const [hidewrapper, setHidewrapper] = React.useState(false);
 
     return (
         <NavigationContainer theme={MyTheme}>
             <View style={{flex:1,marginTop:-32}}>
-            <Tab.Navigator initialRouteName={"home"} screenOptions={{ headerShown: false }} tabBar={props => <TabBar {...props} />}>
+            <Tab.Navigator initialRouteName={'home'} screenOptions={{ headerShown: false }} tabBar={props => <TabBar {...props} />}>
                 <Tab.Screen name="Home" children={() => <Home showMenu={props.showMenu} />} options={{
-                    tabBarLabel: "Home",
-                    title: "Home",
+                    tabBarLabel: 'Home',
+                    title: 'Home',
                 }} />
                 <Tab.Screen name="Fridge" children={() => <Fridge showMenu={props.showMenu} />} options={{
-                    tabBarLabel: "Fridge",
-                    title: "Fridge"
+                    tabBarLabel: 'Fridge',
+                    title: 'Fridge',
                 }} />
                 {!hidewrapper ? <Tab.Screen name="MenuWrapper" component={Home} options={{
-                    tabBarLabel: "MenuWrapper",
-                    title: "MenuWrapper",
+                    tabBarLabel: 'MenuWrapper',
+                    title: 'MenuWrapper',
                 }} /> : null}
                 <Tab.Screen name="Notifications" children={() => <Notifications showMenu={props.showMenu} />} options={{
-                    tabBarLabel: "Notifications",
-                    title: "Notifications"
+                    tabBarLabel: 'Notifications',
+                    title: 'Notifications'
                 }} />
                 <Tab.Screen name="TrashPickup" children={() => <TrashPickup showMenu={props.showMenu} setHidewrapper={setHidewrapper} hidewrapper={hidewrapper} />} options={{
-                    tabBarLabel: "TrashPickup",
-                    title: "TrashPickup"
+                    tabBarLabel: 'TrashPickup',
+                    title: 'TrashPickup',
                 }} />
             </Tab.Navigator>
             </View>
         </NavigationContainer>
     );
 }
+

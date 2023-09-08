@@ -10,7 +10,7 @@ const height = Screen.SCREEN_HEIGHT;
 
 const drawer_list = [
     { icon: 'user', title: 'Profile' },
-    { icon: 'barschart', title: 'Contribution Graph' },
+    { icon: 'barschart', title: 'Contribution Graph'},
     { icon: 'infocirlceo', title: 'FAQs' },
     { icon: 'team', title: 'About Us' },
     { icon: 'setting', title: 'Settings' },

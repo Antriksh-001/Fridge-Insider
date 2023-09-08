@@ -1,17 +1,26 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View, TextInput, ScrollView } from 'react-native';
-// import { AntDesign } from '@expo/vector-icons';
 import { MotiView } from 'moti';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Screen';
-import menus from '../shared/temp_data';
+import Data1 from '../../Context/Data1';
 
 const Expired = ()=> {
-  const [data1,setData] = useState(menus);
-  let tempdata = data1.filter((item)=> item.expire < 0);
-  useEffect(() => {
-    setData(tempdata);
-  }, []);
+  const [gdata,setGdata] = useContext(Data1);
+  const [data1,setData] = useState(gdata);
 
+  useEffect(() => {
+    let tempdata = [];
+    gdata.map((item)=> {  
+      console.log(item.expire*86400000 - (Date.now()-item.id));  
+      if(item.expire*86400000 - (Date.now()-item.id) < 0){
+      tempdata.push(item);
+      console.log(item);
+    }
+    })
+    setData(tempdata);
+    console.log(data1);
+}, [gdata]);
+  
    return (
     <View style={{flex:2}}>
     <FlatList 
@@ -22,7 +31,7 @@ const Expired = ()=> {
           {item.expire <= 2 ? color1='red':color1='orange'}
           let lastMargin;
           {index == data1.length-1 ? lastMargin=60:lastMargin=0}
-          if(item.expire < 0){
+
             return (
               <MotiView 
               from={{opacity:0 , translateX:-40}}
@@ -69,7 +78,7 @@ const Expired = ()=> {
   
               </TouchableOpacity>
               </MotiView> 
-            )}
+            )
         }}
     />
 </View>
