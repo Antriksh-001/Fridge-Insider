@@ -10,6 +10,7 @@ import Fridge from '../screens/Homepage/Fridge';
 import Notifications from '../screens/Homepage/Notifications';
 import TrashPickup from '../screens/Homepage/TrashPickup';
 import { View } from 'react-native';
+import AuthenticationPage from '../screens/Authentication/AuthenticationPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,6 +32,10 @@ export default function HomeNavigator(props: { showMenu: any; }) {
     return (
         <NavigationContainer theme={MyTheme}>
             <View style={{flex:1,marginTop:-32}}>
+                <Tab.Screen name="Auth" children={() => <AuthenticationPage showMenu={props.showMenu} />} options={{
+                    tabBarLabel: 'Auth',
+                    title: 'Auth',
+                }} />
             <Tab.Navigator initialRouteName={'home'} screenOptions={{ headerShown: false }} tabBar={props => <TabBar {...props} />}>
                 <Tab.Screen name="Home" children={() => <Home showMenu={props.showMenu} />} options={{
                     tabBarLabel: 'Home',
